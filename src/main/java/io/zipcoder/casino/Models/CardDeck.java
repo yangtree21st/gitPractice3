@@ -7,7 +7,7 @@ import static java.util.Collections.shuffle;
 
 
 public class CardDeck{
-    private final int  numberOfPokers = 52;
+    public final int  numberOfPokers = 52;
     private Stack<Card> deckOfCard = new Stack<Card>();
 
     public CardDeck() {
