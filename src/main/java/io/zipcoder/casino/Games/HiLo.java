@@ -3,15 +3,22 @@ package io.zipcoder.casino.Games;
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Card;
+import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Players.Player;
 
 public class HiLo extends CardGame implements GamblingGame {
 
     private Card currentCard;
     private Card nextCard;
+    private CardDeck cardDeck;
 
     public Card deal() {
-        return null;
+
+//        return cardDeck.peekAtTopCard();
+    }
+    public CardDeck getDeck() {
+        cardDeck = new CardDeck();
+        return cardDeck;
     }
 
     public boolean isLess(Card currentCard, Card nextCard) {
