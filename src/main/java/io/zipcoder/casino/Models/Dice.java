@@ -1,6 +1,7 @@
 package io.zipcoder.casino.Models;
 
 import java.util.Random;
+
 /**
  * The Dice program simply simulates a pair of dice being rolled.
  *
