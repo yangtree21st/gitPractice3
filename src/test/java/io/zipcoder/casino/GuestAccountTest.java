@@ -94,7 +94,9 @@ public void createGuestAccountTest1() {
         Double expected = 350.00;
 
         //When
-        Double actual = guestAccount.addFunds(funds);
+        guestAccount.addFunds(funds);
+        Double actual = guestAccount.getAccountBalance();
+
 
 
         //
@@ -110,7 +112,8 @@ public void createGuestAccountTest1() {
         Double expected = 0.00;
 
         //When
-        Double actual = guestAccount.removeFunds(funds);
+        guestAccount.removeFunds(funds);
+        Double actual = guestAccount.getAccountBalance();
 
         //Then
         Assert.assertEquals(expected, actual);
