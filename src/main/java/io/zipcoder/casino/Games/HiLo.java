@@ -1,5 +1,6 @@
 package io.zipcoder.casino.Games;
 
+import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Players.Player;
@@ -9,52 +10,59 @@ public class HiLo extends CardGame implements GamblingGame {
     private Card currentCard;
     private Card nextCard;
 
-    public Card deal(){
+    public Card deal() {
         return null;
     }
 
-    public boolean isLess(Card currentCard, Card nextCard){
+    public boolean isLess(Card currentCard, Card nextCard) {
         return false;
     }
 
-    public boolean isMore(Card currentCard, Card nextCard){
+    public boolean isMore(Card currentCard, Card nextCard) {
         return false;
     }
 
-    public void updateDisplay(){
+    public void playFullGame() {
+        Casino.console.println("You have played a full game of Hi-Lo!");
+    }
+
+    public void updateDisplay() {
 
     }
 
-    public void setUp(){
+    public void setUp() {
 
     }
 
-    public void takeTurn(){
+    public void takeTurn() {
 
     }
 
-    public void quitGame(){
+    public void quitGame() {
 
     }
 
-    public void winning(){
+    public void winning() {
 
     }
 
-    public void losing(){
+    public void losing() {
 
     }
 
-    public void receiveBetFromPlayer(Double bet){
+    public void receiveBetFromPlayer(Double bet) {
 
     }
-    public void giveWinningsToPlayer(Double winnings){
+
+    public void giveWinningsToPlayer(Double winnings) {
 
     }
-    public Double checkPlayersBalance(Player currentPlayer){
+
+    public Double checkPlayersBalance(Player currentPlayer) {
         return null;
     }
-    public boolean enoughMoneyForBet(Double bet, Player currentPlayer){
+
+    public boolean enoughMoneyForBet(Double bet, Player currentPlayer) {
         return false;
     }
 

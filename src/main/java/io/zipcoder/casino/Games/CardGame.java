@@ -7,26 +7,26 @@ import io.zipcoder.casino.Players.Player;
 
 public abstract class CardGame implements Game {
 
-    private Player player;
+    private Player currentplayer;
     private CardDeck gameDeck;
 
-    public void shuffleDeck(){
+    public void shuffleDeck() {
 
     }
 
-    public void collectCards(){
+    public void collectCards() {
 
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return null;
     }
 
-    public void setPlayer(Player player){
+    public void setPlayer(Player player) {
 
     }
 
-    public CardDeck getDeck(){
+    public CardDeck getDeck() {
         return null;
     }
 

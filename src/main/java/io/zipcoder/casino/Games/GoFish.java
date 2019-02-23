@@ -1,5 +1,6 @@
 package io.zipcoder.casino.Games;
 
+import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Players.GoFishPlayer;
 import io.zipcoder.casino.Interfaces.Game;
@@ -13,51 +14,55 @@ public class GoFish extends CardGame implements Game {
     private Integer numberOfPairsPlayer;
     private Integer numberOfPairsOpponent;
 
-    public void updateDisplay(){
+    public void playFullGame() {
+        Casino.console.println("You have played a full game of Go Fish!");
+    }
+
+    public void updateDisplay() {
 
     }
 
-    public void setUp(){
+    public void setUp() {
 
     }
 
-    public void takeTurn(){
+    public void takeTurn() {
 
     }
 
-    public void quitGame(){
+    public void quitGame() {
 
     }
 
-    public void winning(){
+    public void winning() {
 
     }
 
-    public void losing(){
+    public void losing() {
 
     }
 
-    public Hand getPlayerHand(BlackJackPlayer player){
+    public Hand getPlayerHand(BlackJackPlayer player) {
         return null;
     }
 
-    public Card askOtherPlayerforCard(){
+    public Card askOtherPlayerforCard() {
         return null;
     }
 
-    public void goFish(){
+    public void goFish() {
 
     }
 
-    public GoFishPlayer breakTie(){
+    public GoFishPlayer breakTie() {
         return null;
     }
 
-    public void incrementNumberOfPairs(GoFishPlayer playerToIncrement){
+    public void incrementNumberOfPairs(GoFishPlayer playerToIncrement) {
 
     }
 
-    public Card deal(){
+    public Card deal() {
         return null;
     }
 }
