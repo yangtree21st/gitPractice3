@@ -24,6 +24,7 @@ public class BlackJack extends CardGame implements GamblingGame {
 
     public void hit() {
 
+
     }
 
     public Integer getHandTotal() {

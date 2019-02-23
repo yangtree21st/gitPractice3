@@ -13,7 +13,7 @@ public class CardDeck{
     public CardDeck() {
         for (int i = 0; i < numberOfPokers; i++) {
             for (Card.Suit suit : Card.Suit.values()) {
-                for (Card.Integer value : Card.Integer.values()) {
+                for (Card.Rank value : Card.Rank.values()) {
                      deckOfCard.push(new Card(suit, value));
                 }
             }
