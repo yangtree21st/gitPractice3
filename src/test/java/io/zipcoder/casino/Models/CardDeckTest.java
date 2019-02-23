@@ -32,9 +32,10 @@ public class CardDeckTest {
 
     @Test
     public void peekAtTopCard() {
-            CardDeck deck = new CardDeck();
+        CardDeck deck = new CardDeck();
 
-             Card card1 = deck.peekAtTopCard();
+        Card card1 = deck.peekAtTopCard();
+
         Card card2 = deck.dealNextCard();
 
         Assert.assertEquals(card1, card2);

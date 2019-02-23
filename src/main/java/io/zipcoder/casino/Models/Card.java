@@ -50,6 +50,14 @@ public class Card {
 
 
 
+    public String toStringCard(){
+        String cardS= cardSuit.toString( );
+        String cardV= value.toString();
+        return String.format("\n %10s \n %10s",cardS,cardV);
+
+    }
+
+
 
 
 }
