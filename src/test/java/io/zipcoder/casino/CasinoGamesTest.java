@@ -1,5 +1,5 @@
 package io.zipcoder.casino;
-//
+
 //import io.zipcoder.casino.Games.BlackJack;
 //import io.zipcoder.casino.Games.Craps;
 //import io.zipcoder.casino.Games.GoFish;
@@ -14,7 +14,7 @@ package io.zipcoder.casino;
 //import java.io.ByteArrayOutputStream;
 //import java.io.PrintStream;
 //
-public class CasinoGamesTest {
+//public class CasinoGamesTest {
 //
 //    private CasinoGames testCasinoGames;
 //    private Guest testGuest;
@@ -323,4 +323,139 @@ public class CasinoGamesTest {
 //        Assert.assertTrue(testCasinoGames.getCurrentGame() == null);
 //    }
 //
+//}
+
+import io.zipcoder.casino.Games.BlackJack;
+import io.zipcoder.casino.Games.Craps;
+import io.zipcoder.casino.Games.GoFish;
+import io.zipcoder.casino.Games.HiLo;
+import io.zipcoder.casino.Models.GuestAccount;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+public class CasinoGamesTest{
+
+    private Casino getCasinoWithBufferedInputAndOutput(ByteArrayInputStream bytArrInpStr, ByteArrayOutputStream bytArrOutStr) {
+        return new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
+    }
+
+
+    @Test
+    public void runSelectedGames() {
+    }
+
+    @Test
+    public void getUserChoiceToContinuePlaying() {
+    }
+
+    @Test
+    public void getUserChoiceForWhichGameToPlay() {
+        // Given
+//        String validChoice = "GoFish\n";
+//        String input = validChoice;
+//        byteArrInStream = new ByteArrayInputStream(input.getBytes());
+//        System.setIn(byteArrInStream);
+//
+//        String expectedResult = "gofish";
+//
+//        // When
+//        String actualResult = testCasinoGames.getUserChoiceForWhichGameToPlay();
+//
+//
+//        // Then
+//        Assert.assertEquals(expectedResult, actualResult);
+
+        CasinoGames testCasinoGames = new CasinoGames(new Guest("", new GuestAccount("", 1, 100.0)));
+
+        // Given
+        String gameChoice = "Craps\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(gameChoice.getBytes());
+        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+
+        Casino testCasino = new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
+
+        String expectedOutput = "craps";
+
+        // When
+        testCasinoGames.getUserChoiceForWhichGameToPlay();
+        String actualOutput = bytArrOutStr.toString();
+
+        // Then
+        Assert.assertEquals(expectedOutput, actualOutput);
+    }
+
+        @Test
+    public void createAndSetCurrentGameTest1() {
+        CasinoGames testCasinoGames = new CasinoGames(new Guest("", new GuestAccount("", 1, 100.0)));
+
+        // Given
+        String gameChoice = "gofish";
+
+        // When
+        testCasinoGames.createAndSetCurrentGame(gameChoice);
+
+        // Then
+        Assert.assertTrue(testCasinoGames.getCurrentGame() instanceof GoFish);
+    }
+
+    @Test
+    public void createAndSetCurrentGameTest2() {
+        CasinoGames testCasinoGames = new CasinoGames(new Guest("", new GuestAccount("", 1, 100.0)));
+
+        // Given
+        String gameChoice = "blackjack";
+
+        // When
+        testCasinoGames.createAndSetCurrentGame(gameChoice);
+
+        // Then
+        Assert.assertTrue(testCasinoGames.getCurrentGame() instanceof BlackJack);
+    }
+
+    @Test
+    public void createAndSetCurrentGameTest3() {
+        CasinoGames testCasinoGames = new CasinoGames(new Guest("", new GuestAccount("", 1, 100.0)));
+
+        // Given
+        String gameChoice = "hilo";
+
+        // When
+        testCasinoGames.createAndSetCurrentGame(gameChoice);
+
+        // Then
+        Assert.assertTrue(testCasinoGames.getCurrentGame() instanceof HiLo);
+    }
+
+    @Test
+    public void createAndSetCurrentGameTest4() {
+        CasinoGames testCasinoGames = new CasinoGames(new Guest("", new GuestAccount("", 1, 100.0)));
+
+        // Given
+        String gameChoice = "craps";
+
+        // When
+        testCasinoGames.createAndSetCurrentGame(gameChoice);
+
+        // Then
+        Assert.assertTrue(testCasinoGames.getCurrentGame() instanceof Craps);
+    }
+
+    @Test
+    public void createAndSetCurrentGameTest5() {
+        CasinoGames testCasinoGames = new CasinoGames(new Guest("", new GuestAccount("", 1, 100.0)));
+
+        // Given
+        String gameChoice = "asdf";
+
+        // When
+        testCasinoGames.createAndSetCurrentGame(gameChoice);
+
+        // Then
+        Assert.assertTrue(testCasinoGames.getCurrentGame() == null);
+    }
+
 }
