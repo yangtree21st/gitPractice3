@@ -17,10 +17,7 @@ public class Dice {
     public Integer getDiceRoll(){
         this.random = new Random();
         Integer dieOne = random.nextInt((6)+1);
-        Integer dieTwo = random.nextInt((6)+1);
-        Integer roll = dieOne + dieTwo;
+        Integer roll = dieOne;
         return roll;
     }
-
-
 }

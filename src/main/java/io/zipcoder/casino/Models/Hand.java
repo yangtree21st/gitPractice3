@@ -47,46 +47,36 @@ public class Hand {
 
     /**
      * This method will return the total value held in the hand.
-     * @param playerHand The playerHand is used to check the cards in the hand.
-     * @return The total value in the hand is returned.
+     * @return Returned is the total value in the hand.
      */
-    public Integer getCardValuesInHand(ArrayList<Card> playerHand) {
-        for (Card cardInHand: playerHand) {
-            this.handValue += cardInHand.getValue();
-        }
+    public Integer getHandValue() {
         return this.handValue;
     }
 
     /**
-     * This method will return the total value held in the hand after a card value is changed.
-     * @param playerHand The playerHand is used to check the cards in the hand.
-     * @param cardToChange The cardToChange is the card that will mutate it's state.
-     * @param changeValue The changeValue is the value the card will change too.
+     * This method changes the value of the hand.
+     * @param changeValue The changeValue is the value the card will be set to.
      */
-    public void setCardValuesInHand(ArrayList<Card> playerHand, Card cardToChange, Integer changeValue) {
-        for (Card cardInHand: playerHand) {
-            if(cardInHand.equals(cardToChange)) {
-                cardInHand.setValue(changeValue);
-            }
-        }
+    public void setHandValue(Integer changeValue) {
+        this.handValue = changeValue;
     }
 
     /**
-     * This method will get the cardValue and return it as a string.
-     * @param cardValue The cardValue is the card being parsed.
-     * @return Returns the card value as a String
-     */
-    public String getCardValue(Card cardValue) {
-        return cardValue.getValue().toString();
-    }
-
-    /**
-     * This method will get the cardSuit and return it as a string.
+     * This method will get the card suit and return it as a string.
      * @param cardSuit The cardSuit is the card being parsed.
      * @return Returns the card suit as a string.
      */
     public String getCardSuit(Card cardSuit) {
         return cardSuit.getCardSuit().toString();
+    }
+
+    /**
+     * This method will get the card rank and return it as a string.
+     * @param cardRank The cardRank is the card being parsed.
+     * @return Returns the card rank as a string.
+     */
+    public String getCardRank(Card cardRank) {
+        return cardRank.getValue().toString();
     }
 
     /**
@@ -98,9 +88,11 @@ public class Hand {
         StringBuilder createCardFace = new StringBuilder();
         for(Card faceCard : playerHand) {
             createCardFace.append("**************\n");
-            createCardFace.append("   " + getCardSuit(faceCard));
+            createCardFace.append("   " );
+            createCardFace.append(getCardSuit(faceCard));
             createCardFace.append("\n");
-            createCardFace.append("     " + getCardValue(faceCard));
+            createCardFace.append("    ");
+            createCardFace.append(getCardRank(faceCard));
             createCardFace.append("\n");
             createCardFace.append("**************\n");
         }
