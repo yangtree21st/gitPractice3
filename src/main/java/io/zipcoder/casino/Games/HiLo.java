@@ -1,6 +1,7 @@
 package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
@@ -11,17 +12,40 @@ public class HiLo extends CardGame implements GamblingGame {
     private Card currentCard;
     private Card nextCard;
     private CardDeck cardDeck;
+    private Guest guest;
+
+    public HiLo(){
+
+    }
+
+    public HiLo(Guest guest){
+        this.guest = guest;
+        this.cardDeck = new CardDeck();
+        cardDeck.shuffleDeck();
+
+    }
 
     public Card deal() {
 
-//        return cardDeck.peekAtTopCard();
+        currentCard = cardDeck.dealNextCard();
+        if (currentCard == null) {
+            currentCard = cardDeck.dealNextCard();
+            return currentCard;
+        } else {
+            return nextCard =cardDeck.dealNextCard();
+        }
     }
     public CardDeck getDeck() {
-        cardDeck = new CardDeck();
+
         return cardDeck;
+    }
+    public void discard(){
+
+
     }
 
     public boolean isLess(Card currentCard, Card nextCard) {
+
         return false;
     }
 
