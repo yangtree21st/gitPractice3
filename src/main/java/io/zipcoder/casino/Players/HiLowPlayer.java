@@ -13,13 +13,13 @@ public class HiLowPlayer extends CardPlayer implements GamblingPlayer {
         return super.getGuest();
     }
 
-    public Double takePlayersMoney(Double amount){
-        return null;
+    public Boolean takePlayersMoney(Double amount){
+        return false;
     }
-    public Double givePlayerMoney(Double amount){
-        return null;
+    public Boolean givePlayerMoney(Double amount){
+        return false;
     }
-    public Double checkCurrentBalance(){
-        return null;
+    public Boolean checkCurrentBalance(Double amount){
+        return false;
     }
 }
