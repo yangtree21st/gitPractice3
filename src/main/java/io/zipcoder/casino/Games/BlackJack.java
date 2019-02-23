@@ -1,6 +1,7 @@
 package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Card;
@@ -12,6 +13,10 @@ public class BlackJack extends CardGame implements GamblingGame {
     private final Double mindBet = 15.0;
     private BlackJackPlayer oppositePlayer;
     private Double pot;
+
+    public BlackJack(Guest newGuest){
+
+    }
 
     public void split() {
 
