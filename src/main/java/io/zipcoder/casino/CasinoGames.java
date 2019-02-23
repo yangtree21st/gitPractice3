@@ -78,7 +78,7 @@ public class CasinoGames {
         }
     }
 
-    public Game getCurrentGame() {
+    Game getCurrentGame() {
         return currentGame;
     }
 

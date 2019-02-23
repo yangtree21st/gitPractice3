@@ -62,4 +62,13 @@ public class CardTest {
     }
 
 
+    @Test
+    public void toStringCard() {
+        Card card = new Card(SPADES,SEVEN);
+
+        String expert = String.format("\n %10s \n %10s","SPADES","SEVEN");
+
+        String actual = card.toStringCard();
+        Assert.assertEquals(expert, actual);
+    }
 }
