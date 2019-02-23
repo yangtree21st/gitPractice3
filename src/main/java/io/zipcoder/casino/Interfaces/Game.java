@@ -14,5 +14,7 @@ public interface Game {
 
     public void losing();
 
+    public void playFullGame();
+
 
 }

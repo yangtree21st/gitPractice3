@@ -1,50 +1,64 @@
 package io.zipcoder.casino.Games;
 
+import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Dice;
 import io.zipcoder.casino.Players.Player;
 
 public class Craps implements GamblingGame {
 
+    private Player currentPlayer;
     private Dice dice1;
     private Dice dice2;
     private Long numberOfTurns;
     private Double pot;
 
-    public void updateDisplay(){
+    public Craps(Guest newGuest) {
 
     }
 
-    public void setUp(){
+    public void playFullGame() {
+        Casino.console.println("You have played a full game of Craps!");
+    }
+
+    public void updateDisplay() {
 
     }
 
-    public void takeTurn(){
+    public void setUp() {
 
     }
 
-    public void quitGame(){
+    public void takeTurn() {
 
     }
 
-    public void winning(){
+    public void quitGame() {
 
     }
 
-    public void losing(){
+    public void winning() {
 
     }
 
-    public void receiveBetFromPlayer(Double bet){
+    public void losing() {
 
     }
-    public void giveWinningsToPlayer(Double winnings){
+
+    public void receiveBetFromPlayer(Double bet) {
 
     }
-    public Double checkPlayersBalance(Player currentPlayer){
+
+    public void giveWinningsToPlayer(Double winnings) {
+
+    }
+
+    public Double checkPlayersBalance(Player currentPlayer) {
         return null;
     }
-    public boolean enoughMoneyForBet(Double bet, Player currentPlayer){
+
+    public boolean enoughMoneyForBet(Double bet, Player currentPlayer) {
         return false;
     }
 
