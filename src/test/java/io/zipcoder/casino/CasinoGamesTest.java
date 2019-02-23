@@ -15,10 +15,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class CasinoGamesTest {
-    /**
-     * NOTE: I DON'T KNOW WHY, BUT THESE TESTS PASS WHEN RUN ONE BY ONE, BUT SEVERAL OF THEM FAIL WHEN RUN ALL
-     * TOGETHER AS A CLASS.
-     */
 
     private CasinoGames testCasinoGames;
     private Guest testGuest;
@@ -324,7 +320,7 @@ public class CasinoGamesTest {
         testCasinoGames.createAndSetCurrentGame(gameChoice);
 
         // Then
-        Assert.assertNull(testCasinoGames.getCurrentGame());
+        Assert.assertTrue(testCasinoGames.getCurrentGame() == null);
     }
 
 }

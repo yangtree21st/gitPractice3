@@ -87,10 +87,4 @@ public class CasinoGames {
         return currentGame;
     }
 
-    public static void main(String[] args) {
-        GuestAccount testGuestAccount = new GuestAccount("Bob", 12, 1000.0);
-        Guest testGuest = new Guest("Bob", testGuestAccount);
-        CasinoGames testCasinoGames = new CasinoGames(testGuest);
-        testCasinoGames.runSelectedGames();
-    }
 }

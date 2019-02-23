@@ -106,8 +106,8 @@ public class Casino {
         Integer accountId = newGuestAccount.getId();
         console.println(String.format("This is your new account.\n%s",guestAccountDatabase.getAccount(accountId).toString()));
 
-        CasinoGames casinoGames = new CasinoGames();
-        casinoGames.runSelectedGames(currentGuest);
+        CasinoGames casinoGames = new CasinoGames(currentGuest);
+        casinoGames.runSelectedGames();
     }
 
 
