@@ -5,7 +5,6 @@ import java.util.Random;
  * The Dice program simply simulates a pair of dice being rolled.
  *
  * @version 2019-02-22
- *
  */
 public class Dice {
     Random random;
