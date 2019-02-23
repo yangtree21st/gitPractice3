@@ -5,7 +5,6 @@ import io.zipcoder.casino.Games.Craps;
 import io.zipcoder.casino.Games.GoFish;
 import io.zipcoder.casino.Games.HiLo;
 import io.zipcoder.casino.Interfaces.Game;
-import io.zipcoder.casino.Models.GuestAccount;
 
 public class CasinoGames {
 
@@ -66,21 +65,17 @@ public class CasinoGames {
     void createAndSetCurrentGame(String gameName) {
         switch (gameName) {
             case "gofish" :
-                this.currentGame = new GoFish();
+                this.currentGame = new GoFish(this.currentGuest);
                 break;
             case "blackjack" :
-                this.currentGame = new BlackJack();
+                this.currentGame = new BlackJack(this.currentGuest);
                 break;
             case "hilo" :
-                this.currentGame = new HiLo();
+                this.currentGame = new HiLo(/*this.currentGuest*/);
                 break;
             case "craps" :
-                this.currentGame = new Craps();
+                this.currentGame = new Craps(this.currentGuest);
         }
-    }
-
-    public Guest getCurrentGuest() {
-        return currentGuest;
     }
 
     public Game getCurrentGame() {

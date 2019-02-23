@@ -31,6 +31,17 @@ public class Casino {
     }
 
     /**
+     * Constructor to create Casino with only Input and Print streams
+     * @param inStream
+     * @param outputStream
+     */
+
+    public Casino(InputStream inStream, PrintStream outputStream){
+        this.guestAccountDatabase = new GuestAccountDataBase();
+        this.console = new Console(inStream, outputStream);
+    }
+
+    /**
      * Method sets a newly created guest as the class' currentGuest
      * @param name
      * @param guestAccount

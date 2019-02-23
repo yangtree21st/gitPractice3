@@ -1,6 +1,7 @@
 package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Dice;
 import io.zipcoder.casino.Players.Player;
@@ -12,6 +13,10 @@ public class Craps implements GamblingGame {
     private Dice dice2;
     private Long numberOfTurns;
     private Double pot;
+
+    public Craps(Guest newGuest) {
+
+    }
 
     public void playFullGame() {
         Casino.console.println("You have played a full game of Craps!");
