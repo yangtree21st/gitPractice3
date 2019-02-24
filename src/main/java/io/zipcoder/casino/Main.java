@@ -27,6 +27,15 @@ public class Main extends Application{
     }
 
     public static String consoleOrGUI(){
-        return (casino.console.getStringInput("Would you like to gamble using the <Console> or <GUI> Interface").toLowerCase());
+
+        while(true) {
+            String choice = (casino.console.getStringInput("Would you like to gamble using the <Console> or <GUI> Interface").toLowerCase());
+            if (choice.equals("gui") || choice.equals("console")) {
+                return choice;
+            } else {
+                return casino.console.getStringInput("Incorrect input, please try again. <Console> or <GUI>").toLowerCase();
+            }
+        }
+
     }
 }
