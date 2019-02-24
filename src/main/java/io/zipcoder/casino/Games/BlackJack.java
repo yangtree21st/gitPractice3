@@ -17,6 +17,7 @@ public class BlackJack extends CardGame implements GamblingGame {
     private Double pot;
     private Guest newGuest;
     private BlackJackPlayer player;
+    private BlackJackPlayer opponent;
     private CardDeck deck;
 
 
@@ -62,6 +63,90 @@ public class BlackJack extends CardGame implements GamblingGame {
         Casino.console.println("You have played a full game of Black Jack!");
     }
 
+
+    public void hit(BlackJackPlayer player) {
+
+        player.getPlayerHand().addCard(deck.dealNextCard());
+
+    }
+
+
+
+    public BlackJackPlayer gameWinner(BlackJackPlayer player, BlackJackPlayer opponent) {
+
+        if(player.getHandTotal() > opponent.getHandTotal()) {
+
+            return player;
+
+        } else {
+
+            return opponent;
+
+        }
+
+    }
+
+
+
+    public void pass(){
+
+        hit(opponent);
+
+    }
+
+
+
+    public void surrender(){
+
+        opponent.givePlayerMoney(pot /= 2);// relate to end the current game
+
+
+    }
+
+
+
+    public void giveWinningsToPlayer(Double winnings) {
+
+        BlackJackPlayer winner = gameWinner(player, opponent);
+
+        winner.givePlayerMoney(pot *= 2);
+
+    }
+
+
+
+    public Double checkPlayersBalance(Player currentPlayer) {
+
+        return currentPlayer.getAccountBalance();
+
+    }
+
+
+
+    public boolean enoughMoneyForBet(Double bet, Player currentPlayer) {
+
+        if(currentPlayer.getAccountBalance() >= bet) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+
+
+
+    public void receiveBetFromPlayer(Double bet) {
+
+        this.pot += bet;
+
+    }
+
+
+
     public void updateDisplay() {
 
     }
@@ -82,28 +167,12 @@ public class BlackJack extends CardGame implements GamblingGame {
 
     }
 
-    public  void surrender(){
 
-    }
+
+
 
     public void losing() {
 
-    }
-
-    public void receiveBetFromPlayer(Double bet) {
-        ;
-    }
-
-    public void giveWinningsToPlayer(Double winnings) {
-       ;
-    }
-
-    public Double checkPlayersBalance(Player currentPlayer) {
-        return null;
-    }
-
-    public boolean enoughMoneyForBet(Double bet, Player currentPlayer) {
-        return false;
     }
 
 
