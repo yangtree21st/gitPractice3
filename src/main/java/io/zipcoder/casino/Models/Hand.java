@@ -13,10 +13,10 @@ public class Hand {
 
     /**
      * The Hand Constructor will initialize an ArrayList of Card.
-     * @param playerHand The playerHand is used to store an ArrayList of Cards.
+     *
      */
-    public Hand(ArrayList<Card> playerHand) {
-        this.playerHand = playerHand;
+    public Hand() {
+        this.playerHand = new ArrayList<>();
         this.handValue = 0;
     }
 
@@ -26,7 +26,7 @@ public class Hand {
      * This method will return an ArrayList of Card to the hand.
      * @return The an ArrayList of Card is specifying the cards in the hand.
      */
-    public ArrayList<Card> getPlayerHand() {
+    public ArrayList<Card> getAllOfPlayerCards() {
         return playerHand;
     }
 
