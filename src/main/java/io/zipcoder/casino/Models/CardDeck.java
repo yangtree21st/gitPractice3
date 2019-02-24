@@ -38,6 +38,10 @@ public class CardDeck{
         return deckOfCard.pop();
     }
 
+    public Integer getCardDeckSize(){
+        return deckOfCard.size();
+    }
+
 
 
 

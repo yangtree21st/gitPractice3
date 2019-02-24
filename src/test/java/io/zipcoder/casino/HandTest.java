@@ -12,10 +12,10 @@ public class HandTest {
     public void getPlayerHandTest(){
         //Given
         ArrayList<Card> expectedHand = new ArrayList<>();
-        Hand hand = new Hand(expectedHand);
+        Hand hand = new Hand();
 
         //When
-        ArrayList<Card> actualHand = hand.getPlayerHand();
+        ArrayList<Card> actualHand = hand.getAllOfPlayerCards();
 
         //Then
         Assert.assertEquals(expectedHand, actualHand);
@@ -25,12 +25,12 @@ public class HandTest {
     public void addCardTest() {
         // Given
         ArrayList<Card> playerHand = new ArrayList<>();
-        Hand hand = new Hand(playerHand);
+        Hand hand = new Hand();
         Card expectedCard = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
 
         // When
         hand.addCard(expectedCard);
-        ArrayList<Card> actualHand = hand.getPlayerHand();
+        ArrayList<Card> actualHand = hand.getAllOfPlayerCards();
 
         // Then
         boolean expected = actualHand.contains(expectedCard);
@@ -42,12 +42,12 @@ public class HandTest {
     public void removeCardTest() {
         // Given
         ArrayList<Card> playerHand = new ArrayList<>();
-        Hand hand = new Hand(playerHand);
+        Hand hand = new Hand();
         Card cardRemove = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
 
         // When
         hand.addCard(cardRemove);
-        ArrayList<Card> actualHand = hand.getPlayerHand();
+        ArrayList<Card> actualHand = hand.getAllOfPlayerCards();
         hand.removeCard(cardRemove);
 
         // Then
@@ -60,7 +60,7 @@ public class HandTest {
     public void getCardValueTest() {
         // Given
         ArrayList<Card> playerHand = new ArrayList<>();
-        Hand hand = new Hand(playerHand);
+        Hand hand = new Hand();
         Card expectedCard = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
         Card.Rank expectedCardValue = Card.Rank.TEN;
 
@@ -76,7 +76,7 @@ public class HandTest {
     public void getCardSuitTest() {
         // Given
         ArrayList<Card> playerHand = new ArrayList<>();
-        Hand hand = new Hand(playerHand);
+        Hand hand = new Hand();
         Card expectedCard = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
         String expectedCardSuit = Card.Suit.HEARTS.toString();
 
@@ -92,7 +92,7 @@ public class HandTest {
     public void toStringTest() {
         // Given
         ArrayList<Card> playerHand = new ArrayList<>();
-        Hand hand = new Hand(playerHand);
+        Hand hand = new Hand();
 
         Card expectedCardFirst = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
         hand.addCard(expectedCardFirst);
@@ -114,7 +114,7 @@ public class HandTest {
     public void setHandValueTest() {
         // Given
         ArrayList<Card> playerHand = new ArrayList<>();
-        Hand hand = new Hand(playerHand);
+        Hand hand = new Hand();
         Integer expectedHandValue = 10;
 
         // When
@@ -129,7 +129,7 @@ public class HandTest {
     public void getHandValueTest() {
         // Given
         ArrayList<Card> playerHand = new ArrayList<>();
-        Hand hand = new Hand(playerHand);
+        Hand hand = new Hand();
         Integer expectedHandValue = 1;
 
         // When
