@@ -61,10 +61,73 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
         playerhand.removeCard(cardToRemove);
         return playerhand;
 }
+    public Integer getHandTotal() {
 
 
+        int result=0;
+
+        for(Card card : cardsHand) {
+            String c = card.getValue().toString();
+            if (c.equals("TEN") || c.equals("JACK") || c.equals("QUEEN") || c.equals("KING")) {
+                c = "10";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+            } else if (c.equals("ACE")) {
+                return null;
+            }// need to make a choice for two int value which are 1 and 11;
+            else if (c.equals("TWO")) {
+                c = "2";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+            } else if (c.equals("THREE")) {
+                c = "3";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+            } else if (c.equals("FOUR")) {
+                c = "4";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+            } else if (c.equals("FIVE")) {
+                c = "5";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+            } else if (c.equals("SIX")) {
+                c = "6";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+            } else if (c.equals("SEVEN")) {
+                c = "7";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+
+            } else if (c.equals("EIGHT")) {
+                c = "8";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+            } else if (c.equals("NINE")) {
+                c = "9";
+                int Score = Integer.parseInt(c);
+                result += Score;
+                return result;
+            }
+
+        }
+           return result;
+        }
 
     }
+
+
+
+
 
 
 

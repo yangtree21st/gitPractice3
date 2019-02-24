@@ -35,14 +35,15 @@ public class BlackJackPlayerTest {
 
     @Test
     public void getPlayerHand() {
-        Card card1 =  new Card(Card.Suit.SPADES, Card.Rank.ACE);
-        playerhand.addCard(card1);
-
+        Card card1 =  new Card(Card.Suit.DIAMONDS, Card.Rank.TEN);
         BlackJackPlayer player = new BlackJackPlayer(newGuest);
-        player.addCardToHand(card1);
+
+        Hand expected =  player.addCardToHand(card1);
+
         Hand actual = player.getPlayerHand();
 
-        Assert.assertEquals(playerhand, actual);
+        Assert.assertEquals(expected, actual);
+
 
     }
 
@@ -50,9 +51,7 @@ public class BlackJackPlayerTest {
     public void removeCardFromHand() {
         Card card1 =  new Card(Card.Suit.SPADES, Card.Rank.ACE);
         Card card2 =  new Card(Card.Suit.DIAMONDS, Card.Rank.TEN);
-        playerhand.addCard(card1);
-        playerhand.addCard(card2);
-        playerhand.removeCard(card1);
+
 
         BlackJackPlayer player = new BlackJackPlayer(newGuest);
         player.addCardToHand(card1);
@@ -60,10 +59,13 @@ public class BlackJackPlayerTest {
 
         player.removeCardFromHand(card1);
 
+
         Hand actual = player.getPlayerHand();
 
+         Hand experct =  player.getPlayerHand();
 
-        Assert.assertEquals(playerhand, actual);
+
+        Assert.assertEquals(experct, actual);
 
 
     }

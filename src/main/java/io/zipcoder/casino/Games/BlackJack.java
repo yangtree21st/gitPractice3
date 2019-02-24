@@ -2,6 +2,7 @@ package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
+import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Card;
@@ -16,6 +17,7 @@ public class BlackJack extends CardGame implements GamblingGame {
     private Double pot;
     private Guest newGuest;
     private BlackJackPlayer player;
+    private CardDeck deck;
 
 
 
@@ -28,13 +30,17 @@ public class BlackJack extends CardGame implements GamblingGame {
 
     }
 
-    public void hit() {
 
+
+    public void hit() {
+        Card card = deck.dealNextCard();
+        player.addCardToHand(card);
 
     }
 
     public Integer getHandTotal() {
-        return null;
+        return player.getHandTotal();
+
     }
 
 
@@ -47,7 +53,8 @@ public class BlackJack extends CardGame implements GamblingGame {
 
 
     public Double giveWinnings() {
-        return null;
+
+        return null  ;
     }
 
     public void playFullGame() {
