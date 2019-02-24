@@ -64,6 +64,10 @@ public class Craps extends DiceGame implements Game {
      * @return a boolean indicating whether a player has won or lost. true = win, false = lose.
      */
     boolean playCraps(TypeOfBet currentTypeOfBet) { //TODO
+        getLowerCaseStringInput("Press Enter to roll");
+        if (currentTypeOfBet == TypeOfBet.PASS) {
+            return true;
+        }
 //        boolean roundOver = false;
 //        boolean hasWon = false;
 //
@@ -146,13 +150,13 @@ public class Craps extends DiceGame implements Game {
      */
     private void printInstructions() {
         println("Craps is a dice game involving the rolling of two dice. You win or lose money depending on what the result of the dice tosses are.\n" +
-                " The game is split into two phases: the first roll, called the come-out roll, and every subsequent roll, which are called Point rolls.\n\n" +
+                "The game is split into two phases: the first roll, called the Come-Out roll, and every subsequent roll, which are called Point rolls.\n\n" +
                 "There are two main bets in the game of Craps - Pass and Don’t Pass, which both pay even money. Let’s explain the Pass bet first.\n\n" +
                 "Let’s say you make a Pass bet. The first thing you do is pick up the two dice and roll them for the come-out roll. If you roll a 7 or\n" +
                 "an 11 on your come-out roll (this is called rolling a Natural) you win. If you roll a 2, 3, or 12 (called rolling Craps) you lose.\n\n" +
                 "If you roll anything else (a 4, 5, 6, 8, 9, or 10) that specific roll result becomes the “Point”, and you enter the second phase of the\n" +
                 "game. Once you establish a Point, your goal becomes to roll the Point again before rolling a 7. If you roll the Point, you win, if you\n" +
-                "roll a 7, you lose (called a Seven-Out), if you roll anything else, nothing happens and you roll again.\n\n" +
+                "roll a 7(called a Seven-Out), you lose, if you roll anything else, nothing happens and you roll again.\n\n" +
                 "Now let’s explain the Don’t Pass bet.\n" +
                 "The Don’t Pass bet is essentially the opposite of the Pass bet. You win when the Pass bet loses, and you lose when the Pass bet wins.\n" +
                 "Thus, the ways of winning a Don’t Pass bet are either rolling Craps or getting a Seven-Out. The ways of losing are rolling a Natural\n" +

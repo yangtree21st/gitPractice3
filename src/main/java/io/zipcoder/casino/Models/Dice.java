@@ -3,21 +3,31 @@ package io.zipcoder.casino.Models;
 import java.util.Random;
 
 /**
- * The Dice program simply simulates a pair of dice being rolled.
+ * The Dice program simply simulates a single die being rolled.
  *
  * @version 2019-02-22
  */
 public class Dice {
-    Random random;
+    private Random random;
+
+    public Dice() {
+        this.random = new Random();
+    }
 
     /**
-     * This method is get the dice roll sum of the dice rolled.
-     * @return Integer This returns the sum of both dice rolled.
+     * This method gets the result of a toss with a six-sided die
+     * @return the random result of the six-sided die toss
      */
     public Integer getDiceRoll(){
-        this.random = new Random();
-        Integer dieOne = random.nextInt((6)+1);
-        Integer roll = dieOne;
-        return roll;
+        return getDiceRoll(6);
+    }
+
+    /**
+     * This method gets the result of a toss of a die with a number of faces equal to numOfFaces
+     * @param numOfFaces the number of faces of the die to be rolled
+     * @return the random result of the die toss
+     */
+    public Integer getDiceRoll(int numOfFaces) {
+        return random.nextInt(numOfFaces) + 1;
     }
 }

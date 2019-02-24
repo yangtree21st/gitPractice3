@@ -10,15 +10,12 @@ public abstract class DiceGame {
     }
 
     private String createDieRepresentation(Integer value) {
-        StringBuilder representation = new StringBuilder();
 
-        representation.append(boundaryLineOfDie());
-        representation.append(firstRowOfDie(value));
-        representation.append(secondRowOfDie(value));
-        representation.append(thirdRowOfDie(value));
-        representation.append(boundaryLineOfDie());
-
-        return representation.toString();
+        return boundaryLineOfDie() +
+                firstRowOfDie(value) +
+                secondRowOfDie(value) +
+                thirdRowOfDie(value) +
+                boundaryLineOfDie();
     }
 
     private String boundaryLineOfDie() {
