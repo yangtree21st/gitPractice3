@@ -3,10 +3,12 @@ package io.zipcoder.casino.Games;
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.CardDeck;
+import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Players.Player;
+import io.zipcoder.casino.utilities.Console;
 
 
 public class BlackJack extends CardGame implements GamblingGame {
@@ -19,6 +21,8 @@ public class BlackJack extends CardGame implements GamblingGame {
     private BlackJackPlayer player;
     private BlackJackPlayer opponent;
     private CardDeck deck;
+    private boolean
+    private Console console;
 
 
 
@@ -26,6 +30,15 @@ public class BlackJack extends CardGame implements GamblingGame {
         this.newGuest = newGuest;
 
     }
+
+    public void setUp() {
+
+    }
+
+    public void updateDisplay() {
+
+    }
+
 
     public void split() {
 
@@ -147,26 +160,26 @@ public class BlackJack extends CardGame implements GamblingGame {
 
 
 
-    public void updateDisplay() {
 
-    }
 
-    public void setUp() {
 
-    }
 
     public void takeTurn() {
 
     }
 
+    public void noticeAc
+
     public void quitGame() {
+ //       double pocket = player.getAccountBalance();
+
+   //     if(pocket < mindBet){
+   //     console.println("Your don't have enough money for next bet");
+
+
+        }
 
     }
-
-    public void winning() {
-
-    }
-
 
 
 
