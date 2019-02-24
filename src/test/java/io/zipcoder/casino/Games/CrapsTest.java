@@ -16,24 +16,7 @@ public class CrapsTest {
     public void playFullGame() {
     }
 
-    @Test
-    public void printWelcomeMessage() {
-        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
-        Casino testCasino = getCasinoWithBufferedOutput(bytArrOutStr);
-        Craps testCraps = getNewCraps();
 
-        String expectedOutput = "Welcome to the Craps table!\n";
-
-        testCraps.printWelcomeMessage();
-
-        String actualOutput = bytArrOutStr.toString();
-
-        Assert.assertEquals(expectedOutput, actualOutput);
-    }
-
-    @Test
-    public void printGoodbyeMessage() {
-    }
 
     @Test
     public void choiceToPlay() {
