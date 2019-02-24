@@ -16,14 +16,16 @@ public class BlackJack extends CardGame implements GamblingGame {
     private final Integer max = 21;
     private final Double mindBet = 15.0;
     private BlackJackPlayer oppositePlayer;
-    private Double pot;
+
+    private Double bet;
     private Guest newGuest;
     private BlackJackPlayer player;
     private BlackJackPlayer opponent;
     private CardDeck deck;
-    private boolean
+    private String playerChoice;
     private Console console;
-
+    private boolean continueGame;
+    private boolean enoughMoneyForBet;
 
 
     public BlackJack(Guest newGuest){
@@ -31,9 +33,62 @@ public class BlackJack extends CardGame implements GamblingGame {
 
     }
 
+
+    public void playFullGame() {
+        this.continueGame = true;
+        do {
+            setUp();
+            checkPlayersBalance(player);
+
+            enoughMoneyForBet(bet, player);
+            receiveBetFromPlayer(bet);
+
+            deal();
+            hit(player);
+
+
+            checkPlayersBalance(player);
+            updateDisplay();
+            winning();
+            checkPlayersBalance(player);
+            quitGame();
+        }
+        while (continueGame);{
+
+        }
+        Casino.console.println("You have played a full game of Hi-Lo!");
+   }
+
     public void setUp() {
+        Casino.console.println("WELCOME TO BlackJack GAME"+"\n"+
+                "The minimum bet is $15.00");
 
     }
+
+
+    public Double checkPlayersBalance(Player currentPlayer) {
+
+        return currentPlayer.getAccountBalance();
+
+    }
+
+
+    public boolean enoughMoneyForBet(Double bet, BlackJackPlayer player){
+        this.bet = Casino.console.getDoubleInput("Please enter your bet:");
+        double pocket = player.getAccountBalance();
+
+        if(pocket < bet){
+            console.println("Your don't have enough money for next bet");
+            continueGame = false;}
+            else
+                continueGame = true;
+
+    }
+
+
+    //     if(pocket < mindBet){
+    //     console.println("Your don't have enough money for next bet");
+
 
     public void updateDisplay() {
 
@@ -46,9 +101,27 @@ public class BlackJack extends CardGame implements GamblingGame {
 
 
 
-    public void hit() {
-        Card card = deck.dealNextCard();
-        player.addCardToHand(card);
+
+
+    public Card deal() {
+        Casino.console.println("Dealing Cards. \n");
+        return super.getDeck().dealNextCard();
+
+
+    }
+
+    public void hit(BlackJackPlayer player) {
+
+        player.getPlayerHand().addCard(deck.dealNextCard());
+
+    }
+
+
+    public void takeTurn() {
+        Casino.console.println(deal().toStringCard());
+        this.playerChoice =Casino.console.getStringInput("Enter 'P' for pass,'S' for surrender, Enter 'H' for hit");
+
+        if(playerChoice.equalsIgnoreCase("P")
 
     }
 
@@ -58,12 +131,7 @@ public class BlackJack extends CardGame implements GamblingGame {
     }
 
 
-    public Card deal() {
-        Casino.console.println("Dealing Cards. \n");
-        return super.getDeck().dealNextCard();
 
-
-        }
 
 
     public Double giveWinnings() {
@@ -71,17 +139,10 @@ public class BlackJack extends CardGame implements GamblingGame {
         return null  ;
     }
 
-    public void playFullGame() {
-
-        Casino.console.println("You have played a full game of Black Jack!");
-    }
 
 
-    public void hit(BlackJackPlayer player) {
 
-        player.getPlayerHand().addCard(deck.dealNextCard());
 
-    }
 
 
 
@@ -111,7 +172,7 @@ public class BlackJack extends CardGame implements GamblingGame {
 
     public void surrender(){
 
-        opponent.givePlayerMoney(pot /= 2);// relate to end the current game
+        opponent.givePlayerMoney(bet /= 2);// relate to end the current game
 
 
     }
@@ -122,17 +183,10 @@ public class BlackJack extends CardGame implements GamblingGame {
 
         BlackJackPlayer winner = gameWinner(player, opponent);
 
-        winner.givePlayerMoney(pot *= 2);
+        winner.givePlayerMoney(bet *= 2);
 
     }
 
-
-
-    public Double checkPlayersBalance(Player currentPlayer) {
-
-        return currentPlayer.getAccountBalance();
-
-    }
 
 
 
@@ -154,7 +208,7 @@ public class BlackJack extends CardGame implements GamblingGame {
 
     public void receiveBetFromPlayer(Double bet) {
 
-        this.pot += bet;
+        this.bet += bet;
 
     }
 
@@ -164,11 +218,9 @@ public class BlackJack extends CardGame implements GamblingGame {
 
 
 
-    public void takeTurn() {
 
-    }
 
-    public void noticeAc
+
 
     public void quitGame() {
  //       double pocket = player.getAccountBalance();
@@ -179,7 +231,7 @@ public class BlackJack extends CardGame implements GamblingGame {
 
         }
 
-    }
+
 
 
 
@@ -188,6 +240,12 @@ public class BlackJack extends CardGame implements GamblingGame {
 
     }
 
+    public void winning(){
+
+    }
+
+
 
 
 }
+

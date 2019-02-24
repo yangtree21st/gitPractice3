@@ -12,7 +12,7 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     private ArrayList <Card> cardsHand = new ArrayList<Card>();
 
-    private Hand playerhand = new Hand(cardsHand);
+    private Hand playerhand = new Hand();
 
 
 
@@ -53,7 +53,7 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
 
     public Hand getPlayerHand(){
-       playerhand.getPlayerHand();
+       playerhand.getAllOfPlayerCards();
        return playerhand;
     }
 
