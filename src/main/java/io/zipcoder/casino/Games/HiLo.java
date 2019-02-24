@@ -72,6 +72,7 @@ public class HiLo extends CardGame implements GamblingGame {
     public boolean isLess(Card currentCard, Card nextCard) {
         Integer currentCardValue = currentCard.getValue().ordinal()+1;
         Integer nextCardValue = nextCard.getValue().ordinal()+1;
+
         Casino.console.println("cardvalue"+currentCardValue);
         Casino.console.println("secondcardvalue  "+nextCardValue);
 
@@ -125,15 +126,16 @@ public class HiLo extends CardGame implements GamblingGame {
 
     public boolean enoughMoneyForBet(Double bet, Player currentPlayer) {
         this.bet = Casino.console.getDoubleInput("Please enter your bet:");
+        if(this.bet > checkPlayersBalance(hiloPlayer)) {
+
+            Casino.console.println("You don't have enough funds");
+            continueGame=false;}
 
         if ((checkPlayersBalance(hiloPlayer) >= minimumBet) && (checkPlayersBalance(hiloPlayer) >= this.bet &&
                 this.bet >= minimumBet)) {
 
             return true;
-        }
-
-
-        else if (this.bet <minimumBet&&checkPlayersBalance(hiloPlayer) >= minimumBet) {
+        } else if (this.bet < minimumBet && checkPlayersBalance(hiloPlayer) >= minimumBet) {
             do {
                 Casino.console.println("Your bet needs to be equal or higher than the minimum bet");
                 this.bet = Casino.console.getDoubleInput("Please enter your bet:");
@@ -142,11 +144,14 @@ public class HiLo extends CardGame implements GamblingGame {
 //                return false;
             } while ((this.bet < minimumBet));
 
-        }
 
-            Casino.console.println("You don't have enough funds");
-            return false;
-        }
+
+        }return continueGame;
+    }
+
+//    public void betLessThanMinimum
+
+
 
 
     public void receiveBetFromPlayer(Double bet) {
