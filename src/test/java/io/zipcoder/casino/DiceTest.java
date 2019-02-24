@@ -10,11 +10,11 @@ public class DiceTest {
     public void getDiceRollTest() {
         // Given
         Dice dice = new Dice();
-        boolean expected = dice.getDiceRoll()>=1 || dice.getDiceRoll()<=12;
+
         // When
-        Integer actual = dice.getDiceRoll();
+        Integer result = dice.getDiceRoll();
 
         // Then
-        Assert.assertTrue(actual>=2 && actual<=12);
+        Assert.assertTrue(result>=1 && result<=6);
     }
 }
