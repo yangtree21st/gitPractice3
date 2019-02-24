@@ -20,4 +20,21 @@ public class HiLoPlayerTest {
         //Then
         Assert.assertEquals(expected,actual);
     }
+    @Test
+    public void takePlayersMoneyTest(){
+        //Given
+        GuestAccount guestAccount=new GuestAccount("Bella", null,100.0);
+        Guest expected = new Guest("Bella",guestAccount);
+        HiLowPlayer hiloPlayer = new HiLowPlayer(expected);
+
+
+
+        //When
+
+
+
+
+        //THen
+    }
+
 }

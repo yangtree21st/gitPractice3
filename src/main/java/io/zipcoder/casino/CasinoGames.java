@@ -71,7 +71,7 @@ public class CasinoGames {
                 this.currentGame = new BlackJack(this.currentGuest);
                 break;
             case "hilo" :
-                this.currentGame = new HiLo(/*this.currentGuest*/);
+                this.currentGame = new HiLo(this.currentGuest);
                 break;
             case "craps" :
                 this.currentGame = new Craps(this.currentGuest);

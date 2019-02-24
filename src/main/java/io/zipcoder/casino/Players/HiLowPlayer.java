@@ -1,9 +1,13 @@
 package io.zipcoder.casino.Players;
 
+import io.zipcoder.casino.Games.HiLo;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.GamblingPlayer;
 
 public class HiLowPlayer extends CardPlayer implements GamblingPlayer {
+
+    Double amount;
+
 
     public HiLowPlayer(Guest newGuest){
         super(newGuest);
@@ -14,12 +18,17 @@ public class HiLowPlayer extends CardPlayer implements GamblingPlayer {
     }
 
     public Boolean takePlayersMoney(Double amount){
-        return false;
+        super.getGuest().removeFunds(amount);
+        return true;
     }
     public Boolean givePlayerMoney(Double amount){
-        return false;
+        super.getGuest().addFunds(amount);
+        return true;
     }
     public Boolean checkCurrentBalance(Double amount){
+       if( getAccountBalance() >= amount){
+           return true;
+       }
         return false;
     }
 }

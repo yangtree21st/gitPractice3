@@ -8,7 +8,7 @@ import io.zipcoder.casino.Players.Player;
 public abstract class CardGame implements Game {
 
     private Player currentplayer;
-    private CardDeck gameDeck = new CardDeck();
+    private CardDeck gameDeck= new CardDeck();
 
 
     public void shuffleDeck() {
