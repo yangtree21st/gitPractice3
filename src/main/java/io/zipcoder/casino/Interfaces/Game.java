@@ -10,7 +10,9 @@ public interface Game {
 
     public void quitGame();
 
-    public void winning();
+    public void winning(
+
+    );
 
     public void losing();
 

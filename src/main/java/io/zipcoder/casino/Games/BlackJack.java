@@ -39,7 +39,7 @@ public class BlackJack extends CardGame implements GamblingGame {
 
 
     public Card deal() {
-
+        Casino.console.println("Dealing Cards. \n");
         return super.getDeck().dealNextCard();
 
 
@@ -51,6 +51,7 @@ public class BlackJack extends CardGame implements GamblingGame {
     }
 
     public void playFullGame() {
+
         Casino.console.println("You have played a full game of Black Jack!");
     }
 
@@ -83,11 +84,11 @@ public class BlackJack extends CardGame implements GamblingGame {
     }
 
     public void receiveBetFromPlayer(Double bet) {
-
+        ;
     }
 
     public void giveWinningsToPlayer(Double winnings) {
-
+       ;
     }
 
     public Double checkPlayersBalance(Player currentPlayer) {

@@ -20,6 +20,8 @@ public class Hand {
         this.handValue = 0;
     }
 
+
+
     /**
      * This method will return an ArrayList of Card to the hand.
      * @return The an ArrayList of Card is specifying the cards in the hand.
@@ -98,4 +100,7 @@ public class Hand {
         }
         return createCardFace.toString();
     }
+
+
+
 }
