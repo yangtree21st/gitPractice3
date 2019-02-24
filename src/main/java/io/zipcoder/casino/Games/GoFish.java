@@ -21,14 +21,14 @@ public class GoFish extends CardGame implements Game {
     private Hand playerHand;
 
 
-    public GoFish(GoFishPlayer player, GoFishPlayer opponent, CardDeck gameDeck, Hand playerHand) {
-        this.player = player;
-        this.opponent = opponent;
+    public GoFish(Guest guest) {
+        this.player = new GoFishPlayer(guest);
+        this.opponent = new GoFishPlayer(null);
         this.numberOfPairsPlayer = 0;
         this.numberOfPairsOpponent = 0;
-        this.gameDeck = gameDeck;
+        this.gameDeck = new CardDeck();
         gameDeck.shuffleDeck();
-        this.playerHand = playerHand;
+        this.playerHand = new Hand();
     }
 
     @Override

@@ -21,7 +21,7 @@ public class GoFishTest {
     GoFishPlayer playerTwo = new GoFishPlayer(guest2);
     CardDeck gameDeck = new CardDeck();
     Hand playerHand;
-    GoFish game = new GoFish(playerOne, playerTwo, gameDeck, playerHand);
+    GoFish game = new GoFish(guest);
 
     @Test
     public void deal() {
@@ -43,7 +43,7 @@ public class GoFishTest {
         playerOne.getPlayerHand().addCard(game.deal());
 
         // Then
-        Integer actual = playerOne.getPlayerHand().getPlayerHand().size();
+        Integer actual = playerOne.getPlayerHand().getAllOfPlayerCards().size();
         Assert.assertEquals(expected, actual);
     }
 }
