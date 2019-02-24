@@ -13,7 +13,7 @@ public class HiLoGameTest {
 
     @Before
     public void setUp(){
-        HiLo hiloGame = new HiLo();
+        HiLo hiloGame = new HiLo(new Guest("Marlys", new GuestAccount("Marlys", 1, 1000.0)));
     }
 
 
@@ -21,7 +21,7 @@ public class HiLoGameTest {
     @Test
     public void dealTest(){
         //Given
-        HiLo hiloGame = new HiLo();
+        HiLo hiloGame = new HiLo(new Guest("Marlys", new GuestAccount("Marlys", 1, 1000.0)));
 
 
         //When
@@ -37,7 +37,7 @@ public class HiLoGameTest {
     @Test
     public void isLessTest(){
         //Given
-        HiLo hiloGame = new HiLo();
+        HiLo hiloGame = new HiLo(new Guest("Marlys", new GuestAccount("Marlys", 1, 1000.0)));
         Card firstCard = new Card(Card.Suit.HEARTS, Card.Rank.THREE);
         Card secondCard = new Card(Card.Suit.HEARTS, Card.Rank.EIGHT);
 
@@ -52,7 +52,7 @@ public class HiLoGameTest {
     @Test
     public void isMoreTest(){
         //Given
-        HiLo hiloGame = new HiLo();
+        HiLo hiloGame = new HiLo(new Guest("Marlys", new GuestAccount("Marlys", 1, 1000.0)));
         Card firstCard = new Card(Card.Suit.HEARTS, Card.Rank.THREE);
         Card secondCard = new Card(Card.Suit.HEARTS,Card.Rank.JACK);
 
@@ -66,7 +66,7 @@ public class HiLoGameTest {
 //    @Test
 //    public void isMoreTest1(){
 //        //Given
-//        HiLo hiloGame = new HiLo();
+//        HiLo hiloGame = new HiLo(new Guest("Marlys", new GuestAccount("Marlys", 1, 1000.0)));
 //
 //        Card firstCard = hiloGame.deal();
 //        Card secondCard = hiloGame.deal();
