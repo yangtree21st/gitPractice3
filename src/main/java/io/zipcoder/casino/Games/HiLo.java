@@ -133,7 +133,7 @@ public class HiLo extends CardGame implements GamblingGame {
                 return true;
             } else {
                 Casino.console.println("Not enough funds, please try again");
-                this.continueGame = false;
+                //this.continueGame = false;
                 return false;
             }
         } else {
@@ -240,15 +240,18 @@ public class HiLo extends CardGame implements GamblingGame {
 
     public void quitGame() {
         if(getAccountBalance != 0) {
-            this.playerChoice =
-                    Casino.console.getStringInput("Do you wish to continue, Enter 'Y' for Yes, 'N' for No");
+            while (true) {
+                this.playerChoice =
+                        Casino.console.getStringInput("Do you wish to continue, Enter 'Y' for Yes, 'N' for No");
 
-            if (playerChoice.equalsIgnoreCase("N")) {
-                this.continueGame = false;
+                if (playerChoice.equalsIgnoreCase("N")) {
+                    this.continueGame = false;
+                    break;
 
-            }
-            if (playerChoice.equalsIgnoreCase("Y")) {
-                this.continueGame = true;
+                } if (playerChoice.equalsIgnoreCase("Y")) {
+                    this.continueGame = true;
+                    break;
+                }
             }
         }
     }
@@ -256,15 +259,15 @@ public class HiLo extends CardGame implements GamblingGame {
 /*
     public static void main(String[] args) {
         Casino testCasino = new Casino();
-        GuestAccount guestAccount = new GuestAccount("Marlys", 1, 10.0);
+        GuestAccount guestAccount = new GuestAccount("Marlys", 1, 100.0);
 
         Guest guest = new Guest("Marlys", guestAccount);
         Player hiloplayer = new HiLowPlayer(guest);
         HiLo testHiLo = new HiLo(guest);
         testHiLo.playFullGame();
     }
-    */
 
+*/
 
 }
 
