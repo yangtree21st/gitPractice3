@@ -49,6 +49,22 @@ public class GuestAccountDataBaseTest {
     }
 
     @Test
+    public void addAccountTest3WhenRounding() {
+        // Given
+        String name1 = "Phyllis";
+        Double startingBalance1 = 1000.09002;
+
+        String expected = "Name: Phyllis, ID: 1, Balance: $1000.09\n";
+
+        // When
+        testDataBase.addAccount(name1, startingBalance1);
+        String actual = testDataBase.getDatabaseOfGuestAccountsAsString();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void removeAccountTest1() {
         // Given
         String name1 = "Miles";

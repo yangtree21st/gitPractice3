@@ -2,6 +2,7 @@ package io.zipcoder.casino;
 
 import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.utilities.Console;
+import javafx.scene.Scene;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -11,6 +12,7 @@ public class Casino {
     public static GuestAccountDataBase guestAccountDatabase;
     public static Console console;
     private Guest currentGuest;
+
 
     /**
      *Constructor to instantiate the Casino class taking 3 params
@@ -80,7 +82,7 @@ public class Casino {
      * Prompts the user to provide their name
      * @return String representation of user inputted name
      */
-    private String getGuestName() {
+    public String getGuestName() {
         return console.getStringInput("Please provide your name to start a new guest account.");
     }
 
@@ -88,7 +90,7 @@ public class Casino {
      *Prompts the user to provide their starting balance
      *@return Double representation of user inputted starting balance
      */
-    private Double getStartingBalance(){
+    public Double getStartingBalance(){
         return console.getDoubleInput("How much money would you like to deposit into your account?");
     }
 
@@ -98,9 +100,17 @@ public class Casino {
      * @param startingBalance
      * @return
      */
-    private GuestAccount createGuestAccount(String name, Double startingBalance){
+    public GuestAccount createGuestAccount(String name, Double startingBalance){
         Integer guestId = guestAccountDatabase.addAccount(name, startingBalance);
         return guestAccountDatabase.getAccount(guestId);
+    }
+
+    public String initializeAccountCreation(String guestNewName, Double guestStartingBalance){
+        GuestAccount newGuestAccount = createGuestAccount(guestNewName, guestStartingBalance);
+        setGuest(guestNewName, newGuestAccount);
+        Integer accountId = newGuestAccount.getId();
+
+        return String.format("This is your new account.\n%s",guestAccountDatabase.getAccount(accountId).toString());
     }
 
     /**
@@ -119,6 +129,12 @@ public class Casino {
 
         CasinoGames casinoGames = new CasinoGames(currentGuest);
         casinoGames.runSelectedGames();
+    }
+
+    public void startCasinoGuiExperience(){
+        CasinoDisplay casinoDisplay = new CasinoDisplay();
+        Main.mainStage.setScene(new Scene(casinoDisplay.createCasinoContent()));
+        Main.mainStage.show();
     }
 
 
