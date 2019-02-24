@@ -125,7 +125,7 @@ public class Casino {
         setGuest(guestNewName, newGuestAccount);
 
         Integer accountId = newGuestAccount.getId();
-        console.println(String.format("This is your account.\n%s", guestAccountDatabase.getAccount(accountId).toString()));
+        console.println(String.format("\nThis is your account.\n%s", guestAccountDatabase.getAccount(accountId).toString()));
 
         while(continueOrExit()) {
             CasinoGames casinoGames = new CasinoGames(currentGuest);
@@ -144,7 +144,9 @@ public class Casino {
     }
 
     public boolean continueOrExit(){
-        Integer userChoice = console.getIntegerInput("Would you like to:\n[1]Enter the Casino Game floor\n[2]Add funds to your account\n[3]Exit Casino");
+        Integer userChoice = console.getIntegerInput("*******************************************" +
+                "\nWould you like to:\n[1]Enter the Casino Game floor\n[2]Add funds to your account\n[3]Exit Casino");
+
         while(true){
             if(userChoice==1){
                 return true;
