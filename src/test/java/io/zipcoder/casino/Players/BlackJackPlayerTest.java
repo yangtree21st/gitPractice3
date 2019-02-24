@@ -15,7 +15,7 @@ public class BlackJackPlayerTest {
 
 
     private ArrayList<Card> PHand   = new ArrayList<>();
-    private  Hand playerhand = new Hand(PHand);
+    private  Hand playerhand = new Hand();
 
     Guest newGuest = new Guest("Yang", new GuestAccount("Yang", 1 ,100.00));
 
