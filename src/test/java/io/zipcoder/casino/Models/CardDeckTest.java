@@ -52,4 +52,14 @@ public class CardDeckTest {
 
         Assert.assertEquals(card2, card1);
     }
+
+    @Test
+    public void getCardDeckSizeTest() {
+
+        CardDeck deck = new CardDeck();
+        Integer expected = 52;
+        Integer actual = deck.getCardDeckSize();
+
+        Assert.assertEquals(expected, actual);
+    }
 }
