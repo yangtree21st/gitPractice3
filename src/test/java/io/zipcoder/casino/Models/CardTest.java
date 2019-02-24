@@ -8,19 +8,19 @@ import static io.zipcoder.casino.Models.Card.Suit.SPADES;
 import static io.zipcoder.casino.Models.Card.Suit.DIAMONDS;
 import static io.zipcoder.casino.Models.Card.Suit.CLUBS;
 
-import static io.zipcoder.casino.Models.Card.Integer.ACE;
-import static io.zipcoder.casino.Models.Card.Integer.TWO;
-import static io.zipcoder.casino.Models.Card.Integer.THREE;
-import static io.zipcoder.casino.Models.Card.Integer.FOUR;
-import static io.zipcoder.casino.Models.Card.Integer.FIVE;
-import static io.zipcoder.casino.Models.Card.Integer.SIX;
-import static io.zipcoder.casino.Models.Card.Integer.SEVEN;
-import static io.zipcoder.casino.Models.Card.Integer.EIGHT;
-import static io.zipcoder.casino.Models.Card.Integer.NINE;
-import static io.zipcoder.casino.Models.Card.Integer.TEN;
-import static io.zipcoder.casino.Models.Card.Integer.JACK;
-import static io.zipcoder.casino.Models.Card.Integer.QUEEN;
-import static io.zipcoder.casino.Models.Card.Integer.KING;
+import static io.zipcoder.casino.Models.Card.Rank.ACE;
+import static io.zipcoder.casino.Models.Card.Rank.TWO;
+import static io.zipcoder.casino.Models.Card.Rank.THREE;
+import static io.zipcoder.casino.Models.Card.Rank.FOUR;
+import static io.zipcoder.casino.Models.Card.Rank.FIVE;
+import static io.zipcoder.casino.Models.Card.Rank.SIX;
+import static io.zipcoder.casino.Models.Card.Rank.SEVEN;
+import static io.zipcoder.casino.Models.Card.Rank.EIGHT;
+import static io.zipcoder.casino.Models.Card.Rank.NINE;
+import static io.zipcoder.casino.Models.Card.Rank.TEN;
+import static io.zipcoder.casino.Models.Card.Rank.JACK;
+import static io.zipcoder.casino.Models.Card.Rank.QUEEN;
+import static io.zipcoder.casino.Models.Card.Rank.KING;
 
 
 import static org.junit.Assert.*;
@@ -33,7 +33,7 @@ public class CardTest {
     @Test
     public void getValue() {
         Card card = new Card(HEARTS,FIVE);
-        Card.Integer actual = card.getValue();
+        Card.Rank actual = card.getValue();
         Assert.assertEquals(FIVE, actual);
     }
 
@@ -42,7 +42,7 @@ public class CardTest {
     @Test
     public void setValue() {
         Card card = new Card();
-        Card.Integer actual = card.setValue(TWO);
+        Card.Rank actual = card.setValue(TWO);
         Assert.assertEquals(TWO, actual);
     }
 
@@ -62,4 +62,13 @@ public class CardTest {
     }
 
 
+    @Test
+    public void toStringCard() {
+        Card card = new Card(SPADES,SEVEN);
+
+        String expert = String.format("\n %10s \n %10s","SPADES","SEVEN");
+
+        String actual = card.toStringCard();
+        Assert.assertEquals(expert, actual);
+    }
 }

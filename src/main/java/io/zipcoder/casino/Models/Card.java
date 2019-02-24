@@ -6,13 +6,10 @@ public class Card {
 
 
     public enum Suit {HEARTS,SPADES,DIAMONDS,CLUBS};
-    public enum Integer {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN , KING};
+    public enum Rank {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN , KING};
 
     protected Suit cardSuit;
-    protected Integer value;
-
-
-
+    protected Rank value;
 
 
 
@@ -20,13 +17,13 @@ public class Card {
 
     }
 
-    public Card(Suit cardSuit, Integer value) {
+    public Card(Suit cardSuit, Rank value) {
         this.cardSuit = cardSuit;
         this.value = value;
     }
 
 
-    public Integer getValue() {
+    public Rank getValue() {
 
         return value;
     }
@@ -43,11 +40,19 @@ public class Card {
     }
 
 
-    public Integer setValue(Integer value) {
+    public Rank setValue(Rank value) {
         this.value = value;
         return value;
     }
 
+
+
+    public String toStringCard(){
+        String cardS= cardSuit.toString( );
+        String cardV= value.toString();
+        return String.format("\n %10s \n %10s",cardS,cardV);
+
+    }
 
 
 

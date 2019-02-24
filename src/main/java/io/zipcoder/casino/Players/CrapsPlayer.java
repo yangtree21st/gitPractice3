@@ -1,5 +1,6 @@
 package io.zipcoder.casino.Players;
 
+
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.GamblingPlayer;
 
@@ -14,13 +15,13 @@ public class CrapsPlayer extends DicePlayer implements GamblingPlayer {
     }
 
 
-    public Double takePlayersMoney(Double amount){
+    public Boolean takePlayersMoney(Double amount){
         return null;
     }
-    public Double givePlayerMoney(Double amount){
+    public Boolean givePlayerMoney(Double amount){
         return null;
     }
-    public Double checkCurrentBalance(){
+    public Boolean checkCurrentBalance(Double amount){
         return null;
     }
 }

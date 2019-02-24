@@ -2,8 +2,8 @@ package io.zipcoder.casino.Interfaces;
 
 public interface GamblingPlayer {
 
-    public Double takePlayersMoney(Double amount);
-    public Double givePlayerMoney(Double amount);
-    public Double checkCurrentBalance();
+    public Boolean takePlayersMoney(Double amount);
+    public Boolean givePlayerMoney(Double amount);
+    public Boolean checkCurrentBalance(Double amount);
 
 }

@@ -5,7 +5,7 @@ import io.zipcoder.casino.Guest;
 public abstract class Player{
 
 
-    private Guest guest;
+    public  Guest guest;
 
     public Player(Guest guest){
         this.guest = guest;

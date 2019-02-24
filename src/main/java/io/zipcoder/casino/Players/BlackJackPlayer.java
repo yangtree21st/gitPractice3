@@ -16,14 +16,13 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
     }
 
 
-    public Double takePlayersMoney(Double amount){
+    public Boolean takePlayersMoney(Double amount){
         return null;
     }
-    public Double givePlayerMoney(Double amount){
+    public Boolean givePlayerMoney(Double amount){
         return null;
     }
-    public Double checkCurrentBalance(){
-        return null;
+    public Boolean checkCurrentBalance(Double amount){return null;
     }
 
 }
