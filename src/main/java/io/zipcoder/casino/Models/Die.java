@@ -19,8 +19,8 @@ public class Die {
      *
      * @return the random result of the six-sided die toss
      */
-    public Integer getDiceRoll() {
-        return getDiceRoll(6);
+    public Integer getSingleDieRoll() {
+        return getSingleDieRoll(6);
     }
 
     /**
@@ -29,7 +29,7 @@ public class Die {
      * @param numOfFaces the number of faces of the die to be rolled
      * @return the random result of the die toss
      */
-    public Integer getDiceRoll(int numOfFaces) {
+    public Integer getSingleDieRoll(int numOfFaces) {
         return random.nextInt(numOfFaces) + 1;
     }
 }

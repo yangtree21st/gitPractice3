@@ -12,7 +12,7 @@ public class DieTest {
         Die die = new Die();
 
         // When
-        Integer result = die.getDiceRoll();
+        Integer result = die.getSingleDieRoll();
 
         // Then
         Assert.assertTrue(result >= 1 && result <= 6);

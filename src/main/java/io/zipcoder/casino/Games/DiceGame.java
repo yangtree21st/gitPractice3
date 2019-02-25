@@ -6,14 +6,10 @@ import io.zipcoder.casino.Models.Die;
 public abstract class DiceGame {
     Die die;
 
-    int diceRoll() {
-        Casino.console.getStringInput("Press Enter to roll dice");
-        int diceRoll1 = this.die.getDiceRoll();
-        int diceRoll2 = this.die.getDiceRoll();
-        displaySingleRollResult(diceRoll1);
-        displaySingleRollResult(diceRoll2);
-        Casino.console.println("");
-        return diceRoll1 + diceRoll2;
+    int rollSingleDieAndDisplayResult() {
+        int dieRoll = this.die.getSingleDieRoll();
+        displaySingleRollResult(dieRoll);
+        return dieRoll;
     }
 
     void displaySingleRollResult(Integer value) {

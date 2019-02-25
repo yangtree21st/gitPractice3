@@ -76,11 +76,11 @@ public class Craps extends DiceGame implements Game {
 
     private boolean comeOutRoll(TypeOfBet currentTypeOfBet) {
         println("It is now time for the Come-Out roll.");
-        int totalValue = diceRoll();
+        int totalValue = rollDice();
 
         while (totalValue == 12 && currentTypeOfBet == TypeOfBet.DONT_PASS) {
             println("Push! Please roll the Come-Out roll again.");
-            totalValue = diceRoll();
+            totalValue = rollDice();
         }
 
         boolean hasWon;
@@ -108,22 +108,21 @@ public class Craps extends DiceGame implements Game {
     }
 
     private boolean pointRoll(TypeOfBet currentTypeOfBet) {
-        println("Please roll again.");
-        int totalValue = diceRoll();
+        int diceRollResult = rollDice();
 
         boolean hasWon;
-        if (totalValue == 7) {
+        if (diceRollResult == 7) {
             hasWon = false;
             this.roundIsStillGoing = false;
             println("Seven-Out!");
-        } else if (totalValue == this.point) {
+        } else if (diceRollResult == this.point) {
             hasWon = true;
             this.roundIsStillGoing = false;
             println("You've hit the Point!");
         } else {
             hasWon = false; // This value is never checked, but need to return a value so as not to cause a null pointer exception
             this.roundIsStillGoing = true;
-            println("Roll again, the point is still %d!", this.point);
+            println("%d!\nRoll again, the point is still %d!", diceRollResult, this.point);
         }
 
         // If the bet is Don't Pass, then the result of the hasWon condition needs to be reversed.
@@ -132,6 +131,14 @@ public class Craps extends DiceGame implements Game {
         }
 
         return hasWon;
+    }
+
+    int rollDice() {
+        Casino.console.getStringInput("Press Enter to roll dice");
+        int diceRoll1 = rollSingleDieAndDisplayResult();
+        int diceRoll2 = rollSingleDieAndDisplayResult();
+        Casino.console.println("");
+        return diceRoll1 + diceRoll2;
     }
 
 
@@ -284,11 +291,11 @@ public class Craps extends DiceGame implements Game {
         return bet;
     }
 
-//    public static void main(String[] args) {
-//        Casino casino = new Casino();
-//        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
-//        craps.playFullGame();
-//    }
+    public static void main(String[] args) {
+        Casino casino = new Casino();
+        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
+        craps.playFullGame();
+    }
 
 
 
