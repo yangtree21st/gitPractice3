@@ -326,6 +326,10 @@ public class Craps extends DiceGame implements Game {
         Casino.console.println(val, args);
     }
 
+    /**
+     * For testing purposes.
+     * @return the current guest
+     */
     Guest getCurrentGuest() {
         return currentGuest;
     }
