@@ -10,14 +10,15 @@ public class Main extends Application{
     public static CasinoDisplay casinoDisplay = new CasinoDisplay();
     public static Stage mainStage;
     public static Casino casino = new Casino();
+    static CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
 
     public static void main(String[] args) {
-        //String choice = consoleOrGUI();
-        //if(choice.equals("console")) {
-        //    casino.startCasinoExperience();
-        //}else{
+        String choice = consoleOrGUI();
+        if(choice.equals("console")) {
+            casino.startCasinoExperience();
+        }else{
             launch(args);
-        //}
+        }
     }
 
     @Override
@@ -27,13 +28,22 @@ public class Main extends Application{
         mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(startingDisplay.createContent()));
         this.mainStage.show();
-*/
 
+*/
 
         this.mainStage = stage;
         this.mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(casinoDisplay.createCasinoContent()));
         this.mainStage.show();
+
+
+/*
+        this.mainStage = stage;
+        this.mainStage.setTitle("Casino Royale");
+        this.mainStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
+        this.mainStage.show();
+
+*/
 
     }
 

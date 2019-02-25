@@ -5,6 +5,8 @@ import io.zipcoder.casino.Games.Craps;
 import io.zipcoder.casino.Games.GoFish;
 import io.zipcoder.casino.Games.HiLo;
 import io.zipcoder.casino.Interfaces.Game;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class CasinoGames {
 
@@ -13,6 +15,13 @@ public class CasinoGames {
 
     CasinoGames(Guest guest) {
         this.currentGuest = guest;
+    }
+
+    void runSelectedGUIGames() {
+        Stage newStage = new Stage();
+        CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
+        newStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
+        newStage.show();
     }
 
     void runSelectedGames() {

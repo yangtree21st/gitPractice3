@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 
 public class Display{
@@ -52,26 +53,15 @@ public class Display{
 
         ColumnConstraints colConstraint = new ColumnConstraints();
         colConstraint.setHalignment(HPos.CENTER);
+        colConstraint.setPercentWidth(15);
 
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setValignment(VPos.CENTER);
 
         // add constraints for columns
         grid.getColumnConstraints().addAll(colConstraint, colConstraint, colConstraint,colConstraint,colConstraint);
+        grid.setGridLinesVisible(true);
 
-
-/*
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setPercentWidth(10);
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setPercentWidth(10);
-        ColumnConstraints column3 = new ColumnConstraints();
-        column3.setPercentWidth(10);
-        ColumnConstraints column4 = new ColumnConstraints();
-        column4.setPercentWidth(10);
-        ColumnConstraints column5 = new ColumnConstraints();
-        column5.setPercentWidth(10);
-        grid.getColumnConstraints().addAll(column1, column2,column3,column4,column5);
 
         RowConstraints row1 = new RowConstraints();
         row1.setPercentHeight(10);
@@ -85,10 +75,15 @@ public class Display{
         row5.setPercentHeight(10);
 
 
-        grid.getRowConstraints().addAll(row1,row2,row3);
-*/
+        grid.getRowConstraints().addAll(row1,row2,row3,row4, row5);
+
 
         return grid;
+    }
+
+    public Stage setExitAction(Button buttonToExit){
+        return (Stage) buttonToExit.getScene().getWindow();
+
     }
 
 }

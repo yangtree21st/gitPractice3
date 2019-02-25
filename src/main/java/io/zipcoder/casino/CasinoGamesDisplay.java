@@ -1,12 +1,18 @@
 package io.zipcoder.casino;
 
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class CasinoGamesDisplay extends Display {
 
@@ -16,45 +22,41 @@ public class CasinoGamesDisplay extends Display {
         TextArea areaInfo = new TextArea();
         areaInfo.setPrefRowCount(2);
 
-        Text casinoGameBanner = new Text("Welcome to the Casino Floor");
-        casinoGameBanner.setFont(Font.font ("Verdana", 60));
+        Text casinoGamesBanner = new Text("Which game would you like to play?");
+        casinoGamesBanner.setFont(Font.font("Verdana", 40));
 
 
-        Button btnEnter = new Button("Enter");
-        btnEnter.setMaxWidth(Double.MAX_VALUE);
+        Button btnBlackJack = new Button("BlackJack");
+        btnBlackJack.setMaxWidth(Double.MAX_VALUE);
+        //btnBlackJack.setAlignment(Pos.CENTER);
 
-        casinoGamesGrid.add(btnEnter, 2, 2);
-        casinoGamesGrid.add(casinoGameBanner, 0,0, 5,2);
+        Button btnCraps = new Button("Craps");
+        btnCraps.setMaxWidth(Double.MAX_VALUE);
 
-        Text casinoGamesBanner = new Text("Would you like to play a casino game?");
-        casinoGamesBanner.setFont(Font.font("Verdana", 44));
+        Button btnGoFish = new Button("Go Fish");
+        btnGoFish.setMaxWidth(Double.MAX_VALUE);
 
-        Text casinoSubBanner = new Text("Please enter the below information to create a guest account");
-        casinoSubBanner.setFont(Font.font("Verdana", 15));
+        Button btnHilo = new Button("Hi-Lo");
+        //btnHilo.setAlignment(Pos.CENTER);
+        btnHilo.setMaxWidth(Double.MAX_VALUE);
 
-        TextField nameField = new TextField();
-        TextField startingBalanceField = new TextField();
-
-        Button submitInfo = new Button("Submit Information ");
-        submitInfo.setMaxWidth(Double.MAX_VALUE);
-
-        Button btnEnterCasinoFloor = new Button("Enter Game Floor ");
-        submitInfo.setMaxWidth(Double.MAX_VALUE);
+        Button btnExit = new Button("Exit Casino");
+        btnExit.setMaxWidth(Double.MAX_VALUE);
 
         casinoGamesGrid.add(casinoGamesBanner, 0, 0, 4, 1);
-        casinoGamesGrid.add(casinoSubBanner, 1, 1, 3, 1);
-        casinoGamesGrid.add(nameField, 1, 2);
-        casinoGamesGrid.add(startingBalanceField, 3, 2);
-        casinoGamesGrid.add(submitInfo, 2, 4, 1, 1);
+        casinoGamesGrid.add(btnBlackJack, 0, 2, 1, 1);
+        casinoGamesGrid.add(btnCraps, 1, 2);
+        casinoGamesGrid.add(btnGoFish, 2, 2);
+        casinoGamesGrid.add(btnHilo, 3, 2);
+        casinoGamesGrid.add(btnExit, 2, 4, 2, 1);
 
 
+        btnExit.setOnAction(e -> {
+            Stage casinoStage = super.setExitAction(btnExit);
+            casinoStage.close();
+        });
+/*
         submitInfo.setOnAction(e -> {
-            String name = nameField.getText();
-            Double amount = Double.parseDouble(startingBalanceField.getText());
-            casinoGamesGrid.add(areaInfo, 1, 4, 3, 1);
-            areaInfo.setText(Main.casino.initializeAccountCreation(name, amount));
-            casinoGamesGrid.getChildren().remove(submitInfo);
-            casinoGamesGrid.add(btnEnterCasinoFloor, 2, 5, 1, 1);
 
         });
 
@@ -62,6 +64,7 @@ public class CasinoGamesDisplay extends Display {
             CasinoGames casinoGames = new CasinoGames(Main.casino.getGuest());
             casinoGames.runSelectedGames();
         });
+        */
 
         return casinoGamesGrid;
     }
