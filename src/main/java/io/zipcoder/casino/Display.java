@@ -57,20 +57,15 @@ public class Display{
         grid.setStyle(style);
 
         //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
-        ColumnConstraints colConstraint = new ColumnConstraints();
-        colConstraint.setHalignment(HPos.CENTER);
-        colConstraint.setPercentWidth(15);
+        ColumnConstraints colConstraint = createColumnConstraints();
 
         //row constraints which sets alignment to vertically center and set height to 15% of the total size screen
-        RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setValignment(VPos.CENTER);
-        rowConstraints.setPercentHeight(10);
+        RowConstraints rowConstraints = createRowConstraints();
 
         // add constraints for columns and rows
         grid.getColumnConstraints().addAll(colConstraint, colConstraint, colConstraint,colConstraint,colConstraint);
         grid.getRowConstraints().addAll(rowConstraints,rowConstraints,rowConstraints,rowConstraints, rowConstraints);
         grid.setGridLinesVisible(true);
-
 
         return grid;
     }
@@ -78,6 +73,24 @@ public class Display{
     public Stage setExitAction(Button buttonToExit){
         return (Stage) buttonToExit.getScene().getWindow();
 
+    }
+
+    public ColumnConstraints createColumnConstraints(){
+        //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
+        ColumnConstraints colConstraint = new ColumnConstraints();
+        colConstraint.setHalignment(HPos.CENTER);
+        colConstraint.setPercentWidth(15);
+
+        return colConstraint;
+    }
+
+    public RowConstraints createRowConstraints(){
+        //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setValignment(VPos.CENTER);
+        rowConstraints.setPercentHeight(10);
+
+        return rowConstraints;
     }
 
 }

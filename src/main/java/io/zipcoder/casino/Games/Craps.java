@@ -1,10 +1,10 @@
 package io.zipcoder.casino.Games;
 
-import io.zipcoder.casino.Casino;
-import io.zipcoder.casino.Guest;
+import io.zipcoder.casino.*;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Die;
 import io.zipcoder.casino.Models.GuestAccount;
+import javafx.scene.Scene;
 
 public class Craps extends DiceGame implements Game {
 
@@ -33,6 +33,12 @@ public class Craps extends DiceGame implements Game {
     Craps(Guest testGuest, Die testDie) {
         this.currentGuest = testGuest;
         this.die = testDie;
+    }
+
+    public void playCrapsGUIFullGame(){
+        CrapsDisplay crapsDisplay = new CrapsDisplay();
+        Main.secondStage.setScene(new Scene(crapsDisplay.createCrapsContent()));
+        Main.secondStage.show();
     }
 
     /**
