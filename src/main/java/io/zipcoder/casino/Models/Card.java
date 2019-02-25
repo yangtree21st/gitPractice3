@@ -94,7 +94,7 @@ public class Card {
 
     String middleLineOfCard() {
         if (this.value == Rank.TEN) {
-            return String.format("|    10%c     |", this.getSuitAsChar());
+            return String.format("|    %s%c     |", this.getRankAsString(), this.getSuitAsChar());
         } else {
             return String.format("|     %s%c     |", this.getRankAsString(), this.getSuitAsChar());
         }
@@ -126,10 +126,8 @@ public class Card {
                 return "J";
             case QUEEN:
                 return "Q";
-            case KING:
+            default: // KING
                 return "K";
-            default:
-                return "";
         }
     }
 
@@ -141,10 +139,8 @@ public class Card {
                 return '\u2665';
             case CLUBS:
                 return '\u2663';
-            case DIAMONDS:
+            default: // DIAMONDS
                 return '\u2666';
-            default:
-                return ' ';
         }
     }
 
