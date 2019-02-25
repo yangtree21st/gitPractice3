@@ -1,4 +1,4 @@
-package io.zipcoder.casino;
+package io.zipcoder.casino.Models;
 
 import io.zipcoder.casino.Models.GuestAccount;
 import org.junit.Assert;

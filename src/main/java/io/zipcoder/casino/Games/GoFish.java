@@ -240,6 +240,16 @@ public class GoFish extends CardGame implements Game {
     public void quitGame() {
 
     }
+    public void takeTurn() {
+
+    }
+    public void winning() {
+
+    }
+
+    public void losing() {
+
+    }
 }
 
         /*public Hand getPlayerHand (GoFishPlayer player){
