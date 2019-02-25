@@ -27,8 +27,9 @@ public class Craps extends DiceGame implements Game {
     /**
      * Constructor for testing purposes only! This will allow me to construct a non-random die, to create predictable
      * results for testing purposes.
+     *
      * @param testGuest guest who is playing the game
-     * @param testDie die that will be used to create the rolls
+     * @param testDie   die that will be used to create the rolls
      */
     Craps(Guest testGuest, Die testDie) {
         this.currentGuest = testGuest;
@@ -328,18 +329,6 @@ public class Craps extends DiceGame implements Game {
     Guest getCurrentGuest() {
         return currentGuest;
     }
-
-    public void updateDisplay(){}
-
-    public void setUp(){}
-
-    public void takeTurn(){}
-
-    public void quitGame(){}
-
-    public void winning(){}
-
-    public void losing(){}
 
 //        public static void main(String[] args) {
 //        Casino casino = new Casino();
