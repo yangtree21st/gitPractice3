@@ -31,39 +31,59 @@ public class CrapsTest {
     private final int SEVEN_OUT_SEED = 1; //10
 
 
+    @Test
+    public void normalConstructorTest() {
+        // Given
+        Guest expectedGuest = new Guest("", new GuestAccount("", 0, 0.0));
+        Craps craps = new Craps(expectedGuest);
+
+        // When
+        Guest actualGuest = craps.getCurrentGuest();
+
+        // Then
+        Assert.assertEquals(expectedGuest, actualGuest);
+    }
 
     @Test
     public void playFullGameTest1() {
-        // Hit point, Pass Bet, Should return true
+        // Hit point seed, Pass Bet, Bet is $100, Starting balance is $2000, new balance should be $2100
         // Given
-        String input = "\n\n\n\n\n\n";
+        String input = "yes\nyes\npass\n100\n\n\n\n\n\n\nno\n";
         bytArrInpStr = new ByteArrayInputStream(input.getBytes());
         bytArrOutStr = new ByteArrayOutputStream();
         testCasino = getCasinoWithBufferedInputAndOutput(input, bytArrOutStr);
-        testCraps = getNewCraps(new Random(HIT_POINT_SEED));
+        Double startingBalance = 2000.0;
+        testCraps = getNewCraps(startingBalance, new Random(HIT_POINT_SEED));
+
+        Double expectedNewBalance = 2100.0;
 
         // When
-        boolean hasWon = testCraps.shootCraps(TypeOfBet.PASS);
+        testCraps.playFullGame();
+        Double actualNewBalance = testCraps.getCurrentGuest().getAccountBalance();
 
         // Then
-        Assert.assertTrue(hasWon);
+        Assert.assertEquals(expectedNewBalance, actualNewBalance, .0000000001);
     }
 
     @Test
     public void playFullGameTest2() {
-        // Hit point, Don't Pass Bet, Should return false
+        // Hit point seed, Pass Bet, Bet is $100, Starting balance is $2000, new balance should be $2100
         // Given
-        String input = "\n\n\n\n\n\n";
+        String input = "yes\nyes\ndon't pass\n100\n\n\n\n\n\n\nno\n";
         bytArrInpStr = new ByteArrayInputStream(input.getBytes());
         bytArrOutStr = new ByteArrayOutputStream();
         testCasino = getCasinoWithBufferedInputAndOutput(input, bytArrOutStr);
-        testCraps = getNewCraps(new Random(HIT_POINT_SEED));
+        Double startingBalance = 2000.0;
+        testCraps = getNewCraps(startingBalance, new Random(HIT_POINT_SEED));
+
+        Double expectedNewBalance = 1900.0;
 
         // When
-        boolean hasWon = testCraps.shootCraps(TypeOfBet.DONT_PASS);
+        testCraps.playFullGame();
+        Double actualNewBalance = testCraps.getCurrentGuest().getAccountBalance();
 
         // Then
-        Assert.assertFalse(hasWon);
+        Assert.assertEquals(expectedNewBalance, actualNewBalance, .0000000001);
     }
 
     @Test
@@ -523,7 +543,7 @@ public class CrapsTest {
         bytArrInpStr = new ByteArrayInputStream(input.getBytes());
         bytArrOutStr = new ByteArrayOutputStream();
         testCasino = getCasinoWithBufferedInputAndOutput(input, bytArrOutStr);
-        testCraps = getNewCraps(1000.0);
+        testCraps = getNewCraps(1100.0);
 
         Double expectedBet = 500.0;
 
@@ -587,16 +607,20 @@ public class CrapsTest {
         return new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
     }
 
+    private Craps getNewCraps(Double balance, Random testRandom) {
+        return new Craps(new Guest("", new GuestAccount("", 1, balance)), new Die(testRandom));
+    }
+
     private Craps getNewCraps(Random testRandom) {
-        return new Craps(new Guest("", new GuestAccount("", 1, 1000.0)), new Die(testRandom));
+        return getNewCraps(1000.0, testRandom);
     }
 
     private Craps getNewCraps(Double balance) {
-        return new Craps(new Guest("", new GuestAccount("", 1, balance)), new Die());
+        return getNewCraps(balance, new Random());
     }
 
     private Craps getNewCraps() {
-        return new Craps(new Guest("", new GuestAccount("", 1, 1000.0)), new Die());
+        return getNewCraps(1000.0, new Random());
     }
 
 }

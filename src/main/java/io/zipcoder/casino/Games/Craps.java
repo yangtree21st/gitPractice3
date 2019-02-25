@@ -4,6 +4,7 @@ import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Die;
+import io.zipcoder.casino.Models.GuestAccount;
 
 public class Craps extends DiceGame implements Game {
 
@@ -328,10 +329,10 @@ public class Craps extends DiceGame implements Game {
         return currentGuest;
     }
 
-    //    public static void main(String[] args) {
-//        Casino casino = new Casino();
-//        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
-//        craps.playFullGame();
-//    }
+        public static void main(String[] args) {
+        Casino casino = new Casino();
+        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
+        craps.playFullGame();
+    }
 
 }
