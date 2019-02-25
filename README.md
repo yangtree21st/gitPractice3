@@ -6,8 +6,8 @@
 * Your application must have at the very least 4 games:
   * Go Fish a card game
   * BlackJack a card game
-  * Craps a dice game
-  * An additional dice game
+  * Craps a die game
+  * An additional die game
 
 ## Specs
 * The project should include some concept of
