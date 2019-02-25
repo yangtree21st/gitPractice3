@@ -329,10 +329,22 @@ public class Craps extends DiceGame implements Game {
         return currentGuest;
     }
 
-        public static void main(String[] args) {
-        Casino casino = new Casino();
-        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
-        craps.playFullGame();
-    }
+    public void updateDisplay(){}
+
+    public void setUp(){}
+
+    public void takeTurn(){}
+
+    public void quitGame(){}
+
+    public void winning(){}
+
+    public void losing(){}
+
+//        public static void main(String[] args) {
+//        Casino casino = new Casino();
+//        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
+//        craps.playFullGame();
+//    }
 
 }
