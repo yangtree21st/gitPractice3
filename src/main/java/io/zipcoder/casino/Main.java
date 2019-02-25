@@ -23,23 +23,23 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-
+/*
         this.mainStage = stage;
         mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(startingDisplay.createContent()));
         this.mainStage.show();
-/*
+
         this.mainStage = stage;
         this.mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(casinoDisplay.createCasinoContent()));
         this.mainStage.show();
-
+*/
         this.mainStage = stage;
         this.mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
         this.mainStage.show();
 
-*/
+
     }
 
     public static String consoleOrGUI(){
