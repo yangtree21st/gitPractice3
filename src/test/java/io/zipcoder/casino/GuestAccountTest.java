@@ -99,7 +99,7 @@ public void createGuestAccountTest1() {
 
 
 
-        //
+        //Then
         Assert.assertEquals(expected, actual);
     }
 
@@ -133,7 +133,7 @@ public void createGuestAccountTest1() {
 
 
 
-        //
+        //Then
         Assert.assertEquals(expected, actual);
     }
 
