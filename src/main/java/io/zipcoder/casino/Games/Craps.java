@@ -15,7 +15,7 @@ public class Craps extends DiceGame implements Game {
     private enum TypeOfBet {PASS, DONT_PASS}
 
     /**
-     * Constructor. Creates two die, and assigns the specified guest to the currentGuest field.
+     * Constructor. Creates a die, and assigns the specified guest to the currentGuest field.
      *
      * @param newGuest guest who is playing the game.
      */
@@ -51,13 +51,13 @@ public class Craps extends DiceGame implements Game {
             continuePlaying = yesOrNoQuestion("Would you like to play again? (yes or no):");
         }
 
-        println("Thanks for visiting the Craps table!");
+        println("We hope you enjoyed your visit to the Craps table!");
     }
 
 
     /**
-     * This method takes care of the actual rolling of the die. It takes in the currentTypeOfBet and determines whether
-     * the player wins or loses based on the rolling of the die. It asks the user to enter any key to make a roll, keeping
+     * This method takes care of the actual rolling of the dice. It takes in the currentTypeOfBet and determines whether
+     * the player wins or loses based on the rolling of the dice. It asks the user to enter any key to make a roll, keeping
      * the game from being determined instantly. After each roll, the result of the roll will be displayed to the screen,
      * along with a message saying whether the player has won, lost, or needs to roll again.
      *
@@ -67,16 +67,15 @@ public class Craps extends DiceGame implements Game {
     boolean shootCraps(TypeOfBet currentTypeOfBet) {
         boolean playerHasWon = comeOutRoll(currentTypeOfBet);
 
-        if (this.roundIsStillGoing) {
+        while (this.roundIsStillGoing) {
             playerHasWon = pointRoll(currentTypeOfBet);
         }
 
         return playerHasWon;
     }
 
-
     private boolean comeOutRoll(TypeOfBet currentTypeOfBet) {
-        println("It is now time for the Come-Out roll");
+        println("It is now time for the Come-Out roll.");
         int totalValue = diceRoll();
 
         while (totalValue == 12 && currentTypeOfBet == TypeOfBet.DONT_PASS) {
@@ -88,13 +87,14 @@ public class Craps extends DiceGame implements Game {
         if (totalValue == 2 || totalValue == 3 || totalValue == 12) {
             hasWon = false;
             this.roundIsStillGoing = false;
-            println("Natural!");
+            println("Craps!");
         } else if (totalValue == 7 || totalValue == 11) {
             hasWon = true;
             this.roundIsStillGoing = false;
-            println("Craps!");
+            println("Natural!");
         } else {
             hasWon = false; // This value is never checked, but need to return a value so as not to cause a null pointer exception
+            this.roundIsStillGoing = true;
             this.point = totalValue;
             println("The point is now %d!", this.point);
         }
@@ -107,17 +107,31 @@ public class Craps extends DiceGame implements Game {
         return hasWon;
     }
 
-    private int diceRoll() {
-        getStringInput("Press Enter to roll die");
-        int diceRoll1 = this.die.getDiceRoll();
-        int diceRoll2 = this.die.getDiceRoll();
-        displaySingleRollResult(diceRoll1);
-        displaySingleRollResult(diceRoll2);
-        return diceRoll1 + diceRoll2;
-    }
-
     private boolean pointRoll(TypeOfBet currentTypeOfBet) {
-        return false;
+        println("Please roll again.");
+        int totalValue = diceRoll();
+
+        boolean hasWon;
+        if (totalValue == 7) {
+            hasWon = false;
+            this.roundIsStillGoing = false;
+            println("Seven-Out!");
+        } else if (totalValue == this.point) {
+            hasWon = true;
+            this.roundIsStillGoing = false;
+            println("You've hit the Point!");
+        } else {
+            hasWon = false; // This value is never checked, but need to return a value so as not to cause a null pointer exception
+            this.roundIsStillGoing = true;
+            println("Roll again, the point is still %d!", this.point);
+        }
+
+        // If the bet is Don't Pass, then the result of the hasWon condition needs to be reversed.
+        if (currentTypeOfBet == TypeOfBet.DONT_PASS) {
+            hasWon = !hasWon;
+        }
+
+        return hasWon;
     }
 
 
@@ -134,10 +148,10 @@ public class Craps extends DiceGame implements Game {
     void payOut(boolean hasWon, Double currentBet) {
         if (hasWon) {
             this.currentGuest.addFunds(currentBet * 2);
-            println("You won $%.2f!\nYour balance is now %.2f.", currentBet, this.currentGuest.getAccountBalance());
+            println("You won $%.2f!\nYour balance is now $%.2f.", currentBet, this.currentGuest.getAccountBalance());
         } else {
-            println("Better luck next time!\nYour bet of %.2f has been taken by the Casino\n" +
-                    "Your balance is now %.2f.", currentBet, this.currentGuest.getAccountBalance());
+            println("Better luck next time!\nYour bet of $%.2f has been taken by the Casino.\n" +
+                    "Your balance is now $%.2f.", currentBet, this.currentGuest.getAccountBalance());
         }
     }
 
@@ -204,15 +218,15 @@ public class Craps extends DiceGame implements Game {
      * yes to a preceding question, asking them if they would like to read the instructions.
      */
     private void printInstructions() {
-        println("Craps is a die game involving the rolling of two die. You win or lose money depending on what the result of the die tosses are.\n" +
+        println("Craps is a dice game involving the rolling of two dice. You win or lose money depending on what the result of the dice tosses are.\n" +
                 "The game is split into two phases: the first roll, called the Come-Out roll, and every subsequent roll, which are called Point rolls.\n\n" +
                 "There are two main bets in the game of Craps - Pass and Don’t Pass, which both pay even money. Let’s explain the Pass bet first.\n\n" +
-                "Let’s say you make a Pass bet. The first thing you do is pick up the two die and roll them for the come-out roll. If you roll a 7 or\n" +
+                "Let’s say you make a Pass bet. The first thing you do is pick up the two dice and roll them for the come-out roll. If you roll a 7 or\n" +
                 "an 11 on your come-out roll (this is called rolling a Natural) you win. If you roll a 2, 3, or 12 (called rolling Craps) you lose.\n\n" +
                 "If you roll anything else (a 4, 5, 6, 8, 9, or 10) that specific roll result becomes the “Point”, and you enter the second phase of the\n" +
                 "game. Once you establish a Point, your goal becomes to roll the Point again before rolling a 7. If you roll the Point, you win, if you\n" +
-                "roll a 7(called a Seven-Out), you lose, if you roll anything else, nothing happens and you roll again.\n\n" +
-                "Now let’s explain the Don’t Pass bet.\n" +
+                "roll a 7 (called a Seven-Out), you lose, if you roll anything else, nothing happens and you roll again.\n\n" +
+                "Now let’s explain the Don’t Pass bet.\n\n" +
                 "The Don’t Pass bet is essentially the opposite of the Pass bet. You win when the Pass bet loses, and you lose when the Pass bet wins.\n" +
                 "Thus, the ways of winning a Don’t Pass bet are either rolling Craps or getting a Seven-Out. The ways of losing are rolling a Natural\n" +
                 "or rolling the Point. The only difference is that if you roll a 12 on the come-out roll, the round is over but you neither win nor lose\n" +
@@ -258,23 +272,34 @@ public class Craps extends DiceGame implements Game {
      * @return the Double value of the amount the user is betting
      */
     Double takeBetFromPlayer() {
-        println("Your current balance is %.2f", currentGuest.getAccountBalance());
+        println("Your current balance is $%.2f", currentGuest.getAccountBalance());
         Double bet = getDoubleInput("Please enter how much you would like to bet:");
 
-        while (!(currentGuest.getAccountBalance() - bet > .00001)) {
-            println("Sorry, you don't have enough money to make a bet of ");
-            bet = getDoubleInput("Please enter a bet that is less than your balance of %.2f:", currentGuest.getAccountBalance());
+        while (!(currentGuest.getAccountBalance() - bet > -.00001)) {
+            println("Sorry, you don't have enough money to make a bet of $%.2f", bet);
+            bet = getDoubleInput("Please enter a bet that is less than your balance of $%.2f:", currentGuest.getAccountBalance());
         }
 
         currentGuest.removeFunds(bet);
         return bet;
     }
 
-    public static void main(String[] args) {
-        Casino casino = new Casino();
-        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
-        craps.playFullGame();
-    }
+//    public static void main(String[] args) {
+//        Casino casino = new Casino();
+//        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
+//        craps.playFullGame();
+//    }
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void updateDisplay() {
