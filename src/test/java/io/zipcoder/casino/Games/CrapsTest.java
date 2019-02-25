@@ -17,7 +17,6 @@ public class CrapsTest {
     }
 
 
-
     @Test
     public void choiceToPlay() {
     }
@@ -46,11 +45,11 @@ public class CrapsTest {
         return new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
     }
 
-    private Craps getNewCraps(){
+    private Craps getNewCraps() {
         return this.getNewCraps(0.0);
     }
 
-    private Craps getNewCraps(Double startingBalance){
+    private Craps getNewCraps(Double startingBalance) {
         return new Craps(new Guest("", new GuestAccount("", 1, startingBalance)));
     }
 }

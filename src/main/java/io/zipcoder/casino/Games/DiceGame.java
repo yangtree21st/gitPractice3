@@ -1,10 +1,14 @@
 package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.Models.Die;
 
 public abstract class DiceGame {
+    Die die;
 
-    void displaySingleDie(Integer value) {
+
+
+    void displaySingleRollResult(Integer value) {
         String representation = createDieRepresentation(value);
         Casino.console.print(representation);
     }

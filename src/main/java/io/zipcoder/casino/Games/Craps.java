@@ -3,24 +3,25 @@ package io.zipcoder.casino.Games;
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.Game;
-import io.zipcoder.casino.Models.Dice;
+import io.zipcoder.casino.Models.Die;
 import io.zipcoder.casino.Models.GuestAccount;
 
 public class Craps extends DiceGame implements Game {
 
     private Guest currentGuest;
-    private Dice dice1;
-    private Dice dice2;
+    private boolean roundIsStillGoing;
+    private int point;
+
     private enum TypeOfBet {PASS, DONT_PASS}
 
     /**
-     * Constructor. Creates two dice, and assigns the specified guest to the currentGuest field.
+     * Constructor. Creates two die, and assigns the specified guest to the currentGuest field.
+     *
      * @param newGuest guest who is playing the game.
      */
     public Craps(Guest newGuest) {
         currentGuest = newGuest;
-        dice1 = new Dice();
-        dice2 = new Dice();
+        die = new Die();
     }
 
     /**
@@ -43,7 +44,7 @@ public class Craps extends DiceGame implements Game {
             TypeOfBet currentTypeOfBet = getTypeOfBetFromPlayer();
             Double currentBet = takeBetFromPlayer();
 
-            boolean hasWon = playCraps(currentTypeOfBet);
+            boolean hasWon = shootCraps(currentTypeOfBet);
 
             payOut(hasWon, currentBet);
 
@@ -55,41 +56,79 @@ public class Craps extends DiceGame implements Game {
 
 
     /**
-     * This method takes care of the actual rolling of the dice. It takes in the currentTypeOfBet and determines whether
-     * the player wins or loses based on the rolling of the dice. It asks the user to enter any key to make a roll, keeping
+     * This method takes care of the actual rolling of the die. It takes in the currentTypeOfBet and determines whether
+     * the player wins or loses based on the rolling of the die. It asks the user to enter any key to make a roll, keeping
      * the game from being determined instantly. After each roll, the result of the roll will be displayed to the screen,
      * along with a message saying whether the player has won, lost, or needs to roll again.
      *
      * @param currentTypeOfBet indicates which type of bet the player has made, which determines the win/lose conditions
      * @return a boolean indicating whether a player has won or lost. true = win, false = lose.
      */
-    boolean playCraps(TypeOfBet currentTypeOfBet) { //TODO
-        getLowerCaseStringInput("Press Enter to roll");
-        if (currentTypeOfBet == TypeOfBet.PASS) {
-            return true;
+    boolean shootCraps(TypeOfBet currentTypeOfBet) {
+        boolean playerHasWon = comeOutRoll(currentTypeOfBet);
+
+        if (this.roundIsStillGoing) {
+            playerHasWon = pointRoll(currentTypeOfBet);
         }
-//        boolean roundOver = false;
-//        boolean hasWon = false;
-//
-//        while(!roundOver) {
-//            // Come out roll
-//            // Point roll
-//
-//            roundOver = true;
-//        }
-//
-//        return hasWon;
+
+        return playerHasWon;
+    }
+
+
+    private boolean comeOutRoll(TypeOfBet currentTypeOfBet) {
+        println("It is now time for the Come-Out roll");
+        int totalValue = diceRoll();
+
+        while (totalValue == 12 && currentTypeOfBet == TypeOfBet.DONT_PASS) {
+            println("Push! Please roll the Come-Out roll again.");
+            totalValue = diceRoll();
+        }
+
+        boolean hasWon;
+        if (totalValue == 2 || totalValue == 3 || totalValue == 12) {
+            hasWon = false;
+            this.roundIsStillGoing = false;
+            println("Natural!");
+        } else if (totalValue == 7 || totalValue == 11) {
+            hasWon = true;
+            this.roundIsStillGoing = false;
+            println("Craps!");
+        } else {
+            hasWon = false; // This value is never checked, but need to return a value so as not to cause a null pointer exception
+            this.point = totalValue;
+            println("The point is now %d!", this.point);
+        }
+
+        // If the bet is Don't Pass, then the result of the hasWon condition needs to be reversed.
+        if (currentTypeOfBet == TypeOfBet.DONT_PASS) {
+            hasWon = !hasWon;
+        }
+
+        return hasWon;
+    }
+
+    private int diceRoll() {
+        getStringInput("Press Enter to roll die");
+        int diceRoll1 = this.die.getDiceRoll();
+        int diceRoll2 = this.die.getDiceRoll();
+        displaySingleRollResult(diceRoll1);
+        displaySingleRollResult(diceRoll2);
+        return diceRoll1 + diceRoll2;
+    }
+
+    private boolean pointRoll(TypeOfBet currentTypeOfBet) {
         return false;
     }
+
 
     /**
      * This method determines the appropriate payout based on the win/lose result of the preceding game of Craps.
      * If the player has won (hasWon == true), then the currentBet * 2 is added to the player's balance (i.e., they get
      * their original bet back plus their winnings)
      * If the player has lost (hasWon == false), then they get nothing (i.e., their original bet is taken by the Casino)
-     * Either way, their new account balance is printed to the screen.
+     * Either way, their updated account balance is printed to the screen.
      *
-     * @param hasWon whether the player has won the preceding game of Craps (true = win, false = lose)
+     * @param hasWon     whether the player has won the preceding game of Craps (true = win, false = lose)
      * @param currentBet the amount the player bet on the preceding game of Craps
      */
     void payOut(boolean hasWon, Double currentBet) {
@@ -102,10 +141,23 @@ public class Craps extends DiceGame implements Game {
         }
     }
 
+
     /**
      * This uses the Casino class's console to get String input from the user.
+     *
      * @param prompt The text prompt that displays
-     * @param args formatting arguments for the prompt, if any
+     * @param args   formatting arguments for the prompt, if any
+     * @return the String that the user inputs
+     */
+    private String getStringInput(String prompt, Object... args) {
+        return Casino.console.getStringInput(prompt, args).toLowerCase();
+    }
+
+    /**
+     * This uses the Casino class's console to get String input from the user, and then converts the input to lower case.
+     *
+     * @param prompt The text prompt that displays
+     * @param args   formatting arguments for the prompt, if any
      * @return the String that the user inputs
      */
     private String getLowerCaseStringInput(String prompt, Object... args) {
@@ -114,8 +166,9 @@ public class Craps extends DiceGame implements Game {
 
     /**
      * This uses the Casino class's console to get Double input from the user.
+     *
      * @param prompt The text prompt that displays
-     * @param args formatting arguments for the prompt, if any
+     * @param args   formatting arguments for the prompt, if any
      * @return the Double that the user inputs
      */
     private Double getDoubleInput(String prompt, Object... args) {
@@ -124,7 +177,8 @@ public class Craps extends DiceGame implements Game {
 
     /**
      * This simply uses the Casino class's console to print output to the screen.
-     * @param val String to print
+     *
+     * @param val  String to print
      * @param args formatting args, if any
      */
     private void println(String val, Object... args) {
@@ -133,6 +187,7 @@ public class Craps extends DiceGame implements Game {
 
     /**
      * This asks the user a yes or no question, makes sure they answer yes or no, and returns what they wrote.
+     *
      * @param prompt the text prompt that displays
      * @return the user's answer, yes or no
      */
@@ -149,10 +204,10 @@ public class Craps extends DiceGame implements Game {
      * yes to a preceding question, asking them if they would like to read the instructions.
      */
     private void printInstructions() {
-        println("Craps is a dice game involving the rolling of two dice. You win or lose money depending on what the result of the dice tosses are.\n" +
+        println("Craps is a die game involving the rolling of two die. You win or lose money depending on what the result of the die tosses are.\n" +
                 "The game is split into two phases: the first roll, called the Come-Out roll, and every subsequent roll, which are called Point rolls.\n\n" +
                 "There are two main bets in the game of Craps - Pass and Don’t Pass, which both pay even money. Let’s explain the Pass bet first.\n\n" +
-                "Let’s say you make a Pass bet. The first thing you do is pick up the two dice and roll them for the come-out roll. If you roll a 7 or\n" +
+                "Let’s say you make a Pass bet. The first thing you do is pick up the two die and roll them for the come-out roll. If you roll a 7 or\n" +
                 "an 11 on your come-out roll (this is called rolling a Natural) you win. If you roll a 2, 3, or 12 (called rolling Craps) you lose.\n\n" +
                 "If you roll anything else (a 4, 5, 6, 8, 9, or 10) that specific roll result becomes the “Point”, and you enter the second phase of the\n" +
                 "game. Once you establish a Point, your goal becomes to roll the Point again before rolling a 7. If you roll the Point, you win, if you\n" +
@@ -206,7 +261,7 @@ public class Craps extends DiceGame implements Game {
         println("Your current balance is %.2f", currentGuest.getAccountBalance());
         Double bet = getDoubleInput("Please enter how much you would like to bet:");
 
-        while (! (currentGuest.getAccountBalance() - bet > .00001)) {
+        while (!(currentGuest.getAccountBalance() - bet > .00001)) {
             println("Sorry, you don't have enough money to make a bet of ");
             bet = getDoubleInput("Please enter a bet that is less than your balance of %.2f:", currentGuest.getAccountBalance());
         }
@@ -220,24 +275,6 @@ public class Craps extends DiceGame implements Game {
         Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
         craps.playFullGame();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     public void updateDisplay() {
