@@ -94,8 +94,8 @@ public class Craps extends DiceGame implements Game {
      */
     int rollDice() {
         getStringInput("Press Enter to roll dice");
-        int diceRoll1 = rollSingleDieAndDisplayResult();
-        int diceRoll2 = rollSingleDieAndDisplayResult();
+        int diceRoll1 = rollSingleDieAndDisplayResult(this.die);
+        int diceRoll2 = rollSingleDieAndDisplayResult(this.die);
         println("");
         return diceRoll1 + diceRoll2;
     }

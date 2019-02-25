@@ -10,8 +10,8 @@ public abstract class DiceGame {
      * Rolls a single die, displays the result, and returns the value of the die roll
      * @return the int value of the die roll
      */
-    int rollSingleDieAndDisplayResult() {
-        int dieRollResult = this.die.getSingleDieRoll();
+    static int rollSingleDieAndDisplayResult(Die die) {
+        int dieRollResult = die.getSingleDieRoll();
         displaySingleRollResult(dieRollResult);
         return dieRollResult;
     }
@@ -21,7 +21,7 @@ public abstract class DiceGame {
      *
      * @param value the integer value of the die roll to be displayed.
      */
-    private void displaySingleRollResult(Integer value) {
+    static private void displaySingleRollResult(Integer value) {
         String representation = createDieRepresentation(value);
         Casino.console.print(representation);
     }
@@ -39,7 +39,7 @@ public abstract class DiceGame {
      * @param value the integer value of the die roll to be displayed
      * @return a String representation of the die roll
      */
-    private String createDieRepresentation(Integer value) {
+    static private String createDieRepresentation(Integer value) {
         return boundaryLineOfDie() +
                 firstRowOfDie(value) +
                 secondRowOfDie(value) +
@@ -51,7 +51,7 @@ public abstract class DiceGame {
      * creates and returns the top or bottom lines of the die representation
      * @return the bottom or top line of the die representation
      */
-    private String boundaryLineOfDie() {
+    static private String boundaryLineOfDie() {
         return "---------\n";
     }
 
@@ -59,7 +59,7 @@ public abstract class DiceGame {
      * @param value the integer value of the die roll
      * @return the String representation of the first row of the die
      */
-    private String firstRowOfDie(Integer value) {
+    static private String firstRowOfDie(Integer value) {
         String result = "";
 
         if (value == 6 || value == 5 || value == 4) {
@@ -77,7 +77,7 @@ public abstract class DiceGame {
      * @param value the integer value of the die roll
      * @return the String representation of the second row of the die
      */
-    private String secondRowOfDie(Integer value) {
+    static private String secondRowOfDie(Integer value) {
         String result = "";
 
         if (value == 6) {
@@ -95,7 +95,7 @@ public abstract class DiceGame {
      * @param value the integer value of the die roll
      * @return the String representation of the third row of the die
      */
-    private String thirdRowOfDie(Integer value) {
+    static private String thirdRowOfDie(Integer value) {
         String result = "";
 
         if (value == 6 || value == 5 || value == 4) {
