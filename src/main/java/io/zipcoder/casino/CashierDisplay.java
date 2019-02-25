@@ -1,6 +1,5 @@
 package io.zipcoder.casino;
 
-import io.zipcoder.casino.Models.GuestAccount;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;

@@ -17,7 +17,7 @@ public class CasinoGames {
         this.currentGuest = guest;
     }
 
-    void runSelectedGUIGames() {
+    public void runSelectedGUIGames() {
         Stage newStage = new Stage();
         CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
         newStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
@@ -64,7 +64,7 @@ public class CasinoGames {
 
         while(!(gameChoice.equals("gofish") || gameChoice.equals("blackjack") || gameChoice.equals("hilo") || gameChoice.equals("craps"))) {
             gameChoice = Casino.console.getStringInput("Error: Please enter one of the following games exactly as they are written\n" +
-                    "'GoFish', 'BlackJack', 'HiLo', or 'Craps'");
+                    "'GoFish', 'BlackJack', 'HiLo', or 'Craps'").toLowerCase();
         }
 
         return gameChoice;

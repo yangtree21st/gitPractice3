@@ -1,15 +1,10 @@
 package io.zipcoder.casino;
 
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
+import io.zipcoder.casino.Games.Craps;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -18,12 +13,13 @@ public class CasinoGamesDisplay extends Display {
 
     public Parent createCasinoGamesContent() {
         GridPane casinoGamesGrid = super.createGrid();
+        casinoGamesGrid.getColumnConstraints().remove(1);
 
         TextArea areaInfo = new TextArea();
         areaInfo.setPrefRowCount(2);
 
         Text casinoGamesBanner = new Text("Which game would you like to play?");
-        casinoGamesBanner.setFont(Font.font("Verdana", 40));
+        casinoGamesBanner.setFont(Font.font("Verdana", 30));
 
 
         Button btnBlackJack = new Button("BlackJack");
@@ -44,27 +40,34 @@ public class CasinoGamesDisplay extends Display {
         btnExit.setMaxWidth(Double.MAX_VALUE);
 
         casinoGamesGrid.add(casinoGamesBanner, 0, 0, 4, 1);
-        casinoGamesGrid.add(btnBlackJack, 0, 2, 1, 1);
-        casinoGamesGrid.add(btnCraps, 1, 2);
-        casinoGamesGrid.add(btnGoFish, 2, 2);
-        casinoGamesGrid.add(btnHilo, 3, 2);
-        casinoGamesGrid.add(btnExit, 2, 4, 2, 1);
+        casinoGamesGrid.add(btnBlackJack, 0, 1, 1, 1);
+        casinoGamesGrid.add(btnCraps, 1, 1);
+        casinoGamesGrid.add(btnGoFish, 2, 1);
+        casinoGamesGrid.add(btnHilo, 3, 1);
+        casinoGamesGrid.add(btnExit, 1, 3, 2, 1);
 
 
         btnExit.setOnAction(e -> {
             Stage casinoStage = super.setExitAction(btnExit);
             casinoStage.close();
         });
-/*
-        submitInfo.setOnAction(e -> {
+
+        btnBlackJack.setOnAction(e -> {
 
         });
 
-        btnEnterCasinoFloor.setOnAction(e -> {
-            CasinoGames casinoGames = new CasinoGames(Main.casino.getGuest());
-            casinoGames.runSelectedGames();
+        btnCraps.setOnAction(e -> {
+            Craps crapsGames = new Craps(Main.casino.getGuest());
+            //crapsGames.playCrapsGUIFullGame();
         });
-        */
+
+        btnGoFish.setOnAction(e -> {
+
+        });
+
+        btnHilo.setOnAction(e -> {
+
+        });
 
         return casinoGamesGrid;
     }

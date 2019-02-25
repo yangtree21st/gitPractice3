@@ -96,6 +96,7 @@ public class HiLoGameTest {
 
 
     }
+    /*
     @Test
     public void winningTest(){
         //Given
@@ -109,9 +110,6 @@ public class HiLoGameTest {
 
         //Then
     }
-
-
-
-
+    */
 
 }

@@ -1,5 +1,6 @@
 package io.zipcoder.casino;
 
+import io.zipcoder.casino.Main;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,10 +28,11 @@ public class Display{
 
         Button btnEnter = new Button("Enter");
         btnEnter.setAlignment(Pos.CENTER);
-        //btnEnter.setMaxWidth(Double.MAX_VALUE);
+        btnEnter.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
-        grid.add(btnEnter, 0, 1);
-        grid.add(enterBanner, 0,0);
+        grid.add(enterBanner, 0, 1,5,1);
+        grid.add(btnEnter, 2,3,1,1);
+
 
         btnEnter.setOnAction(e -> {
             Main.casino.startCasinoGuiExperience();
@@ -43,39 +45,31 @@ public class Display{
         GridPane grid = new GridPane();
         grid.setPrefSize(1000, 600);
         grid.setAlignment(Pos.CENTER);
-        //additonal changes
+
+        //sets the padding between cells
         grid.setVgap(10);
         grid.setHgap(10);
+        //sets padding
         grid.setPadding(new Insets(15, 15, 15, 15));
+        //sets the background to the rgba value
         grid.setBackground(Background.EMPTY);
         String style = "-fx-background-color: rgba(67, 30, 30, 0.8);";
         grid.setStyle(style);
 
+        //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
         ColumnConstraints colConstraint = new ColumnConstraints();
         colConstraint.setHalignment(HPos.CENTER);
         colConstraint.setPercentWidth(15);
 
+        //row constraints which sets alignment to vertically center and set height to 15% of the total size screen
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setValignment(VPos.CENTER);
+        rowConstraints.setPercentHeight(10);
 
-        // add constraints for columns
+        // add constraints for columns and rows
         grid.getColumnConstraints().addAll(colConstraint, colConstraint, colConstraint,colConstraint,colConstraint);
+        grid.getRowConstraints().addAll(rowConstraints,rowConstraints,rowConstraints,rowConstraints, rowConstraints);
         grid.setGridLinesVisible(true);
-
-
-        RowConstraints row1 = new RowConstraints();
-        row1.setPercentHeight(10);
-        RowConstraints row2 = new RowConstraints();
-        row2.setPercentHeight(10);
-        RowConstraints row3 = new RowConstraints();
-        row3.setPercentHeight(10);
-        RowConstraints row4 = new RowConstraints();
-        row4.setPercentHeight(10);
-        RowConstraints row5 = new RowConstraints();
-        row5.setPercentHeight(10);
-
-
-        grid.getRowConstraints().addAll(row1,row2,row3,row4, row5);
 
 
         return grid;
