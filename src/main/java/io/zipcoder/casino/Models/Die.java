@@ -10,8 +10,19 @@ import java.util.Random;
 public class Die {
     private Random random;
 
+    /**
+     * Standard constructor for die. Creates a die with a random seed.
+     */
     public Die() {
         this.random = new Random();
+    }
+
+    /**
+     * Constructor for testing purposes only! Allows the creation of a non-random die for predictable results.
+     * @param testRandom a supplied random, that will be non-random.
+     */
+    public Die(Random testRandom) {
+        this.random = testRandom;
     }
 
     /**
