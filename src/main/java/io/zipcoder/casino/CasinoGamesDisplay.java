@@ -16,15 +16,15 @@ public class CasinoGamesDisplay extends Display {
         TextArea areaInfo = new TextArea();
         areaInfo.setPrefRowCount(2);
 
-        Text enterBanner = new Text("Welcome to the Casino Floor");
-        enterBanner.setFont(Font.font ("Verdana", 60));
+        Text casinoGameBanner = new Text("Welcome to the Casino Floor");
+        casinoGameBanner.setFont(Font.font ("Verdana", 60));
 
 
         Button btnEnter = new Button("Enter");
         btnEnter.setMaxWidth(Double.MAX_VALUE);
 
         casinoGamesGrid.add(btnEnter, 2, 2);
-        casinoGamesGrid.add(enterBanner, 0,0, 5,2);
+        casinoGamesGrid.add(casinoGameBanner, 0,0, 5,2);
 
         Text casinoGamesBanner = new Text("Would you like to play a casino game?");
         casinoGamesBanner.setFont(Font.font("Verdana", 44));
@@ -62,6 +62,7 @@ public class CasinoGamesDisplay extends Display {
             CasinoGames casinoGames = new CasinoGames(Main.casino.getGuest());
             casinoGames.runSelectedGames();
         });
+
         return casinoGamesGrid;
     }
 }
