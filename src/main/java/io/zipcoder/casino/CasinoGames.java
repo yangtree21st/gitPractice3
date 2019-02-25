@@ -19,8 +19,8 @@ public class CasinoGames {
 
     public void runSelectedGUIGames() {
         CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
-        Main.secondStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
-        Main.secondStage.show();
+        Main.mainStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
+        Main.mainStage.show();
     }
 
     void runSelectedGames() {

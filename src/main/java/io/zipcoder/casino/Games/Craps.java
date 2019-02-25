@@ -35,12 +35,6 @@ public class Craps extends DiceGame implements Game {
         this.die = testDie;
     }
 
-    public void playCrapsGUIFullGame(){
-        CrapsDisplay crapsDisplay = new CrapsDisplay();
-        Main.secondStage.setScene(new Scene(crapsDisplay.createCrapsContent()));
-        Main.secondStage.show();
-    }
-
     /**
      * This is the only public method of this class. Calling this method starts the Craps experience.
      * It displays welcome message, asks user if they want to read instructions, asks user if they want to play.

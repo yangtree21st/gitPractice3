@@ -9,6 +9,7 @@ public class HiLoDisplay extends Display {
         GridPane hiLoGrid = super.createGrid();
 
 
+
         return hiLoGrid;
     }
 }

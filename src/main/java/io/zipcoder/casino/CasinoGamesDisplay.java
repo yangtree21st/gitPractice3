@@ -1,7 +1,9 @@
 package io.zipcoder.casino;
 
 import io.zipcoder.casino.Games.Craps;
+import io.zipcoder.casino.Games.HiLo;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
@@ -58,7 +60,9 @@ public class CasinoGamesDisplay extends Display {
 
         btnCraps.setOnAction(e -> {
             Craps crapsGames = new Craps(Main.casino.getGuest());
-            crapsGames.playCrapsGUIFullGame();
+            CrapsDisplay crapsDisplay = new CrapsDisplay();
+            Main.mainStage.setScene(new Scene(crapsDisplay.createCrapsContent(crapsGames)));
+            Main.mainStage.show();
         });
 
         btnGoFish.setOnAction(e -> {
@@ -66,7 +70,8 @@ public class CasinoGamesDisplay extends Display {
         });
 
         btnHilo.setOnAction(e -> {
-
+            HiLo hiLoGames = new HiLo(Main.casino.getGuest());
+            hiLoGames.();
         });
 
         return casinoGamesGrid;

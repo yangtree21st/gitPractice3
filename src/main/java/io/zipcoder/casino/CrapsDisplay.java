@@ -1,5 +1,7 @@
 package io.zipcoder.casino;
 
+import io.zipcoder.casino.Games.Craps;
+import io.zipcoder.casino.Interfaces.Game;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,8 +14,12 @@ import javafx.scene.layout.RowConstraints;
 
 public class CrapsDisplay extends Display {
 
+    Game displayGame;
 
-    public Parent createCrapsContent(){
+
+    public Parent createCrapsContent(Game game){
+        this.displayGame = (Craps) game;
+
         GridPane crapsGrid = super.createGrid();
         crapsGrid.getColumnConstraints().addAll(super.createColumnConstraints(),super.createColumnConstraints());
         crapsGrid.getRowConstraints().addAll(super.createRowConstraints(), super.createRowConstraints(),super.createRowConstraints());
