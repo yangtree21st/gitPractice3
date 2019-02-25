@@ -2,29 +2,24 @@ package io.zipcoder.casino.Models;
 
 public class Card {
 
+    public enum Suit {HEARTS, SPADES, DIAMONDS, CLUBS}
 
-
-
-    public enum Suit {HEARTS,SPADES,DIAMONDS,CLUBS}
-    public enum Rank {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN , KING}
+    public enum Rank {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
 
     protected Suit cardSuit;
     protected Rank value;
 
-
-
-    public Card() {}
+    public Card() {
+    }
 
     public Card(Suit cardSuit, Rank value) {
         this.cardSuit = cardSuit;
         this.value = value;
     }
 
-
     public Rank getValue() {
         return value;
     }
-
 
     public Suit getCardSuit() {
         return cardSuit;
@@ -39,7 +34,6 @@ public class Card {
         this.value = value;
     }
 
-
     /**
      * This method creates a string representation of a card that looks like this:
      * --------------
@@ -51,65 +45,62 @@ public class Card {
      * |           ♥|
      * |           A|
      * --------------
+     *
      * @return the string representation of a card
      */
     public String toString() {
-        return boundaryLineOfCard() +
-                firstRankLineOfCard() +
-                firstSuitLineOfCard() +
-                emptyLineOfCard() +
-                middleLineOfCard() +
-                emptyLineOfCard() +
-                secondSuitLineOfCard() +
-                secondRankLineOfCard() +
-                boundaryLineOfCard();
+        return boundaryLineOfCard() + '\n' +
+                firstRankLineOfCard() + '\n' +
+                firstSuitLineOfCard() + '\n' +
+                emptyLineOfCard() + '\n' +
+                middleLineOfCard() + '\n' +
+                emptyLineOfCard() + '\n' +
+                secondSuitLineOfCard() + '\n' +
+                secondRankLineOfCard() + '\n' +
+                boundaryLineOfCard() + '\n';
     }
 
-    private String boundaryLineOfCard() {
-        return "--------------\n";
+    String boundaryLineOfCard() {
+        return "--------------";
     }
 
-    private String firstRankLineOfCard() {
-        if (this.value == Rank.TEN){
-            return "|10          |\n";
+    String firstRankLineOfCard() {
+        if (this.value == Rank.TEN) {
+            return "|10          |";
         } else {
-            return String.format("|%s           |\n", this.getRankAsString());
+            return String.format("|%s           |", this.getRankAsString());
         }
     }
 
-    private String secondRankLineOfCard() {
-        if (this.value == Rank.TEN){
-            return "|          10|\n";
+    String secondRankLineOfCard() {
+        if (this.value == Rank.TEN) {
+            return "|          10|";
         } else {
-            return String.format("|           %s|\n", this.getRankAsString());
+            return String.format("|           %s|", this.getRankAsString());
         }
     }
 
-    private String firstSuitLineOfCard() {
-        return String.format("|%c           |\n", this.getSuitAsChar());
+    String firstSuitLineOfCard() {
+        return String.format("|%c           |", this.getSuitAsChar());
     }
 
-    private String secondSuitLineOfCard() {
-        return String.format("|           %c|\n", this.getSuitAsChar());
+    String secondSuitLineOfCard() {
+        return String.format("|           %c|", this.getSuitAsChar());
     }
 
-    private String emptyLineOfCard() {
-        return "|            |\n";
+    String emptyLineOfCard() {
+        return "|            |";
     }
 
-    private String middleLineOfCard() {
-        if (this.value == Rank.TEN){
-            return String.format("|    10%c     |\n", this.getSuitAsChar());
+    String middleLineOfCard() {
+        if (this.value == Rank.TEN) {
+            return String.format("|    10%c     |", this.getSuitAsChar());
         } else {
-            return String.format("|     %s%c     |\n", this.getRankAsString(), this.getSuitAsChar());
+            return String.format("|     %s%c     |", this.getRankAsString(), this.getSuitAsChar());
         }
     }
 
-
-
-
-
-    private String getRankAsString() {
+    String getRankAsString() {
         switch (this.value) {
             case ACE:
                 return "A";
@@ -142,7 +133,7 @@ public class Card {
         }
     }
 
-    private char getSuitAsChar() {
+    char getSuitAsChar() {
         switch (this.cardSuit) {
             case SPADES:
                 return '\u2660';
@@ -157,10 +148,10 @@ public class Card {
         }
     }
 
-    public String toStringCard(){
-        String cardS= cardSuit.toString();
-        String cardV= value.toString();
-        return String.format("\n %10s \n %10s",cardS,cardV);
+    public String toStringCard() {
+        String cardS = cardSuit.toString();
+        String cardV = value.toString();
+        return String.format("\n %10s \n %10s", cardS, cardV);
 
     }
 
@@ -172,6 +163,5 @@ public class Card {
 //        System.out.println(testCard2);
 //        System.out.println(testCard3);
 //    }
-
 
 }
