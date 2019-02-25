@@ -23,7 +23,7 @@ public class GoFishTest {
     GoFishPlayer playerTwo = new GoFishPlayer(guest2);
     CardDeck gameDeck = new CardDeck();
     Hand playerHand = new Hand();
-    Hand player2Hand = new Hand;
+    Hand player2Hand = new Hand();
     GoFish game = new GoFish(guest);
     Card testCard1 = new Card(Card.Suit.SPADES, Card.Rank.TEN);
     Card testCard2 = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
@@ -36,7 +36,7 @@ public class GoFishTest {
 
 
     @Test
-    public void setUpTest(){
+    public void setUpTest() {
         //Given
         playerHand.addCard(gameDeck.dealNextCard());
         playerHand.addCard(gameDeck.dealNextCard());
@@ -52,7 +52,7 @@ public class GoFishTest {
     }
 
     @Test
-    public void containsPairsTest(){
+    public void containsPairsTest() {
         //Given
         playerHand.addCard(testCard1);
         playerHand.addCard(testCard2);
@@ -69,7 +69,7 @@ public class GoFishTest {
     }
 
     @Test
-    public void containsPairsTest2(){
+    public void containsPairsTest2() {
         //Given
         playerHand.addCard(testCard2);
         playerHand.addCard(testCard3);
@@ -85,7 +85,7 @@ public class GoFishTest {
     }
 
     @Test
-    public void removePairsTest1(){
+    public void removePairsTest1() {
         //Given
         playerHand.addCard(testCard1);
         playerHand.addCard(testCard2);
@@ -103,7 +103,7 @@ public class GoFishTest {
     }
 
     @Test
-    public void removePairsTest2(){
+    public void removePairsTest2() {
         //Given
         playerHand.addCard(testCard2);
         playerHand.addCard(testCard3);
@@ -121,7 +121,7 @@ public class GoFishTest {
     }
 
     @Test
-    public void playerTurnTest(){
+    public void playerTurnTest() {
 
         //Given
         playerHand.addCard(testCard2);
@@ -133,13 +133,7 @@ public class GoFishTest {
         player2Hand.addCard(testCard8);
 
 
-
-
     }
 
-
-
-
-    }
 
 }

@@ -50,7 +50,21 @@ public class GoFish extends CardGame implements Game {
     }
 
     public void playFullGame() {
+
+        updateDisplay();
+
+        Casino.console.getStringInput("Press [Enter] To Continue");
+
         setUp();
+
+        while (!(playerHand.getAllOfPlayerCards().size() == 0 || dealerHand.getAllOfPlayerCards().size() == 0)) {
+
+            containsPairs(playerHand);
+            containsPairs(dealerHand);
+            takeTurn(playerHand, dealerHand);
+            opponentTurn(dealerHand, playerHand);
+        }
+
         Casino.console.println("You have played a full game of Go Fish!");
 
     }
@@ -96,12 +110,11 @@ public class GoFish extends CardGame implements Game {
         playerHand.addCard(goFishDeck.dealNextCard());
         dealerHand.addCard(goFishDeck.dealNextCard());
 
-        for (Card c : playerHand.getAllOfPlayerCards()) {
-            Casino.console.println(c.toStringCard());
-        }
 
 
         playerHand.getAllOfPlayerCards();
+
+        printOutCurrentHand();
 
 
     }
@@ -143,18 +156,23 @@ public class GoFish extends CardGame implements Game {
         Casino.console.println("Take Your Turn");
 
         printOutCurrentHand();
+
+        boolean goFish = true;
+
         int input = Casino.console.getIntegerInput("\"Pick A Card To Fish For [enter the index number listed above the card]: \"");
         for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++) {
             if (playerHand.getAllOfPlayerCards().get(input).getValue() == dealerHand.getAllOfPlayerCards().get(dealerIndex).getValue()) {
                 dealerHand.removeCard(dealerHand.getAllOfPlayerCards().get(dealerIndex));
                 playerHand.removeCard(playerHand.getAllOfPlayerCards().get(input));
                 numberOfPairsPlayer++;
+                goFish = false;
                 break;
-            } else {
-                Casino.console.println("Go Fish!!!");
-                playerHand.addCard(goFishDeck.dealNextCard());
+
             }
         }
+         if (goFish){
+            Casino.console.println("Go Fish!!!");
+            playerHand.addCard(goFishDeck.dealNextCard());}
 
         displayCurrentScore();
     }
@@ -162,7 +180,7 @@ public class GoFish extends CardGame implements Game {
 
     public void opponentTurn(Hand dealerHand, Hand playerHand) {
 
-        Casino.console.println("Now It Is Your Turn Opponent's Turn");
+        Casino.console.println("Now It Is Your Opponent's Turn");
 
         Random randomNumGen = new Random();
 
@@ -170,26 +188,36 @@ public class GoFish extends CardGame implements Game {
         Card fishCard = dealerHand.getAllOfPlayerCards().get(randomNumGen.nextInt(dealerHand.getAllOfPlayerCards().size()));
 
         Casino.console.println("Do You Have Any " + fishCard.getValue());
-
+        Casino.console.getStringInput("Press [Enter] To Continue");
+        boolean goFish = true;
         for (int cardIndex = 0; cardIndex < playerHand.getAllOfPlayerCards().size(); cardIndex++) {
-            if (playerHand.getAllOfPlayerCards().get(cardIndex) == fishCard) {
+            if (playerHand.getAllOfPlayerCards().get(cardIndex).getValue() == fishCard.getValue()) {
                 playerHand.getAllOfPlayerCards().remove(cardIndex);
                 dealerHand.removeCard(fishCard);
                 numberOfPairsDealer++;
+                goFish = false;
                 break;
-            } else {
-                Casino.console.println("Go Fish!!!");
+
+            }
+        }
+        if (goFish) {
+            Casino.console.println("You Laugh And Tell Your Opponent To Go Fish!!!");
+            if (goFishDeck.getCardDeckSize() > 0) {
                 dealerHand.addCard(goFishDeck.dealNextCard());
             }
         }
 
+
         displayCurrentScore();
-    }
+        }
+
+
+
 
     private void printOutCurrentHand() {
-        Casino.console.println(playerHand);
+        Casino.console.println(playerHand.toString());
         for (int i = 0; i < playerHand.getAllOfPlayerCards().size(); i++) {
-            Casino.console.println("[%d]            ", i);
+            Casino.console.print("[%d]            ", i);
         }
     }
 
