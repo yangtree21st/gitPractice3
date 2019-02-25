@@ -1,6 +1,7 @@
 package io.zipcoder.casino.Models;
 
 import java.util.ArrayList;
+
 /**
  * The Hand program simply simulates a hand that a player or opponent holds.
  *
@@ -13,17 +14,15 @@ public class Hand {
 
     /**
      * The Hand Constructor will initialize an ArrayList of Card.
-     *
      */
     public Hand() {
         this.playerHand = new ArrayList<>();
         this.handValue = 0;
     }
 
-
-
     /**
      * This method will return an ArrayList of Card to the hand.
+     *
      * @return The an ArrayList of Card is specifying the cards in the hand.
      */
     public ArrayList<Card> getAllOfPlayerCards() {
@@ -32,23 +31,26 @@ public class Hand {
 
     /**
      * This method will add a card to the hand.
+     *
      * @param cardToAdd The cardToAdd is the card being added to the hand.
      */
-    public void addCard(Card cardToAdd){
+    public void addCard(Card cardToAdd) {
         playerHand.add(cardToAdd);
     }
 
     /**
      * This method will remove a card from the hand.
+     *
      * @param cardToRemove The cardToRemove is the card being removed from the hand.
      */
-    public void removeCard(Card cardToRemove){
+    public void removeCard(Card cardToRemove) {
         playerHand.remove(cardToRemove);
 
     }
 
     /**
      * This method will return the total value held in the hand.
+     *
      * @return Returned is the total value in the hand.
      */
     public Integer getHandValue() {
@@ -57,6 +59,7 @@ public class Hand {
 
     /**
      * This method changes the value of the hand.
+     *
      * @param changeValue The changeValue is the value the card will be set to.
      */
     public void setHandValue(Integer changeValue) {
@@ -65,6 +68,7 @@ public class Hand {
 
     /**
      * This method will get the card suit and return it as a string.
+     *
      * @param cardSuit The cardSuit is the card being parsed.
      * @return Returns the card suit as a string.
      */
@@ -74,33 +78,76 @@ public class Hand {
 
     /**
      * This method will get the card rank and return it as a string.
-     * @param cardRank The cardRank is the card being parsed.
+     *
+     * @param card The card is the card whose rank is being parsed as a string.
      * @return Returns the card rank as a string.
      */
-    public String getCardRank(Card cardRank) {
-        return cardRank.getValue().toString();
+    public String getCardRank(Card card) {
+        return card.getValue().toString();
     }
 
     /**
-     * This method will return a string representation of the cards in a hand.
+     * This method will return a string representation of the cards in a hand. Looks like this:
+     * -------------- -------------- --------------
+     * |A           | |10          | |7           |
+     * |♥           | |♦           | |♠           |
+     * |            | |            | |            |
+     * |     A♥     | |    10♦     | |     7♠     |
+     * |            | |            | |            |
+     * |           ♥| |           ♦| |           ♠|
+     * |           A| |          10| |           7|
+     * -------------- -------------- --------------
+     *
      * @return Returns the cards in a hand as a string.
      */
-    @Override
     public String toString() {
-        StringBuilder createCardFace = new StringBuilder();
-        for(Card faceCard : playerHand) {
-            createCardFace.append("**************\n");
-            createCardFace.append("   " );
-            createCardFace.append(getCardSuit(faceCard));
-            createCardFace.append("\n");
-            createCardFace.append("    ");
-            createCardFace.append(getCardRank(faceCard));
-            createCardFace.append("\n");
-            createCardFace.append("**************\n");
+        StringBuilder createHand = new StringBuilder();
+        for (Card card : playerHand) {
+            createHand.append(card.boundaryLineOfCard()).append(' ');
         }
-        return createCardFace.toString();
+        createHand.append('\n');
+        for (Card card : playerHand) {
+            createHand.append(card.firstRankLineOfCard()).append(' ');
+        }
+        createHand.append('\n');
+        for (Card card : playerHand) {
+            createHand.append(card.firstSuitLineOfCard()).append(' ');
+        }
+        createHand.append('\n');
+        for (Card card : playerHand) {
+            createHand.append(card.emptyLineOfCard()).append(' ');
+        }
+        createHand.append('\n');
+        for (Card card : playerHand) {
+            createHand.append(card.middleLineOfCard()).append(' ');
+        }
+        createHand.append('\n');
+        for (Card card : playerHand) {
+            createHand.append(card.emptyLineOfCard()).append(' ');
+        }
+        createHand.append('\n');
+        for (Card card : playerHand) {
+            createHand.append(card.secondSuitLineOfCard()).append(' ');
+        }
+        createHand.append('\n');
+        for (Card card : playerHand) {
+            createHand.append(card.secondRankLineOfCard()).append(' ');
+        }
+        createHand.append('\n');
+        for (Card card : playerHand) {
+            createHand.append(card.boundaryLineOfCard()).append(' ');
+        }
+        createHand.append('\n');
+
+        return createHand.toString();
     }
 
-
+//    public static void main(String[] args) {
+//        Hand testHand = new Hand();
+//        testHand.addCard(new Card(Card.Suit.HEARTS, Card.Rank.ACE));
+//        testHand.addCard(new Card(Card.Suit.DIAMONDS, Card.Rank.TEN));
+//        testHand.addCard(new Card(Card.Suit.SPADES, Card.Rank.SEVEN));
+//        System.out.println(testHand);
+//    }
 
 }
