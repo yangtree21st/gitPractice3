@@ -125,16 +125,50 @@ public class Casino {
         setGuest(guestNewName, newGuestAccount);
 
         Integer accountId = newGuestAccount.getId();
-        console.println(String.format("This is your new account.\n%s",guestAccountDatabase.getAccount(accountId).toString()));
+        console.println(String.format("\nThis is your account.\n%s", guestAccountDatabase.getAccount(accountId).toString()));
 
-        CasinoGames casinoGames = new CasinoGames(currentGuest);
-        casinoGames.runSelectedGames();
+        while(continueOrExit()) {
+            CasinoGames casinoGames = new CasinoGames(currentGuest);
+            casinoGames.runSelectedGames();
+
+        }
+        console.println("GOODBYE!");
+        System.exit(1);
+
     }
 
     public void startCasinoGuiExperience(){
         CasinoDisplay casinoDisplay = new CasinoDisplay();
         Main.mainStage.setScene(new Scene(casinoDisplay.createCasinoContent()));
         Main.mainStage.show();
+    }
+
+    public boolean continueOrExit(){
+        Integer userChoice = console.getIntegerInput("*******************************************" +
+                "\nWould you like to:\n[1]Enter the Casino Game floor\n[2]Add funds to your account\n[3]Exit Casino");
+
+        while(true){
+            if(userChoice==1){
+                return true;
+            }
+            else if(userChoice==2){
+                return addFundsToAccount();
+            }
+            else if(userChoice==3){
+                return false;
+            }
+            else{
+                console.getIntegerInput("Incorrect input.\n[1]Enter the Casino Game\n[2]Add funds to your account\n[3]Exit Casino");
+            }
+        }
+
+    }
+
+    public boolean addFundsToAccount(){
+        Double fundsToAdd = console.getDoubleInput("How much would you like to add?");
+        currentGuest.addFunds(fundsToAdd);
+        console.println(String.format("Your account balance is now %.2f",currentGuest.getAccountBalance()));
+        return true;
     }
 
 
