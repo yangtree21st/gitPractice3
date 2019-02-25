@@ -2,7 +2,7 @@ package io.zipcoder.casino.Players;
 
 import io.zipcoder.casino.Guest;
 
-public abstract class Player{
+public class Player{
 
 
     public  Guest guest;

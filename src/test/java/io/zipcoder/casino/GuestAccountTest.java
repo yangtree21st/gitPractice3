@@ -120,6 +120,40 @@ public void createGuestAccountTest1() {
     }
 
     @Test
+    public void addFundsWhenRounding(){
+
+        //Given
+        GuestAccount guestAccount = new GuestAccount("Marsi Marse", 2345, 250.00);
+        Double funds = 100.067;
+        Double expected = 350.07;
+
+        //When
+        guestAccount.addFunds(funds);
+        Double actual = guestAccount.getAccountBalance();
+
+
+
+        //
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removeFundsWhenRounding(){
+
+        //Given
+        GuestAccount guestAccount = new GuestAccount("Mad Dog", 187, 150.01);
+        Double funds = 150.00111111;
+        Double expected = 0.01;
+
+        //When
+        guestAccount.removeFunds(funds);
+        Double actual = guestAccount.getAccountBalance();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void toStringTest(){
 
         //Given

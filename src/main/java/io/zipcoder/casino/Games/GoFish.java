@@ -3,17 +3,12 @@ package io.zipcoder.casino.Games;
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.CardDeck;
-import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Players.GoFishPlayer;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.Hand;
 import io.zipcoder.casino.Players.Player;
-
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Stack;
 
 public class GoFish extends CardGame implements Game {
     private Guest guest;
@@ -31,15 +26,23 @@ public class GoFish extends CardGame implements Game {
     private Integer matchesCounter;
     private Integer dealerCounter;
 
+
     public GoFish(Guest guest) {
-       /* CardDeck goFishDeck = new CardDeck();
-        Hand playerHand = new Hand(ArrayList<>);
-        Hand dealerHand = new Hand(ArrayList<>); */
-       player = new Player(guest);
+        this.player = new Player(guest);
+        this.dealer = new Player(null);
+        this.numberOfPairsPlayer = 0;
+        this.numberOfPairsDealer = 0;
+        this.goFishDeck = new CardDeck();
+        this.goFishDeck.shuffleDeck();
+        this.playerHand = new Hand();
+    }
 
+    public Player getPlayer() {
+        return player;
+    }
 
-
-
+    public Player getOpponent() {
+        return dealer;
     }
 
     public void playFullGame() {
@@ -79,7 +82,7 @@ public class GoFish extends CardGame implements Game {
             playerHand.addCard(goFishDeck.dealNextCard());
             dealerHand.addCard(goFishDeck.dealNextCard());
         }
-        playerHand.getPlayerHand();
+        playerHand.getAllOfPlayerCards();
 
         }
 
@@ -91,21 +94,21 @@ public class GoFish extends CardGame implements Game {
 
     public void takeTurn() {
 
-        for (int cardIndexBase = 0; cardIndexBase < playerHand.size; cardIndexBase++) {
+        for (int cardIndexBase = 0; cardIndexBase < playerHand.getAllOfPlayerCards().size(); cardIndexBase++) {
 
-            for (int cardIndexCompare = 1; cardIndexCompare < playerHand.size; cardIndexCompare++){
+            for (int cardIndexCompare = 1; cardIndexCompare < playerHand.getAllOfPlayerCards().size(); cardIndexCompare++){
 
-                if (playerHand.indexOf(cardIndexBase) == playerHand.indexOf(cardIndexCompare){
+                if (playerHand.getAllOfPlayerCards().indexOf(cardIndexBase) == playerHand.getAllOfPlayerCards().indexOf(cardIndexCompare)){
 
                     System.out.println("You Have Matches!!! Put Those Bad Boys Down!!");
 
-                    playerHand.indexOf(cardIndexBase) = pairCard1;
-                    playerHand.indexOf(cardIndexCompare) = pairCard2;
+                    pairCard1 = playerHand.getAllOfPlayerCards().get(cardIndexBase) ;
+                    pairCard2 = playerHand.getAllOfPlayerCards().get(cardIndexCompare);
 
                     playerHand.removeCard(pairCard1);
                     playerHand.removeCard(pairCard2);
 
-                } else if (playerHand.indexOf(cardIndexBase) == null){
+                } else if (playerHand.getAllOfPlayerCards().get(cardIndexBase) == null){
                     System.out.println("Annnnnnd That's Game!!");
                 }
             }
@@ -113,9 +116,10 @@ public class GoFish extends CardGame implements Game {
         }
         System.out.println("Ask the dealer if he has any: " + this.doYouHaveCard);
 
-        for (int dealerIndex = 0; dealerIndex < dealerHand.size; dealerIndex++) {
-            if (doYouHaveCard == dealerHand.indexOf(dealerIndex)) {
-                dealerHand.removeCard(doYouHaveCard) && playerHand.addCard(doYouHaveCard);
+        for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++) {
+            if (doYouHaveCard == dealerHand.getAllOfPlayerCards().get(dealerIndex)) {
+                dealerHand.removeCard(doYouHaveCard);
+                playerHand.addCard(doYouHaveCard);
             } else {
                 System.out.println("Go Fish!!!");
                 playerHand.addCard(goFishDeck.dealNextCard());
@@ -126,7 +130,7 @@ public class GoFish extends CardGame implements Game {
     public void dealerTurn() {
         Random randomDealerCard = new Random();
 
-        for (int dealerIndex = 0; dealerIndex < dealerHand.size; dealerIndex++) {
+        for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++) {
 
         }
 
@@ -147,11 +151,11 @@ public class GoFish extends CardGame implements Game {
     }
 
     public void losing() {
-        while (playerHand == null || dealerHand == null)
+        while (playerHand == null || dealerHand == null){}
 
     }
 
-    public Hand getPlayerHand(BlackJackPlayer player) {
+    public Hand getPlayerHand(GoFishPlayer player) {
         return null;
     }
 
@@ -172,6 +176,6 @@ public class GoFish extends CardGame implements Game {
     }
 
     public Card deal() {
-        return null;
+        return super.getDeck().dealNextCard();
     }
 }

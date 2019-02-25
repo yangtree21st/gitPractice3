@@ -43,6 +43,7 @@ public class GuestAccountDataBase {
      */
     Integer addAccount(String name, Double startingBalance){
         Integer idOfNewlyCreatedAccount = accountIdGenerator;
+        //Double roundedStartingBalance = (double) Math.round(startingBalance * 100d)/100d;
 
         GuestAccount newlyCreatedAccount = new GuestAccount(name, idOfNewlyCreatedAccount, startingBalance);
         this.guestAccountDatabase.put(idOfNewlyCreatedAccount, newlyCreatedAccount);
