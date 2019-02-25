@@ -31,44 +31,111 @@ public class CardTest {
 
 
     @Test
-    public void getValue() {
-        Card card = new Card(HEARTS,FIVE);
-        Card.Rank actual = card.getValue();
-        Assert.assertEquals(FIVE, actual);
+    public void constructorTest1() {
+        // Given
+        Card.Rank expectedRank = FIVE;
+        
+        // When
+        Card testCard = new Card(HEARTS,expectedRank);
+        Card.Rank actual = testCard.getValue();
+        
+        // Then
+        Assert.assertEquals(expectedRank, actual);
     }
 
+    @Test
+    public void constructorTest2() {
+        // Given
+        Card.Suit expectedSuit = HEARTS;
 
+        // When
+        Card testCard = new Card(expectedSuit, TEN);
+        Card.Suit actualSuit = testCard.getCardSuit();
+
+        // Then
+        Assert.assertEquals(expectedSuit, actualSuit);
+    }
 
     @Test
     public void setValue() {
-        Card card = new Card();
-        Card.Rank actual = card.setValue(TWO);
-        Assert.assertEquals(TWO, actual);
+        // Given
+        Card testCard = new Card();
+        Card.Rank expectedRank = TWO;
+        
+        // When
+        testCard.setValue(expectedRank);
+        Card.Rank actualRank = testCard.getValue();
+        
+        // Then
+        Assert.assertEquals(expectedRank, actualRank);
     }
 
     @Test
     public void setCardSuit() {
-        Card card = new Card();
-        Card.Suit actual = card.setCardSuit(DIAMONDS);
-        Assert.assertEquals(DIAMONDS, actual);
+        // Given
+        Card testCard = new Card();
+        Card.Suit expectedSuit = DIAMONDS;
 
-    }
+        // When
+        testCard.setCardSuit(expectedSuit);
+        Card.Suit actualSuit = testCard.getCardSuit();
 
-    @Test
-    public void getCardSuit() {
-        Card card = new Card(HEARTS,FIVE);
-        Card.Suit actual = card.getCardSuit();
-        Assert.assertEquals(HEARTS, actual);
+        // Then
+        Assert.assertEquals(expectedSuit, actualSuit);
     }
 
 
     @Test
     public void toStringCard() {
-        Card card = new Card(SPADES,SEVEN);
+        Card testCard = new Card(SPADES,SEVEN);
 
         String expert = String.format("\n %10s \n %10s","SPADES","SEVEN");
 
-        String actual = card.toStringCard();
+        String actual = testCard.toStringCard();
         Assert.assertEquals(expert, actual);
+    }
+
+    @Test
+    public void toStringTest1() {
+        // Given
+        Card testCard = new Card(HEARTS, ACE);
+
+        String expectedString = "--------------\n" +
+                                "|A           |\n" +
+                                "|♥           |\n" +
+                                "|            |\n" +
+                                "|     A♥     |\n" +
+                                "|            |\n" +
+                                "|           ♥|\n" +
+                                "|           A|\n" +
+                                "--------------\n";
+
+        // When
+        String actualString = testCard.toString();
+
+        // Then
+        Assert.assertEquals(expectedString, actualString);
+    }
+
+    @Test
+    public void toStringTest2() {
+        // Given
+        Card testCard = new Card(DIAMONDS, TEN);
+
+        String expectedString = "--------------\n" +
+                "|10          |\n" +
+                "|♦           |\n" +
+                "|            |\n" +
+                "|    10♦     |\n" +
+                "|            |\n" +
+                "|           ♦|\n" +
+                "|          10|\n" +
+                "--------------\n";
+
+        // When
+        String actualString = testCard.toString();
+
+        // Then
+        Assert.assertEquals(expectedString, actualString);
     }
 }

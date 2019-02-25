@@ -1,6 +1,7 @@
-package io.zipcoder.casino;
+package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Games.GoFish;
+import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Models.Hand;
