@@ -6,13 +6,21 @@ import io.zipcoder.casino.Models.Die;
 public abstract class DiceGame {
     Die die;
 
+    /**
+     * Rolls a single die, displays the result, and returns the value of the die roll
+     * @return the int value of the die roll
+     */
     int rollSingleDieAndDisplayResult() {
-        int dieRoll = this.die.getSingleDieRoll();
-        displaySingleRollResult(dieRoll);
-        return dieRoll;
+        int dieRollResult = this.die.getSingleDieRoll();
+        displaySingleRollResult(dieRollResult);
+        return dieRollResult;
     }
 
-    void displaySingleRollResult(Integer value) {
+    /**
+     *
+     * @param value
+     */
+    private void displaySingleRollResult(Integer value) {
         String representation = createDieRepresentation(value);
         Casino.console.print(representation);
     }
