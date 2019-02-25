@@ -94,4 +94,48 @@ public class CardTest {
         String actual = testCard.toStringCard();
         Assert.assertEquals(expert, actual);
     }
+
+    @Test
+    public void toStringTest1() {
+        // Given
+        Card testCard = new Card(HEARTS, ACE);
+
+        String expectedString = "--------------\n" +
+                                "|A           |\n" +
+                                "|♥           |\n" +
+                                "|            |\n" +
+                                "|     A♥     |\n" +
+                                "|            |\n" +
+                                "|           ♥|\n" +
+                                "|           A|\n" +
+                                "--------------\n";
+
+        // When
+        String actualString = testCard.toString();
+
+        // Then
+        Assert.assertEquals(expectedString, actualString);
+    }
+
+    @Test
+    public void toStringTest2() {
+        // Given
+        Card testCard = new Card(DIAMONDS, TEN);
+
+        String expectedString = "--------------\n" +
+                "|10          |\n" +
+                "|♦           |\n" +
+                "|            |\n" +
+                "|    10♦     |\n" +
+                "|            |\n" +
+                "|           ♦|\n" +
+                "|          10|\n" +
+                "--------------\n";
+
+        // When
+        String actualString = testCard.toString();
+
+        // Then
+        Assert.assertEquals(expectedString, actualString);
+    }
 }
