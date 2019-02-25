@@ -94,14 +94,24 @@ public class HandTest {
         ArrayList<Card> playerHand = new ArrayList<>();
         Hand hand = new Hand();
 
-        Card expectedCardFirst = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
+        Card expectedCardFirst = new Card(Card.Suit.HEARTS, Card.Rank.ACE);
         hand.addCard(expectedCardFirst);
 
-        Card expectedCardSecond = new Card(Card.Suit.DIAMONDS, Card.Rank.QUEEN);
+        Card expectedCardSecond = new Card(Card.Suit.DIAMONDS, Card.Rank.TEN);
         hand.addCard(expectedCardSecond);
 
-        String expectedString = "**************\n" + "   " + "HEARTS\n" + "    " + "TEN\n**************\n";
-        expectedString += "**************\n" + "   " + "DIAMONDS\n" + "    " + "QUEEN\n**************\n";
+        Card expectedCardThird = new Card(Card.Suit.SPADES, Card.Rank.SEVEN);
+        hand.addCard(expectedCardThird);
+
+        String expectedString = "-------------- -------------- -------------- \n" +
+                "|A           | |10          | |7           | \n" +
+                "|♥           | |♦           | |♠           | \n" +
+                "|            | |            | |            | \n" +
+                "|     A♥     | |    10♦     | |     7♠     | \n" +
+                "|            | |            | |            | \n" +
+                "|           ♥| |           ♦| |           ♠| \n" +
+                "|           A| |          10| |           7| \n" +
+                "-------------- -------------- -------------- \n";
 
         // When
         String actualString = hand.toString();
