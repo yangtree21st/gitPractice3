@@ -5,6 +5,7 @@ import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Players.HiLowPlayer;
+import io.zipcoder.casino.Players.Player;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -63,20 +64,7 @@ public class HiLoGameTest {
         Assert.assertTrue(actual);
 
     }
-//    @Test
-//    public void isMoreTest1(){
-//        //Given
-//        HiLo hiloGame = new HiLo(new Guest("Marlys", new GuestAccount("Marlys", 1, 1000.0)));
-//
-//        Card firstCard = hiloGame.deal();
-//        Card secondCard = hiloGame.deal();
-//
-//
-//        //When
-//        Boolean actual = hiloGame.isMore(firstCard,secondCard);
-//
-//        //Then
-//        Assert.assertTrue(actual);
+
 
     @Test
     public void checkPlayersBalanceTest(){
@@ -97,17 +85,21 @@ public class HiLoGameTest {
 
     }
     @Test
-    public void winningTest(){
+    public void enoughMoneyForBetTest(){
         //Given
-        Guest guest = new Guest(null,null);
-        HiLowPlayer hiLowPlayer = new HiLowPlayer(guest);
+        Double expected = 20.00;
+        GuestAccount guestAccount = new GuestAccount(null,null,expected);
+        Guest guest = new Guest(null,guestAccount);
+        Player player = new Player(guest);
         HiLo hiloGame = new HiLo(guest);
 
 
+
         //When
-        hiloGame.winning();
+        Boolean actual = hiloGame.enoughMoneyForBet(30.0,player);
 
         //Then
+        Assert.assertFalse(actual);
     }
 
 
