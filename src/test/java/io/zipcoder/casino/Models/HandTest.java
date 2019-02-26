@@ -24,7 +24,6 @@ public class HandTest {
     @Test
     public void addCardTest() {
         // Given
-        ArrayList<Card> playerHand = new ArrayList<>();
         Hand hand = new Hand();
         Card expectedCard = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
 
@@ -41,7 +40,6 @@ public class HandTest {
     @Test
     public void removeCardTest() {
         // Given
-        ArrayList<Card> playerHand = new ArrayList<>();
         Hand hand = new Hand();
         Card cardRemove = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
 
@@ -59,7 +57,6 @@ public class HandTest {
     @Test
     public void getCardValueTest() {
         // Given
-        ArrayList<Card> playerHand = new ArrayList<>();
         Hand hand = new Hand();
         Card expectedCard = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
         Card.Rank expectedCardValue = Card.Rank.TEN;
@@ -75,7 +72,6 @@ public class HandTest {
     @Test
     public void getCardSuitTest() {
         // Given
-        ArrayList<Card> playerHand = new ArrayList<>();
         Hand hand = new Hand();
         Card expectedCard = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
         String expectedCardSuit = Card.Suit.HEARTS.toString();
@@ -91,7 +87,6 @@ public class HandTest {
     @Test
     public void toStringTest() {
         // Given
-        ArrayList<Card> playerHand = new ArrayList<>();
         Hand hand = new Hand();
 
         Card expectedCardFirst = new Card(Card.Suit.HEARTS, Card.Rank.ACE);
@@ -123,7 +118,6 @@ public class HandTest {
     @Test
     public void setHandValueTest() {
         // Given
-        ArrayList<Card> playerHand = new ArrayList<>();
         Hand hand = new Hand();
         Integer expectedHandValue = 10;
 
@@ -138,7 +132,6 @@ public class HandTest {
     @Test
     public void getHandValueTest() {
         // Given
-        ArrayList<Card> playerHand = new ArrayList<>();
         Hand hand = new Hand();
         Integer expectedHandValue = 1;
 
@@ -148,5 +141,21 @@ public class HandTest {
 
         // Then
         Assert.assertEquals(expectedHandValue, actualHandValue);
+    }
+
+
+    @Test
+    public void getCardRank() {
+        // Given
+        Hand hand = new Hand();
+        Card.Rank expectedRank = Card.Rank.TEN;
+        String expected = "TEN";
+
+
+        // When
+        String actual = hand.getCardRank(new Card(Card.Suit.HEARTS, expectedRank));
+
+        // Then
+        Assert.assertEquals(expected, actual);
     }
 }
