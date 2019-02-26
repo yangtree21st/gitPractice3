@@ -8,6 +8,9 @@ public abstract class CardPlayer extends Player{
         super(newGuest);
     }
 
+    public CardPlayer() {
+    }
+
     public Guest getGuest() {
         return super.getGuest();
     }

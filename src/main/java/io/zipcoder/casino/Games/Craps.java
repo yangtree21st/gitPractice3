@@ -1,10 +1,10 @@
 package io.zipcoder.casino.Games;
 
-import io.zipcoder.casino.Casino;
-import io.zipcoder.casino.Guest;
+import io.zipcoder.casino.*;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Die;
 import io.zipcoder.casino.Models.GuestAccount;
+import javafx.scene.Scene;
 
 public class Craps extends DiceGame implements Game {
 

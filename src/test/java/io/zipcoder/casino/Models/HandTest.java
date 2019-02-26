@@ -116,35 +116,6 @@ public class HandTest {
     }
 
     @Test
-    public void setHandValueTest() {
-        // Given
-        Hand hand = new Hand();
-        Integer expectedHandValue = 10;
-
-        // When
-        hand.setHandValue(10);
-        Integer actualHandValue = hand.getHandValue();
-
-        // Then
-        Assert.assertEquals(expectedHandValue, actualHandValue);
-    }
-
-    @Test
-    public void getHandValueTest() {
-        // Given
-        Hand hand = new Hand();
-        Integer expectedHandValue = 1;
-
-        // When
-        hand.setHandValue(1);
-        Integer actualHandValue = hand.getHandValue();
-
-        // Then
-        Assert.assertEquals(expectedHandValue, actualHandValue);
-    }
-
-
-    @Test
     public void getCardRank() {
         // Given
         Hand hand = new Hand();

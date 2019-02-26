@@ -11,6 +11,9 @@ public class Player{
         this.guest = guest;
     }
 
+    public Player() {
+    }
+
     public Guest getGuest() {
         return guest;
     }

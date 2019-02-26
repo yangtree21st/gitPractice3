@@ -1,6 +1,7 @@
 package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Games.GoFish;
+import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
@@ -21,30 +22,120 @@ public class GoFishTest {
     GoFishPlayer playerOne = new GoFishPlayer(guest);
     GoFishPlayer playerTwo = new GoFishPlayer(guest2);
     CardDeck gameDeck = new CardDeck();
-    Hand playerHand;
+    Hand playerHand = new Hand();
+    Hand player2Hand = new Hand();
     GoFish game = new GoFish(guest);
+    Card testCard1 = new Card(Card.Suit.SPADES, Card.Rank.TEN);
+    Card testCard2 = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
+    Card testCard3 = new Card(Card.Suit.SPADES, Card.Rank.TWO);
+    Card testCard4 = new Card(Card.Suit.CLUBS, Card.Rank.KING);
+    Card testCard5 = new Card(Card.Suit.DIAMONDS, Card.Rank.JACK);
+    Card testCard6 = new Card(Card.Suit.HEARTS, Card.Rank.QUEEN);
+    Card testCard7 = new Card(Card.Suit.CLUBS, Card.Rank.JACK);
+    Card testCard8 = new Card(Card.Suit.DIAMONDS, Card.Rank.FIVE);
+
 
     @Test
-    public void deal() {
-        // Given
-        GoFishPlayer playerOne = new GoFishPlayer(guest);
-        playerOne.getPlayerHand().addCard(game.deal());
-        // Then
-        Assert.assertNotNull(playerOne.getPlayerHand());
+    public void setUpTest() {
+        //Given
+        playerHand.addCard(gameDeck.dealNextCard());
+        playerHand.addCard(gameDeck.dealNextCard());
+        playerHand.addCard(gameDeck.dealNextCard());
+        playerHand.getAllOfPlayerCards();
+
+        //When
+        Boolean expected = playerHand.getAllOfPlayerCards().isEmpty();
+
+        //Then
+        Assert.assertFalse(expected);
+
     }
 
     @Test
-    public void goFishTest() {
-        // Given
-        GoFishPlayer playerOne = new GoFishPlayer(guest);
-        playerOne.getPlayerHand().addCard(game.deal());
-        Integer expected = 2;
+    public void containsPairsTest() {
+        //Given
+        playerHand.addCard(testCard1);
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+        Integer expected = 1;
 
-        // When
-        playerOne.getPlayerHand().addCard(game.deal());
 
-        // Then
-        Integer actual = playerOne.getPlayerHand().getAllOfPlayerCards().size();
+        //When
+        Integer actual = game.containsPairs(playerHand);
+
+        //Then
         Assert.assertEquals(expected, actual);
     }
+
+    @Test
+    public void containsPairsTest2() {
+        //Given
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+        Integer expected = 0;
+
+
+        //When
+        Integer actual = game.containsPairs(playerHand);
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removePairsTest1() {
+        //Given
+        playerHand.addCard(testCard1);
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+        Integer expected = 3;
+        //When
+        game.containsPairs(playerHand);
+
+        Integer actual = playerHand.getAllOfPlayerCards().size();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removePairsTest2() {
+        //Given
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+        Integer expected = 4;
+
+        //When
+        game.containsPairs(playerHand);
+        Integer actual = playerHand.getAllOfPlayerCards().size();
+
+        //Then
+        Assert.assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void playerTurnTest() {
+
+        //Given
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+        player2Hand.addCard(testCard2);
+        player2Hand.addCard(testCard6);
+        player2Hand.addCard(testCard8);
+
+
+    }
+
+
 }

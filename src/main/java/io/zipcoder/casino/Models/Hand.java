@@ -10,14 +10,13 @@ import java.util.ArrayList;
 public class Hand {
 
     private ArrayList<Card> playerHand;
-    private Integer handValue;
+
 
     /**
      * The Hand Constructor will initialize an ArrayList of Card.
      */
     public Hand() {
         this.playerHand = new ArrayList<>();
-        this.handValue = 0;
     }
 
     /**
@@ -49,24 +48,6 @@ public class Hand {
     }
 
     /**
-     * This method will return the total value held in the hand.
-     *
-     * @return Returned is the total value in the hand.
-     */
-    public Integer getHandValue() {
-        return this.handValue;
-    }
-
-    /**
-     * This method changes the value of the hand.
-     *
-     * @param changeValue The changeValue is the value the card will be set to.
-     */
-    public void setHandValue(Integer changeValue) {
-        this.handValue = changeValue;
-    }
-
-    /**
      * This method will get the card suit and return it as a string.
      *
      * @param cardSuit The cardSuit is the card being parsed.
@@ -84,6 +65,10 @@ public class Hand {
      */
     public String getCardRank(Card card) {
         return card.getValue().toString();
+    }
+
+    public void clearHand(){
+        this.playerHand.clear();
     }
 
     /**
@@ -141,13 +126,5 @@ public class Hand {
 
         return createHand.toString();
     }
-
-//    public static void main(String[] args) {
-//        Hand testHand = new Hand();
-//        testHand.addCard(new Card(Card.Suit.HEARTS, Card.Rank.ACE));
-//        testHand.addCard(new Card(Card.Suit.DIAMONDS, Card.Rank.TEN));
-//        testHand.addCard(new Card(Card.Suit.SPADES, Card.Rank.SEVEN));
-//        System.out.println(testHand);
-//    }
 
 }

@@ -1,8 +1,10 @@
 package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.CrapsDisplay;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.GamblingGame;
+import io.zipcoder.casino.Main;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
@@ -10,6 +12,7 @@ import io.zipcoder.casino.Models.Hand;
 import io.zipcoder.casino.Players.HiLowPlayer;
 import io.zipcoder.casino.Players.Player;
 import io.zipcoder.casino.utilities.Console;
+import javafx.scene.Scene;
 
 
 import java.util.ArrayList;
