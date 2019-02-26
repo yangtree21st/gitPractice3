@@ -267,9 +267,9 @@ public class Craps extends DiceGame implements Game {
         Double bet = getDoubleInput("Please enter how much you would like to bet:");
 
         while (!((currentGuest.getAccountBalance() - bet > -.00001) && (bet >= minimumBet))) {
-            if(currentGuest.getAccountBalance() - bet < -.00001) {
+            if (currentGuest.getAccountBalance() - bet < -.00001) {
                 println("Sorry, you don't have enough money to make a bet of $%.2f.\nYour current balance is $%.2f:", bet, currentGuest.getAccountBalance());
-            } else if(bet < minimumBet) {
+            } else if (bet < minimumBet) {
                 println("Sorry, the minimum bet is $%d.", minimumBet);
             }
             bet = getDoubleInput("Please enter a valid bet.");
@@ -339,16 +339,17 @@ public class Craps extends DiceGame implements Game {
 
     /**
      * For testing purposes.
+     *
      * @return the current guest
      */
     Guest getCurrentGuest() {
         return currentGuest;
     }
 
-        public static void main(String[] args) {
-        Casino casino = new Casino();
-        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
-        craps.playFullGame();
-    }
+//    public static void main(String[] args) {
+//        Casino casino = new Casino();
+//        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
+//        craps.playFullGame();
+//    }
 
 }
