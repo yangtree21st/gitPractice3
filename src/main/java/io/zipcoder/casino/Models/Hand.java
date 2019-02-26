@@ -79,11 +79,11 @@ public class Hand {
     /**
      * This method will get the card rank and return it as a string.
      *
-     * @param cardRank The cardRank is the card being parsed.
+     * @param card The card is the card whose rank is being parsed as a string.
      * @return Returns the card rank as a string.
      */
-    public String getCardRank(Card cardRank) {
-        return cardRank.getValue().toString();
+    public String getCardRank(Card card) {
+        return card.getValue().toString();
     }
 
     /**
