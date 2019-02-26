@@ -1,11 +1,10 @@
 package io.zipcoder.casino;
-
-import io.zipcoder.casino.Main;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
@@ -18,7 +17,14 @@ import javafx.stage.Stage;
 
 public class Display{
 
+    Button btnExit = new Button("Exit");
+    Button btnForInstructions = new Button("Instructions");
+    Stage instructionStage = new Stage();
 
+    /***
+     * Method creates the Welcome scene that users enter into when choosing to use the GUI
+     * @return (Parent) GridPane
+     */
     public Parent createContent(){
         GridPane grid = createGrid();
 
@@ -41,6 +47,10 @@ public class Display{
         return grid;
     }
 
+    /**
+     * Creates the grid which is used in all non game Display classes
+     * @return GridPane
+     */
     public GridPane createGrid(){
         GridPane grid = new GridPane();
         grid.setPrefSize(1000, 600);
@@ -70,10 +80,21 @@ public class Display{
         return grid;
     }
 
+    /**
+     * Takes in a button who's action is to close the window and returns the corresponding stage that button is located on
+     * @param buttonToExit
+     * @return Stage
+     */
+
     public Stage setExitAction(Button buttonToExit){
         return (Stage) buttonToExit.getScene().getWindow();
 
     }
+
+    /**
+     * Returns the Column Constraints once Halignment and Width percentage are set
+     * @return ColumnConstraints
+     */
 
     public ColumnConstraints createColumnConstraints(){
         //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
@@ -84,6 +105,11 @@ public class Display{
         return colConstraint;
     }
 
+    /**
+     * Returns the Row Constraints once Valignment and Height percentage are set
+     * @return RowConstraints
+     */
+
     public RowConstraints createRowConstraints(){
         //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
         RowConstraints rowConstraints = new RowConstraints();
@@ -93,13 +119,63 @@ public class Display{
         return rowConstraints;
     }
 
+    /**
+     *
+     * @return
+     */
+
     public GridPane createGameGrid(){
         GridPane gameGridPane = createGrid();
+
+
+        btnExit.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnForInstructions.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+
+        gameGridPane.add(btnForInstructions, 0,7,1,1);
+        gameGridPane.add(btnExit,6,7,1,1);
+
+        btnExit.setOnAction(e ->{
+            CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
+            Main.mainStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
+            Main.mainStage.show();
+        });
 
         gameGridPane.getColumnConstraints().addAll(createColumnConstraints(),createColumnConstraints());
         gameGridPane.getRowConstraints().addAll(createRowConstraints(), createRowConstraints(),createRowConstraints());
 
         return gameGridPane;
     }
+
+    /**
+     * \
+     * @param stringInstructions
+     */
+    public void setInstructionsForButton(String stringInstructions){
+
+        btnForInstructions.setOnAction(e ->{
+            InstructionDisplay instructionDisplay = new InstructionDisplay();
+            instructionStage.setScene(new Scene(instructionDisplay.createInstructionContent(stringInstructions)));
+            instructionStage.show();
+
+        });
+    }
+
+    public void setExitAndInstructions(boolean bool){
+        setExitButtonAccess(bool);
+        setInstructionsButtonAccess(bool);
+    }
+
+
+    public void setExitButtonAccess(boolean bool){
+        this.btnExit.setDisable(bool);
+    }
+
+
+    public void setInstructionsButtonAccess(Boolean bool){
+        this.btnForInstructions.setDisable(bool);
+    }
+
+
+
 
 }

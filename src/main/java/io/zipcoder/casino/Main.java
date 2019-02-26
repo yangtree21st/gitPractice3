@@ -14,6 +14,7 @@ public class Main extends Application{
     public static Casino casino = new Casino();
 
     public static void main(String[] args) {
+        //setUpforDisplayTesting();
         String choice = consoleOrGUI();
         if(choice.equals("console")) {
             casino.startCasinoExperience();
@@ -24,23 +25,22 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        setUpforDisplayTesting();
-/*
+
         this.mainStage = stage;
         mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(startingDisplay.createContent()));
         this.mainStage.show();
-
+/*
         this.mainStage = stage;
         this.mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(casinoDisplay.createCasinoContent()));
         this.mainStage.show();
-*/
+
         this.mainStage = stage;
         this.mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
         this.mainStage.show();
-
+*/
 
     }
 
@@ -57,7 +57,7 @@ public class Main extends Application{
 
     }
 
-    public void setUpforDisplayTesting(){
+    public static void setUpforDisplayTesting(){
         GuestAccount newGuestAccount = new GuestAccount("Marshilla Brahma", 1,10000.00);
         casino.setGuest("Marshilla Brahma", newGuestAccount);
     }

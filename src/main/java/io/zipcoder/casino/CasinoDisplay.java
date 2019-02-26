@@ -30,11 +30,7 @@ public class CasinoDisplay extends Display {
     public Parent createCasinoContent() {
         GridPane casinoGrid = createStandardGridPane();
 
-        //casinoBanner.setTextAlignment(TextAlignment.CENTER);
-        casinoBanner.setFont(Font.font ("Verdana", 35));
 
-        //casinoSubBanner.setTextAlignment(TextAlignment.CENTER);
-        casinoSubBanner.setFont(Font.font ("Verdana", 15));
 
         Button submitInfo = new Button("Submit Information");
         submitInfo.setMaxWidth(Double.MAX_VALUE);
@@ -59,7 +55,6 @@ public class CasinoDisplay extends Display {
     public Parent createSecondaryCasinoContent(){
 
         GridPane casinoGrid = createStandardGridPane();
-
 
         areaInfo.setPrefRowCount(2);
 
@@ -110,6 +105,12 @@ public class CasinoDisplay extends Display {
 
     public GridPane createStandardGridPane(){
         GridPane standardGridPane = super.createGrid();
+
+        //casinoBanner.setTextAlignment(TextAlignment.CENTER);
+        casinoBanner.setFont(Font.font ("Verdana", 35));
+
+        //casinoSubBanner.setTextAlignment(TextAlignment.CENTER);
+        casinoSubBanner.setFont(Font.font ("Verdana", 15));
 
         standardGridPane.add(casinoBanner, 0,0, 5,1);
         standardGridPane.add(casinoSubBanner, 1,1, 3,1);
