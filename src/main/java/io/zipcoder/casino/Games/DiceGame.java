@@ -24,7 +24,8 @@ public abstract class DiceGame {
      */
     static private void displaySingleRollResult(Integer value) {
         String representation = createDieRepresentation(value);
-        Casino.console.print(representation);
+        String ansiColor = AnsiStuff.getRandomAnsiColor();
+        Casino.console.print(ansiColor + representation + AnsiStuff.ANSI_RESET);
     }
 
     /**
@@ -110,10 +111,11 @@ public abstract class DiceGame {
         return result;
     }
 
-    public static void main(String[] args) {
-        Casino casino = new Casino();
-        Die die = new Die();
-        rollSingleDieAndDisplayResult(die);
-    }
+//    public static void main(String[] args) {
+//        Casino casino = new Casino();
+//        Die die = new Die();
+//        for(int i = 0; i < 10; i++)
+//        rollSingleDieAndDisplayResult(die);
+//    }
 
 }
