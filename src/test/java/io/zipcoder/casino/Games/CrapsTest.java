@@ -486,7 +486,6 @@ public class CrapsTest {
     public void getTypeOfBetFromPlayer3() {
         // Given
         String input = "IASDHF\nuhasdiufh\ndon't pass\n";
-        bytArrInpStr = new ByteArrayInputStream(input.getBytes());
         bytArrOutStr = new ByteArrayOutputStream();
         testCasino = getCasinoWithBufferedInputAndOutput(input, bytArrOutStr);
         testCraps = getNewCraps();

@@ -1,16 +1,17 @@
 package io.zipcoder.casino.Games;
 
-import io.zipcoder.casino.Casino;
-import io.zipcoder.casino.Guest;
+import io.zipcoder.casino.*;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Die;
 import io.zipcoder.casino.Models.GuestAccount;
+import javafx.scene.Scene;
 
 public class Craps extends DiceGame implements Game {
 
     private Guest currentGuest;
     private boolean roundIsStillGoing;
     private int point;
+    private int minimumBet = 5;
 
     enum TypeOfBet {PASS, DONT_PASS}
 
@@ -45,15 +46,21 @@ public class Craps extends DiceGame implements Game {
      * they would like to play again.
      */
     public void playFullGame() {
-        println("\nWelcome to the Craps table!");
+        println("\nWelcome to the Craps table!\nThe minimum bet is $%d.", minimumBet);
 
-        if (yesOrNoQuestion("\nWould you like to read the instructions? (yes or no):")) {
+        if (yesOrNoQuestion("Would you like to read the instructions? (yes or no):")) {
             printInstructions();
         }
 
         boolean continuePlaying = yesOrNoQuestion("Would you like to start playing Craps? (yes or no):");
 
         while (continuePlaying) {
+            if (currentGuest.getAccountBalance() < minimumBet) {
+                println("Sorry, you do not have enough money to play Craps.\n" +
+                        "The minimum bet is $%d, and your current balance is $%.2f.", minimumBet, currentGuest.getAccountBalance());
+                break;
+            }
+
             TypeOfBet currentTypeOfBet = getTypeOfBetFromPlayer();
             Double currentBet = takeBetFromPlayer();
 
@@ -251,7 +258,7 @@ public class Craps extends DiceGame implements Game {
     /**
      * This method asks the user what how much they would like to bet, and then returns their bet amount as a Double.
      * This method will continue to prompt the player if they have entered a bet that is larger than their avaliable
-     * balance.
+     * balance. It also checks to make sure that their bet is greater than or equal to the minimum bet.
      *
      * @return the Double value of the amount the user is betting
      */
@@ -259,9 +266,13 @@ public class Craps extends DiceGame implements Game {
         println("\nYour current balance is $%.2f", currentGuest.getAccountBalance());
         Double bet = getDoubleInput("Please enter how much you would like to bet:");
 
-        while (!(currentGuest.getAccountBalance() - bet > -.00001)) {
-            println("Sorry, you don't have enough money to make a bet of $%.2f", bet);
-            bet = getDoubleInput("Please enter a bet that is less than your balance of $%.2f:", currentGuest.getAccountBalance());
+        while (!((currentGuest.getAccountBalance() - bet > -.00001) && (bet >= minimumBet))) {
+            if(currentGuest.getAccountBalance() - bet < -.00001) {
+                println("Sorry, you don't have enough money to make a bet of $%.2f.\nYour current balance is $%.2f:", bet, currentGuest.getAccountBalance());
+            } else if(bet < minimumBet) {
+                println("Sorry, the minimum bet is $%d.", minimumBet);
+            }
+            bet = getDoubleInput("Please enter a valid bet.");
         }
 
         println("You have chosen to bet $%.2f", bet);
@@ -334,10 +345,10 @@ public class Craps extends DiceGame implements Game {
         return currentGuest;
     }
 
-//        public static void main(String[] args) {
-//        Casino casino = new Casino();
-//        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
-//        craps.playFullGame();
-//    }
+        public static void main(String[] args) {
+        Casino casino = new Casino();
+        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
+        craps.playFullGame();
+    }
 
 }

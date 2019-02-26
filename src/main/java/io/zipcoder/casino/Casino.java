@@ -113,6 +113,11 @@ public class Casino {
         return String.format("This is your new account.\n%s",guestAccountDatabase.getAccount(accountId).toString());
     }
 
+    public String accountToString(Guest guest){
+        Integer accountId = guest.getMyAccount().getId();
+        return String.format("This is your account status\n%s",guestAccountDatabase.getAccount(accountId).toString());
+    }
+
     /**
      * Begins the start of taking user input and return of account creation. Begins Casino Games run method.
      */

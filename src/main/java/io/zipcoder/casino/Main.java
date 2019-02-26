@@ -1,16 +1,20 @@
 package io.zipcoder.casino;
 
 
+import io.zipcoder.casino.Models.GuestAccount;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application{
     public static Display startingDisplay = new Display();
+    public static CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
     public static Stage mainStage;
+    public static Stage secondStage = new Stage();
     public static Casino casino = new Casino();
 
     public static void main(String[] args) {
+        //setUpforDisplayTesting();
         String choice = consoleOrGUI();
         if(choice.equals("console")) {
             casino.startCasinoExperience();
@@ -21,9 +25,23 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+
         this.mainStage = stage;
+        mainStage.setTitle("Casino Royale");
         this.mainStage.setScene(new Scene(startingDisplay.createContent()));
         this.mainStage.show();
+/*
+        this.mainStage = stage;
+        this.mainStage.setTitle("Casino Royale");
+        this.mainStage.setScene(new Scene(casinoDisplay.createCasinoContent()));
+        this.mainStage.show();
+
+        this.mainStage = stage;
+        this.mainStage.setTitle("Casino Royale");
+        this.mainStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
+        this.mainStage.show();
+*/
+
     }
 
     public static String consoleOrGUI(){
@@ -37,5 +55,10 @@ public class Main extends Application{
             }
         }
 
+    }
+
+    public static void setUpforDisplayTesting(){
+        GuestAccount newGuestAccount = new GuestAccount("Marshilla Brahma", 1,10000.00);
+        casino.setGuest("Marshilla Brahma", newGuestAccount);
     }
 }

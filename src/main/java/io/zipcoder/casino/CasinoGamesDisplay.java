@@ -1,67 +1,82 @@
 package io.zipcoder.casino;
 
+import io.zipcoder.casino.Games.Craps;
+import io.zipcoder.casino.Games.HiLo;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class CasinoGamesDisplay extends Display {
 
     public Parent createCasinoGamesContent() {
         GridPane casinoGamesGrid = super.createGrid();
+        casinoGamesGrid.getColumnConstraints().remove(1);
 
         TextArea areaInfo = new TextArea();
         areaInfo.setPrefRowCount(2);
 
-        Text enterBanner = new Text("Welcome to the Casino Floor");
-        enterBanner.setFont(Font.font ("Verdana", 60));
+        Text casinoGamesBanner = new Text("Which game would you like to play?");
+        casinoGamesBanner.setFont(Font.font("Verdana", 30));
 
 
-        Button btnEnter = new Button("Enter");
-        btnEnter.setMaxWidth(Double.MAX_VALUE);
+        Button btnBlackJack = new Button("BlackJack");
+        btnBlackJack.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        //btnBlackJack.setAlignment(Pos.CENTER);
 
-        casinoGamesGrid.add(btnEnter, 2, 2);
-        casinoGamesGrid.add(enterBanner, 0,0, 5,2);
+        Button btnCraps = new Button("Craps");
+        btnCraps.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
-        Text casinoGamesBanner = new Text("Would you like to play a casino game?");
-        casinoGamesBanner.setFont(Font.font("Verdana", 44));
+        Button btnGoFish = new Button("Go Fish");
+        btnGoFish.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
-        Text casinoSubBanner = new Text("Please enter the below information to create a guest account");
-        casinoSubBanner.setFont(Font.font("Verdana", 15));
+        Button btnHilo = new Button("Hi-Lo");
+        //btnHilo.setAlignment(Pos.CENTER);
+        btnHilo.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
-        TextField nameField = new TextField();
-        TextField startingBalanceField = new TextField();
+        Button btnExit = new Button("Exit Casino");
+        btnExit.setMaxWidth(Double.MAX_VALUE);
 
-        Button submitInfo = new Button("Submit Information ");
-        submitInfo.setMaxWidth(Double.MAX_VALUE);
-
-        Button btnEnterCasinoFloor = new Button("Enter Game Floor ");
-        submitInfo.setMaxWidth(Double.MAX_VALUE);
-
-        casinoGamesGrid.add(casinoGamesBanner, 0, 0, 4, 1);
-        casinoGamesGrid.add(casinoSubBanner, 1, 1, 3, 1);
-        casinoGamesGrid.add(nameField, 1, 2);
-        casinoGamesGrid.add(startingBalanceField, 3, 2);
-        casinoGamesGrid.add(submitInfo, 2, 4, 1, 1);
+        casinoGamesGrid.add(casinoGamesBanner, 0, 0, 4, 2);
+        casinoGamesGrid.add(btnBlackJack, 0, 2, 1, 1);
+        casinoGamesGrid.add(btnCraps, 1, 2,1,1);
+        casinoGamesGrid.add(btnGoFish, 2, 2,1,1);
+        casinoGamesGrid.add(btnHilo, 3, 2,1,1);
+        casinoGamesGrid.add(btnExit, 1, 4, 2, 1);
 
 
-        submitInfo.setOnAction(e -> {
-            String name = nameField.getText();
-            Double amount = Double.parseDouble(startingBalanceField.getText());
-            casinoGamesGrid.add(areaInfo, 1, 4, 3, 1);
-            areaInfo.setText(Main.casino.initializeAccountCreation(name, amount));
-            casinoGamesGrid.getChildren().remove(submitInfo);
-            casinoGamesGrid.add(btnEnterCasinoFloor, 2, 5, 1, 1);
+        btnExit.setOnAction(e -> {
+            CasinoDisplay casinoDisplay = new CasinoDisplay();
+            Main.mainStage.setScene(new Scene(casinoDisplay.createSecondaryCasinoContent()));
+            Main.mainStage.show();
+        });
+
+        btnBlackJack.setOnAction(e -> {
 
         });
 
-        btnEnterCasinoFloor.setOnAction(e -> {
-            CasinoGames casinoGames = new CasinoGames(Main.casino.getGuest());
-            casinoGames.runSelectedGames();
+        btnCraps.setOnAction(e -> {
+            Craps crapsGames = new Craps(Main.casino.getGuest());
+            CrapsDisplay crapsDisplay = new CrapsDisplay();
+            Main.mainStage.setScene(new Scene(crapsDisplay.createCrapsContent(crapsGames)));
+            Main.mainStage.show();
         });
+
+        btnGoFish.setOnAction(e -> {
+
+        });
+
+        btnHilo.setOnAction(e -> {
+            HiLo hiLoGames = new HiLo(Main.casino.getGuest());
+            HiLoDisplay hiLoDisplay = new HiLoDisplay();
+            Main.mainStage.setScene(new Scene(hiLoDisplay.createHiLoContent(hiLoGames)));
+            Main.mainStage.show();
+        });
+
         return casinoGamesGrid;
     }
 }

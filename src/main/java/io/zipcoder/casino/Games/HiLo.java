@@ -1,12 +1,15 @@
 package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.CrapsDisplay;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.GamblingGame;
+import io.zipcoder.casino.Main;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Players.Player;
+
 
 public class HiLo extends CardGame implements GamblingGame {
 
@@ -204,8 +207,8 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void showFirstCardAndGetHiOrLo() {
         deal();
-        Casino.console.println(currentCard.toString()+"Guess next Card"cardFaceDown());
-        cardFaceDown();
+        Casino.console.println(currentCard.toString()+"Guess next Card");
+        
         this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
 
     }
@@ -287,8 +290,8 @@ public class HiLo extends CardGame implements GamblingGame {
     }
 
 
-    public void cardFaceDown(){
-        Casino.console.println("\n"+
+
+        String[] faceDownCard = {"\n"+
                  "-------------- \n" +
                  "|            | \n" +
                  "|            | \n" +
@@ -297,12 +300,34 @@ public class HiLo extends CardGame implements GamblingGame {
                  "|            | \n" +
                  "|            | \n" +
                  "|            | \n" +
-                 "--------------  ");
+                 "--------------  "};
 
 
 
+    public String createOneCardUpOneDown() {
+        StringBuilder createHand = new StringBuilder();
+
+        createHand.append(currentCard.boundaryLineOfCard()).append(' ').append(faceDownCard[0]);
+        createHand.append('\n');
+        createHand.append(currentCard.firstRankLineOfCard()).append(' ').append(faceDownCard[1]);
+        createHand.append('\n');
+        createHand.append(currentCard.firstSuitLineOfCard()).append(' ').append(faceDownCard[2]);
+        createHand.append('\n');
+        createHand.append(currentCard.emptyLineOfCard()).append(' ').append(faceDownCard[3]);
+        createHand.append('\n');
+        createHand.append(currentCard.middleLineOfCard()).append(' ').append(faceDownCard[4]);
+        createHand.append('\n');
+        createHand.append(currentCard.emptyLineOfCard()).append(' ').append(faceDownCard[5]);
+        createHand.append('\n');
+        createHand.append(currentCard.secondSuitLineOfCard()).append(' ').append(faceDownCard[6]);
+        createHand.append('\n');
+        createHand.append(currentCard.secondRankLineOfCard()).append(' ').append(faceDownCard[7]);
+        createHand.append('\n');
+        createHand.append(currentCard.boundaryLineOfCard()).append(' ').append(faceDownCard[8]);
+        createHand.append('\n');
+
+        return createHand.toString();
     }
-
 
 
 
