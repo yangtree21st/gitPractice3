@@ -207,8 +207,9 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void showFirstCardAndGetHiOrLo() {
         deal();
+        Casino.console.println(OneCardUpOneDown());
         Casino.console.println(currentCard.toString()+"Guess next Card");
-        
+
         this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
 
     }
@@ -304,7 +305,7 @@ public class HiLo extends CardGame implements GamblingGame {
 
 
 
-    public String createOneCardUpOneDown() {
+    public String OneCardUpOneDown() {
         StringBuilder createHand = new StringBuilder();
 
         createHand.append(currentCard.boundaryLineOfCard()).append(' ').append(faceDownCard[0]);

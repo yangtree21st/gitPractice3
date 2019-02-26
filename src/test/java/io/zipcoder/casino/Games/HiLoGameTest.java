@@ -142,7 +142,7 @@ public class HiLoGameTest {
 
 
     }
-    /*
+
     @Test
     public void enoughMoneyForBetTest(){
         //Given
@@ -159,7 +159,7 @@ public class HiLoGameTest {
         //Then
         Assert.assertFalse(actual);
     }
-<<<<<<< HEAD
+
     @Test
     public void receiveBetFromPlayerTest(){
         //Given
@@ -225,8 +225,6 @@ public class HiLoGameTest {
 
 
 
-=======
-    */
->>>>>>> upstream/Working
+
 
 }
