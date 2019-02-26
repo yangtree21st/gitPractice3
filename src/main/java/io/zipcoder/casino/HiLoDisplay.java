@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -17,6 +18,7 @@ public class HiLoDisplay extends Display {
     Text hiLoBanner = new Text("HiLo Game");
     TextArea areaInfo = new TextArea();
     GridPane hiLoGrid = createStandardGrid();
+    TextField takeBetField =  new TextField("Place your bet. Minimum is 5.00");
 
     public Parent createHiLoContent(Game game) {
         this.displayGame = game;
@@ -45,7 +47,7 @@ public class HiLoDisplay extends Display {
         hiLoGrid.add(btnPlaceBet,3,6,1,1);
 
         btnPlaceBet.setOnAction(e ->{
-            Main.mainStage.setScene(new Scene(placeBetContent()));
+
 
         });
 

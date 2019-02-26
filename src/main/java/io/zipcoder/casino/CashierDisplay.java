@@ -2,6 +2,7 @@ package io.zipcoder.casino;
 
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -58,8 +59,9 @@ public class CashierDisplay extends Display {
 
 
         btnExit.setOnAction(e -> {
-            Stage casinoStage = super.setExitAction(btnExit);
-            casinoStage.close();
+            CasinoDisplay casinoDisplay = new CasinoDisplay();
+            Main.mainStage.setScene(new Scene(casinoDisplay.createSecondaryCasinoContent()));
+            Main.mainStage.show();
         });
 
         btnAddFunds.setOnAction(e -> {//TODO - if amount field is empty, then don't call method
