@@ -1,5 +1,7 @@
 package io.zipcoder.casino.utilities;
 
+import java.util.Random;
+
 public class AnsiStuff {
 
     public static final String ANSI_RESET = "\u001B[0m";
@@ -21,4 +23,10 @@ public class AnsiStuff {
     public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
+    Random random = new Random();
+
+    public static String getRandomAnsiColor(){
+        return ANSI_BLACK;
+    }
 }
