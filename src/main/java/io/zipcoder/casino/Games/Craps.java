@@ -11,6 +11,7 @@ public class Craps extends DiceGame implements Game {
     private Guest currentGuest;
     private boolean roundIsStillGoing;
     private int point;
+    private int minimumBet = 5;
 
     enum TypeOfBet {PASS, DONT_PASS}
 
@@ -45,15 +46,21 @@ public class Craps extends DiceGame implements Game {
      * they would like to play again.
      */
     public void playFullGame() {
-        println("\nWelcome to the Craps table!");
+        println("\nWelcome to the Craps table!\nThe minimum bet is $%d.", minimumBet);
 
-        if (yesOrNoQuestion("\nWould you like to read the instructions? (yes or no):")) {
+        if (yesOrNoQuestion("Would you like to read the instructions? (yes or no):")) {
             printInstructions();
         }
 
         boolean continuePlaying = yesOrNoQuestion("Would you like to start playing Craps? (yes or no):");
 
         while (continuePlaying) {
+            if (currentGuest.getAccountBalance() < minimumBet) {
+                println("Sorry, you do not have enough money to play Craps.\n" +
+                        "The minimum bet is $%d, and your current balance is $%.2f.", minimumBet, currentGuest.getAccountBalance());
+                break;
+            }
+
             TypeOfBet currentTypeOfBet = getTypeOfBetFromPlayer();
             Double currentBet = takeBetFromPlayer();
 
@@ -259,9 +266,13 @@ public class Craps extends DiceGame implements Game {
         println("\nYour current balance is $%.2f", currentGuest.getAccountBalance());
         Double bet = getDoubleInput("Please enter how much you would like to bet:");
 
-        while (!(currentGuest.getAccountBalance() - bet > -.00001)) {
-            println("Sorry, you don't have enough money to make a bet of $%.2f", bet);
-            bet = getDoubleInput("Please enter a bet that is less than your balance of $%.2f:", currentGuest.getAccountBalance());
+        while (!((currentGuest.getAccountBalance() - bet > -.00001) && (bet >= minimumBet))) {
+            if(currentGuest.getAccountBalance() - bet < -.00001) {
+                println("Sorry, you don't have enough money to make a bet of $%.2f.\nYour current balance is $%.2f:", bet, currentGuest.getAccountBalance());
+            } else if(bet < minimumBet) {
+                println("Sorry, the minimum bet is $%d.", minimumBet);
+            }
+            bet = getDoubleInput("Please enter a valid bet.");
         }
 
         println("You have chosen to bet $%.2f", bet);
@@ -334,10 +345,10 @@ public class Craps extends DiceGame implements Game {
         return currentGuest;
     }
 
-//        public static void main(String[] args) {
-//        Casino casino = new Casino();
-//        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
-//        craps.playFullGame();
-//    }
+        public static void main(String[] args) {
+        Casino casino = new Casino();
+        Craps craps = new Craps(new Guest("Sunhyun", new GuestAccount("Sunhyun", 1, 1000.0)));
+        craps.playFullGame();
+    }
 
 }
