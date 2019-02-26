@@ -1,27 +1,23 @@
 package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.*;
-import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Die;
-import io.zipcoder.casino.Models.GuestAccount;
-import javafx.scene.Scene;
 
-public class Craps extends DiceGame implements Game {
+public class Craps extends SunhyunsGamblingGameClass {
 
-    private Guest currentGuest;
+    Die die;
     private boolean roundIsStillGoing;
     private int point;
-    private int minimumBet = 5;
 
     enum TypeOfBet {PASS, DONT_PASS}
 
     /**
      * Constructor. Creates a die, and assigns the specified guest to the currentGuest field.
      *
-     * @param newGuest guest who is playing the game.
+     * @param guest guest who is playing the game.
      */
-    public Craps(Guest newGuest) {
-        this.currentGuest = newGuest;
+    public Craps(Guest guest) {
+        super(guest, 5);
         this.die = new Die();
     }
 
@@ -33,6 +29,7 @@ public class Craps extends DiceGame implements Game {
      * @param testDie   die that will be used to create the rolls
      */
     Craps(Guest testGuest, Die testDie) {
+        super(testGuest, 5);
         this.currentGuest = testGuest;
         this.die = testDie;
     }
@@ -102,8 +99,8 @@ public class Craps extends DiceGame implements Game {
      */
     int rollDice() {
         getStringInput("Press Enter to roll dice");
-        int diceRoll1 = rollSingleDieAndDisplayResult(this.die);
-        int diceRoll2 = rollSingleDieAndDisplayResult(this.die);
+        int diceRoll1 = this.die.getSingleDieRollAndDisplayResult();
+        int diceRoll2 = this.die.getSingleDieRollAndDisplayResult();
         println("");
         return diceRoll1 + diceRoll2;
     }
@@ -208,7 +205,7 @@ public class Craps extends DiceGame implements Game {
      * This method simply prints the instructions for the game of Craps. This method is only called if the user answers
      * yes to a preceding question, asking them if they would like to read the instructions.
      */
-    private void printInstructions() {
+    void printInstructions() {
         println("Craps is a dice game involving the rolling of two dice. You win or lose money depending on what the result of the dice tosses are.\n" +
                 "The game is split into two phases: the first roll, called the Come-Out roll, and every subsequent roll, which are called Point rolls.\n\n" +
                 "There are two main bets in the game of Craps - Pass and Don’t Pass, which both pay even money. Let’s explain the Pass bet first.\n\n" +
@@ -253,97 +250,6 @@ public class Craps extends DiceGame implements Game {
         }
 
         return typeOfBetChoice;
-    }
-
-    /**
-     * This method asks the user what how much they would like to bet, and then returns their bet amount as a Double.
-     * This method will continue to prompt the player if they have entered a bet that is larger than their avaliable
-     * balance. It also checks to make sure that their bet is greater than or equal to the minimum bet.
-     *
-     * @return the Double value of the amount the user is betting
-     */
-    Double takeBetFromPlayer() {
-        println("\nYour current balance is $%.2f", currentGuest.getAccountBalance());
-        Double bet = getDoubleInput("Please enter how much you would like to bet:");
-
-        while (!((currentGuest.getAccountBalance() - bet > -.00001) && (bet >= minimumBet))) {
-            if (currentGuest.getAccountBalance() - bet < -.00001) {
-                println("Sorry, you don't have enough money to make a bet of $%.2f.\nYour current balance is $%.2f:", bet, currentGuest.getAccountBalance());
-            } else if (bet < minimumBet) {
-                println("Sorry, the minimum bet is $%d.", minimumBet);
-            }
-            bet = getDoubleInput("Please enter a valid bet.");
-        }
-
-        println("You have chosen to bet $%.2f", bet);
-        currentGuest.removeFunds(bet);
-        return bet;
-    }
-
-    /**
-     * This asks the user a yes or no question, makes sure they answer yes or no, and returns what they wrote.
-     *
-     * @param prompt the text prompt that displays
-     * @return the user's answer, yes or no
-     */
-    boolean yesOrNoQuestion(String prompt) {
-        String choice = getLowerCaseStringInput(prompt);
-        while (!(choice.equals("yes") || choice.equals("no"))) {
-            choice = getLowerCaseStringInput("Sorry, I couldn't understand you. Please enter 'yes' or 'no':");
-        }
-        return choice.equals("yes");
-    }
-
-    /**
-     * This uses the Casino class's console to get String input from the user.
-     *
-     * @param prompt The text prompt that displays
-     * @param args   formatting arguments for the prompt, if any
-     * @return the String that the user inputs
-     */
-    private String getStringInput(String prompt, Object... args) {
-        return Casino.console.getStringInput(prompt, args);
-    }
-
-    /**
-     * This uses the Casino class's console to get String input from the user, and then converts the input to lower case.
-     *
-     * @param prompt The text prompt that displays
-     * @param args   formatting arguments for the prompt, if any
-     * @return the String that the user inputs
-     */
-    private String getLowerCaseStringInput(String prompt, Object... args) {
-        return Casino.console.getStringInput(prompt, args).toLowerCase();
-    }
-
-    /**
-     * This uses the Casino class's console to get Double input from the user.
-     *
-     * @param prompt The text prompt that displays
-     * @param args   formatting arguments for the prompt, if any
-     * @return the Double that the user inputs
-     */
-    private Double getDoubleInput(String prompt, Object... args) {
-        return Casino.console.getDoubleInput(prompt, args);
-    }
-
-    /**
-     * This simply uses the Casino class's console to print output to the screen.
-     *
-     * @param val  String to print
-     * @param args formatting args, if any
-     */
-    private void println(String val, Object... args) {
-        Casino.console.println(val, args);
-    }
-
-    /**
-     * For testing purposes.
-     *
-     * @return the current guest
-     */
-    Guest getCurrentGuest() {
-        return currentGuest;
     }
 
 //    public static void main(String[] args) {

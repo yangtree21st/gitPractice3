@@ -1,6 +1,7 @@
 package io.zipcoder.casino.Models;
 
 import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.utilities.AnsiStuff;
 
 import java.util.Random;
 
@@ -109,12 +110,14 @@ public class SlotReel {
     };
 
     private Random randomReel;
+    private AnsiStuff ansiStuff;
 
     /**
      * Default constructor, simply initializes the random.
      */
     public SlotReel() {
-        randomReel = new Random();
+        this.randomReel = new Random();
+        this.ansiStuff = new AnsiStuff();
     }
 
     /**
@@ -123,6 +126,7 @@ public class SlotReel {
      */
     SlotReel(Random testRandom) {
         randomReel = testRandom;
+        ansiStuff = new AnsiStuff(testRandom);
     }
 
     /**
@@ -160,24 +164,24 @@ public class SlotReel {
         StringBuilder representation = new StringBuilder();
 
         for (int k = -1; k <= 1; k++) {
+            representation.append(ansiStuff.getRandomAnsiColor());
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < slotReelResults.length; j++) {
                     representation.append("|               ").append(fancyAsciiNumbers[Math.floorMod(slotReelResults[j] + k, 10)][i]).append("               |");
                 }
                 representation.append('\n');
             }
+            representation.append(AnsiStuff.ANSI_RESET);
         }
 
         return representation.toString();
     }
 
+    Random getRandomReel() {
+        return randomReel;
+    }
 
-
-
-//    public static void main(String[] args) {
-//        SlotReel testReel = new SlotReel();
-//        int[] results = {0, 4, 9};
-//        System.out.println(testReel.getStringRepresentationOfSlotReelResults(results));
-//    }
-
+    AnsiStuff getAnsiStuff() {
+        return ansiStuff;
+    }
 }
