@@ -84,7 +84,8 @@ public class HiLoGameTest {
 
 
         //When
-        Card actual= hiloGame.dealSecondCard();
+        hiloGame.deal();
+        Card actual= hiloGame.deal();
 
         //Then
 

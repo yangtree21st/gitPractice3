@@ -8,6 +8,7 @@ import io.zipcoder.casino.Main;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
+import io.zipcoder.casino.Models.Hand;
 import io.zipcoder.casino.Players.Player;
 
 
@@ -28,6 +29,7 @@ public class HiLo extends CardGame implements GamblingGame {
     private boolean continueGame;
     private Double minimumBet = 5.0;
     private Double winnings;
+    private Hand hand;
 
     /**
      * This is the constructor for the Hi-Lo game
@@ -35,7 +37,6 @@ public class HiLo extends CardGame implements GamblingGame {
      * @param guest It takes a guest from the casino that becomes a player. Gives a deck of cards that then shuffles it
      */
     public HiLo(Guest guest) {
-
         hiloPlayer = new Player(guest);
         this.cardDeck = new CardDeck();
         cardDeck.shuffleDeck();
@@ -48,36 +49,31 @@ public class HiLo extends CardGame implements GamblingGame {
         hiloPlayer = new Player(testGuest);
         this.continueGame = true;
     }
-
     /**
      * This method takes a card from the deck and deals the first card for the player
      *
      * @return a card
      */
     public Card deal() {
-
-
         if (currentCard != null) {
 
             nextCard = cardDeck.dealNextCard();
             return nextCard;
-
-
         }
         currentCard = cardDeck.dealNextCard();
         return currentCard;
-
     }
-
     /**
      * This method takes a card from the deck and deals the second card for the player
      *
      * @return another card from the deck
      */
-    public Card dealSecondCard() {
-        nextCard = cardDeck.dealNextCard();
-        return nextCard;
 
+    public Hand firstAndSecondCard() {
+        hand = new Hand();
+        hand.addCard(currentCard);
+        hand.addCard(nextCard);
+        return hand;
     }
 
     /**
@@ -118,8 +114,6 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void playFullGame() {
         welcomeMessage();
-        setUp();
-
         do {
             currentCard = null;
             this.bet = Casino.console.getDoubleInput("Please enter your bet:");
@@ -127,7 +121,6 @@ public class HiLo extends CardGame implements GamblingGame {
             while (this.bet < 5) {
                 this.bet = Casino.console.getDoubleInput("Error, Please enter a bet over $5:");
             }
-
             if (enoughMoneyForBet(bet, hiloPlayer)) {
                 receiveBetFromPlayer(bet);
                 showFirstCardAndGetHiOrLo();
@@ -142,17 +135,6 @@ public class HiLo extends CardGame implements GamblingGame {
         while (checkPlayersBalance(hiloPlayer) >= minimumBet && this.continueGame == true);
         Casino.console.println("You have played a full game of Hi-Lo!");
     }
-
-    /**
-     * This method welcomes the guest and let the player know the minimum bet
-     */
-    public void setUp() {
-
-        Casino.console.println("WELCOME TO HI-LO GAME" + "\n" +
-                "The minimum bet is $5.00");
-
-    }
-
     /**
      * This method checks the player balance
      *
@@ -164,7 +146,6 @@ public class HiLo extends CardGame implements GamblingGame {
         getAccountBalance = hiloPlayer.getAccountBalance();
         return getAccountBalance;
     }
-
     /**
      * This method check if the player has enough balance to bet
      *
@@ -172,7 +153,6 @@ public class HiLo extends CardGame implements GamblingGame {
      * @param currentPlayer it takes a player
      * @return a boolean, true if the balance is enough to bet, false if it isn't
      */
-
     public boolean enoughMoneyForBet(Double bet, Player currentPlayer) {
         //this.bet = Casino.console.getDoubleInput("Please enter your bet:");
         if (bet != 0) {
@@ -186,7 +166,6 @@ public class HiLo extends CardGame implements GamblingGame {
         } else {
             return false;
         }
-
     }
 
     /**
@@ -207,19 +186,17 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void showFirstCardAndGetHiOrLo() {
         deal();
-        Casino.console.println(OneCardUpOneDown());
-        Casino.console.println(currentCard.toString()+"Guess next Card");
-
+        Casino.console.println(OneCardUpOneDown()+"Guess next Card");
         this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
 
     }
 
     /**
-     * This method update the display by printing the nextCard the user needs to see
+     * This method update the display by printing the nextCard the player guessed
      */
     public void showSecondCard() {
         deal();
-        Casino.console.println(nextCard.toString());
+        Casino.console.println(firstAndSecondCard().toString() + "\n");
     }
 
     /**
@@ -233,8 +210,6 @@ public class HiLo extends CardGame implements GamblingGame {
 
         } else Casino.console.println("You Lose");
         Casino.console.println("This is your balance " + getAccountBalance);
-
-
     }
 
     /**
@@ -248,8 +223,6 @@ public class HiLo extends CardGame implements GamblingGame {
         winnings = bet * 1.25;
         hiloPlayer.addFunds(winnings);
         getAccountBalance = hiloPlayer.getAccountBalance();
-
-
     }
 
     /**
@@ -277,7 +250,8 @@ public class HiLo extends CardGame implements GamblingGame {
 
     public void welcomeMessage() {
 
-        Casino.console.println("/$$      /$$           /$$                                                     /$$                     /$$   /$$ /$$         /$$\n" +
+        Casino.console.println(
+                             "/$$      /$$           /$$                                                     /$$                     /$$   /$$ /$$         /$$\n" +
                 "                | $$  /$ | $$          | $$                                                    | $$                    | $$  | $$|__/        | $$\n" +
                 "                | $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$       | $$  | $$ /$$        | $$        /$$$$$$\n" +
                 "                | $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      | $$$$$$$$| $$ /$$$$$$| $$       /$$__  $$\n" +
@@ -285,48 +259,36 @@ public class HiLo extends CardGame implements GamblingGame {
                 "                | $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$      | $$  | $$| $$        | $$      | $$  | $$\n" +
                 "                | $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/      | $$  | $$| $$        | $$$$$$$$|  $$$$$$/\n" +
                 "                |__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/       |__/  |__/|__/        |________/ \\______/\n" +
-                "        ");
+                "        \n"+"The minimum bet is $5.00");
 
 
     }
 
 
-
-        String[] faceDownCard = {"\n"+
-                 "-------------- \n" +
-                 "|            | \n" +
-                 "|            | \n" +
-                 "|            | \n" +
-                 "|            | \n" +
-                 "|            | \n" +
-                 "|            | \n" +
-                 "|            | \n" +
-                 "--------------  "};
-
-
-
     public String OneCardUpOneDown() {
+        String[] faceDownCard = {
+                "-------------- " ,
+                "|************| " };
         StringBuilder createHand = new StringBuilder();
 
         createHand.append(currentCard.boundaryLineOfCard()).append(' ').append(faceDownCard[0]);
         createHand.append('\n');
         createHand.append(currentCard.firstRankLineOfCard()).append(' ').append(faceDownCard[1]);
         createHand.append('\n');
-        createHand.append(currentCard.firstSuitLineOfCard()).append(' ').append(faceDownCard[2]);
+        createHand.append(currentCard.firstSuitLineOfCard()).append(' ').append(faceDownCard[1]);
         createHand.append('\n');
-        createHand.append(currentCard.emptyLineOfCard()).append(' ').append(faceDownCard[3]);
+        createHand.append(currentCard.emptyLineOfCard()).append(' ').append(faceDownCard[1]);
         createHand.append('\n');
-        createHand.append(currentCard.middleLineOfCard()).append(' ').append(faceDownCard[4]);
+        createHand.append(currentCard.middleLineOfCard()).append(' ').append(faceDownCard[1]);
         createHand.append('\n');
-        createHand.append(currentCard.emptyLineOfCard()).append(' ').append(faceDownCard[5]);
+        createHand.append(currentCard.emptyLineOfCard()).append(' ').append(faceDownCard[1]);
         createHand.append('\n');
-        createHand.append(currentCard.secondSuitLineOfCard()).append(' ').append(faceDownCard[6]);
+        createHand.append(currentCard.secondSuitLineOfCard()).append(' ').append(faceDownCard[1]);
         createHand.append('\n');
-        createHand.append(currentCard.secondRankLineOfCard()).append(' ').append(faceDownCard[7]);
+        createHand.append(currentCard.secondRankLineOfCard()).append(' ').append(faceDownCard[1]);
         createHand.append('\n');
-        createHand.append(currentCard.boundaryLineOfCard()).append(' ').append(faceDownCard[8]);
+        createHand.append(currentCard.boundaryLineOfCard()).append(' ').append(faceDownCard[0]);
         createHand.append('\n');
-
         return createHand.toString();
     }
 
@@ -338,6 +300,8 @@ public class HiLo extends CardGame implements GamblingGame {
 
         testHiLo.playFullGame();
     }
+
+
 }
 //    public static void main(String[] args) {
 //        Casino testCasino = new Casino();
@@ -348,8 +312,6 @@ public class HiLo extends CardGame implements GamblingGame {
 //        HiLo testHiLo = new HiLo(guest);
 //        testHiLo.playFullGame();
 //    }
-
-
 
 
 
