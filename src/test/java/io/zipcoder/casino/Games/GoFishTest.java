@@ -59,13 +59,14 @@ public class GoFishTest {
         playerHand.addCard(testCard3);
         playerHand.addCard(testCard4);
         playerHand.addCard(testCard5);
+        Integer expected = 1;
 
 
         //When
-        Boolean expected = game.containsPairs(playerHand);
+        Integer actual = game.containsPairs(playerHand);
 
         //Then
-        Assert.assertTrue(expected);
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -75,13 +76,14 @@ public class GoFishTest {
         playerHand.addCard(testCard3);
         playerHand.addCard(testCard4);
         playerHand.addCard(testCard5);
+        Integer expected = 0;
 
 
         //When
-        Boolean expected = game.containsPairs(playerHand);
+        Integer actual = game.containsPairs(playerHand);
 
         //Then
-        Assert.assertFalse(expected);
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
