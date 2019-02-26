@@ -5,7 +5,7 @@ import io.zipcoder.casino.Casino;
 import java.util.Random;
 
 public class SlotReel {
-    static final String[][] fancyAsciiNumbers = {
+    public static final String[][] fancyAsciiNumbers = {
             {"  ______  ",
                     " /      \\ ",
                     "/$$$$$$  |",

@@ -25,16 +25,6 @@ public abstract class DiceGame {
     static private void displaySingleRollResult(Integer value) {
         String representation = createDieRepresentation(value);
         Casino.console.print(representation);
-        Casino.console.print(AnsiStuff.ANSI_BLACK + representation + AnsiStuff.ANSI_RESET);
-        Casino.console.print(AnsiStuff.ANSI_RED + representation + AnsiStuff.ANSI_RESET);
-        Casino.console.print(AnsiStuff.ANSI_GREEN + representation + AnsiStuff.ANSI_RESET);
-        Casino.console.print(AnsiStuff.ANSI_YELLOW + representation + AnsiStuff.ANSI_RESET);
-        Casino.console.print(AnsiStuff.ANSI_BLUE + representation + AnsiStuff.ANSI_RESET);
-        Casino.console.print(AnsiStuff.ANSI_PURPLE + representation + AnsiStuff.ANSI_RESET);
-        Casino.console.print(AnsiStuff.ANSI_CYAN + representation + AnsiStuff.ANSI_RESET);
-        Casino.console.print(AnsiStuff.ANSI_WHITE + representation + AnsiStuff.ANSI_RESET);
-
-
     }
 
     /**
