@@ -42,14 +42,18 @@ public class HiLo extends CardGame implements GamblingGame {
 
     }
 
+    public HiLo(Guest testGuest, CardDeck testDeck) {
+        this.cardDeck = testDeck;
+        hiloPlayer = new Player(testGuest);
+        this.continueGame = true;
+    }
+
     /**
      * This method takes a card from the deck and deals the first card for the player
      * @return a card
      */
     public Card deal() {
-
         currentCard =cardDeck.dealNextCard();
-
         return currentCard;
     }
 
@@ -102,6 +106,11 @@ public class HiLo extends CardGame implements GamblingGame {
         do {
 
             this.bet = Casino.console.getDoubleInput("Please enter your bet:");
+
+            while(this.bet < 5){
+                this.bet = Casino.console.getDoubleInput("Error, Please enter a bet over $5:");
+            }
+
             if(enoughMoneyForBet(bet, hiloPlayer)){
                 receiveBetFromPlayer(bet);
                 takeTurn();
@@ -134,7 +143,6 @@ public class HiLo extends CardGame implements GamblingGame {
 
     public Double checkPlayersBalance(Player currentPlayer) {
         getAccountBalance = hiloPlayer.getAccountBalance();
-
         return getAccountBalance;
     }
 
@@ -177,7 +185,7 @@ public class HiLo extends CardGame implements GamblingGame {
      * This method lets the player take a turn to guess if the coming card is higher or lower than the one just displayed
      */
     public void takeTurn() {
-        Casino.console.println(deal().toStringCard());
+        Casino.console.println(deal().toString());
         this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
 
     }
@@ -186,7 +194,7 @@ public class HiLo extends CardGame implements GamblingGame {
      * This method update the display by printing the nextCard the user needs to see
      */
     public void updateDisplay() {
-        Casino.console.println(dealSecondCard().toStringCard());
+        Casino.console.println(dealSecondCard().toString());
 
     }
 
@@ -249,15 +257,22 @@ public class HiLo extends CardGame implements GamblingGame {
 
     }
 
+
     public static void main(String[] args) {
         Casino testCasino = new Casino();
-        GuestAccount guestAccount = new GuestAccount("Marlys", 1, 100.0);
-
-        Guest guest = new Guest("Marlys", guestAccount);
-        Player hiloplayer = new HiLowPlayer(guest);
-        HiLo testHiLo = new HiLo(guest);
+        HiLo testHiLo = new HiLo(new Guest("", new GuestAccount("", 0, 1000.0)), new CardDeck());
         testHiLo.playFullGame();
     }
+
+//    public static void main(String[] args) {
+//        Casino testCasino = new Casino();
+//        GuestAccount guestAccount = new GuestAccount("Marlys", 1, 100.0);
+//
+//        Guest guest = new Guest("Marlys", guestAccount);
+//        Player hiloplayer = new HiLowPlayer(guest);
+//        HiLo testHiLo = new HiLo(guest);
+//        testHiLo.playFullGame();
+//    }
 
 
 

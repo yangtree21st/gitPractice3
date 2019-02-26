@@ -1,5 +1,6 @@
 package io.zipcoder.casino.Games;
 
+import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Games.HiLo;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.Card;
@@ -11,6 +12,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+
 public class HiLoGameTest {
 
     @Before
@@ -21,6 +24,46 @@ public class HiLoGameTest {
 
 
     @Test
+    public void playFullGameTest1() {
+        // Given
+        String input = "10\nl\nno\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        Double startingBalance = 1000.0;
+        Guest testGuest = new Guest("", new GuestAccount("", 0, startingBalance));
+        HiLo testHiLo = new HiLo(testGuest, new CardDeck()); // This deck has not been shuffled
+
+        Double expectedFinalBalance = 1002.5;
+
+        // When
+        testHiLo.playFullGame();
+        Double actualFinalBalance = testGuest.getAccountBalance();
+
+        // Then
+        Assert.assertEquals(expectedFinalBalance, actualFinalBalance);
+    }
+
+    @Test
+    public void playFullGameTest2() {
+        // Given
+        String input = "4\n10\nh\nno\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        Double startingBalance = 1000.0;
+        Guest testGuest = new Guest("", new GuestAccount("", 0, startingBalance));
+        HiLo testHiLo = new HiLo(testGuest, new CardDeck()); // This deck has not been shuffled
+
+        Double expectedFinalBalance = 990.0;
+
+        // When
+        testHiLo.playFullGame();
+        Double actualFinalBalance = testGuest.getAccountBalance();
+
+        // Then
+        Assert.assertEquals(expectedFinalBalance, actualFinalBalance);
+    }
+
+    @Test
     public void dealTest(){
         //Given
         HiLo hiloGame = new HiLo(new Guest("Marlys", new GuestAccount("Marlys", 1, 1000.0)));
@@ -28,6 +71,20 @@ public class HiLoGameTest {
 
         //When
         Card actual= hiloGame.deal();
+
+        //Then
+
+        Assert.assertNotNull(actual);
+
+    }
+    @Test
+    public void dealSecondCardTest(){
+        //Given
+        HiLo hiloGame = new HiLo(new Guest("Marlys", new GuestAccount("Marlys", 1, 1000.0)));
+
+
+        //When
+        Card actual= hiloGame.dealSecondCard();
 
         //Then
 
@@ -95,14 +152,74 @@ public class HiLoGameTest {
         HiLo hiloGame = new HiLo(guest);
 
 
-
         //When
         Boolean actual = hiloGame.enoughMoneyForBet(30.0,player);
 
         //Then
         Assert.assertFalse(actual);
     }
+    @Test
+    public void receiveBetFromPlayerTest(){
+        //Given
+        Casino testCasino = new Casino(System.in, System.out);
+        GuestAccount guestAccount = new GuestAccount(null,null,20.0);
+        Guest guest = new Guest(null,guestAccount);
+        HiLo hiloGame = new HiLo(guest);
+        Player player = new Player(guest);
+        Double expected = 5.00;
 
+        //When
+        Double balance = hiloGame.checkPlayersBalance(player);
+        hiloGame.receiveBetFromPlayer(15.00);
+        Double actual = hiloGame.checkPlayersBalance(player);
+
+        //Then
+        Assert.assertEquals(expected,actual);
+
+    }
+//    @Test
+//    public void giveWinningsToPlayerTest() {
+//        //Given
+//        Casino testCasino = new Casino(System.in, System.out);
+//        GuestAccount guestAccount = new GuestAccount(null, null, 20.0);
+//        Guest guest = new Guest(null, guestAccount);
+//        HiLo hiloGame = new HiLo(guest);
+//        Player player = new Player(guest);
+//        Double expected = 21.25;
+//        Double bet = 5.00;
+//
+//
+//        //When
+//
+//        hiloGame.giveWinningsToPlayer(5.00);
+//        Double actual = hiloGame.checkPlayersBalance(player);
+//
+//        //Then
+//        Assert.assertEquals(expected, actual);
+//
+//
+//    }
+
+
+
+    public void winningTest() {
+        //Given
+        Casino testCasino = new Casino(System.in, System.out);
+        GuestAccount guestAccount = new GuestAccount(null,null,20.0);
+        Guest guest = new Guest(null,guestAccount);
+        HiLo hiloGame = new HiLo(guest);
+        Player player = new Player(guest);
+        Card firstCard = new Card(Card.Suit.HEARTS, Card.Rank.THREE);
+        Card secondCard = new Card(Card.Suit.HEARTS,Card.Rank.JACK);
+
+
+        //When
+        hiloGame.winning();
+
+
+
+        //Then
+    }
 
 
 
