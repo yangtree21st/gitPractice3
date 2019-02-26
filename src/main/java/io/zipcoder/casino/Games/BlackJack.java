@@ -71,8 +71,8 @@ public class BlackJack implements GamblingGame, Game {
         this.bet = bet;
     }
 
-    public Double getMinBet() {
-        return minBet;
+    public Double getBet() {
+        return this.bet;
     }
 
     /**
@@ -121,8 +121,7 @@ public class BlackJack implements GamblingGame, Game {
      * This method will start a new game of blackjack. Resetting the hands of both the player and dealer.
      */
     public void setUp() {
-        this.player.getPlayerHand().clearHand();
-        this.dealer.getPlayerHand().clearHand();
+        clearPlayersHandPlayers();
 
         Card cardOne = deal();
         Card cardTwo = deal();
@@ -140,7 +139,8 @@ public class BlackJack implements GamblingGame, Game {
 
         if(player.getHandTotal() == 21){
             Casino.console.println("You won!!");
-            giveWinningsToPlayer(bet);
+//            giveWinningsToPlayer(bet);
+            giveJackpotToPlayer();
             continueGame = false;
         }
     }
@@ -152,6 +152,11 @@ public class BlackJack implements GamblingGame, Game {
      */
     public Card deal() {
         return deck.dealNextCard();
+    }
+
+    public void clearPlayersHandPlayers() {
+        this.player.getPlayerHand().clearHand();
+        this.dealer.getPlayerHand().clearHand();
     }
 
     /**
@@ -207,7 +212,8 @@ public class BlackJack implements GamblingGame, Game {
                 Casino.console.println("You Won!!");
                 Casino.console.println("Current Dealer Score: " + dealer.getHandTotal().toString());
                 Casino.console.println("Player Score: " + getHandTotal().toString());
-                giveWinningsToPlayer(bet);
+//                giveWinningsToPlayer(bet);
+                giveJackpotToPlayer();
                 Casino.console.println(checkPlayersBalance(player).toString());
                 continueGame = false;
             }
@@ -229,12 +235,14 @@ public class BlackJack implements GamblingGame, Game {
             Casino.console.println("Current Dealer Score: " + dealer.getHandTotal().toString());
         }
         if (this.dealer.getHandTotal() > 21) {
-            giveWinningsToPlayer(bet);
+//            giveWinningsToPlayer(bet);
+            giveJackpotToPlayer();
             Casino.console.println("You won!!");
         } else if (this.dealer.getHandTotal() == 21) {
             Casino.console.println("You lost!!");
         } else if (this.dealer.getHandTotal() < this.player.getHandTotal()) {
-            giveWinningsToPlayer(bet);
+//            giveWinningsToPlayer(bet);
+            giveJackpotToPlayer();
             Casino.console.println("You won!!");
         } else if (this.dealer.getHandTotal() > this.player.getHandTotal() && this.dealer.getHandTotal() < 21) {
             Casino.console.println("You lost!!");
@@ -244,9 +252,9 @@ public class BlackJack implements GamblingGame, Game {
     /**
      * This method will double the player's bet and add it into their account.
      *
-     * @param winning
      */
-    public void giveWinningsToPlayer(Double winning) {
+    public void giveJackpotToPlayer() {
+        Double winning = getBet();
         winning *= 2;
         player.addFunds(winning);
         checkPlayersBalance(player);
@@ -309,6 +317,17 @@ public class BlackJack implements GamblingGame, Game {
      */
     public Player getPlayer() {
         return this.player;
+    }
+
+    // TODO REMOVE THIS
+    /**
+     * This method will double the player's bet and add it into their account.
+     *
+     * @param winning
+     */
+    public void giveWinningsToPlayer(Double winning) {
+        player.addFunds(winning);
+        checkPlayersBalance(player);
     }
 
     public static void main(String[] args) {

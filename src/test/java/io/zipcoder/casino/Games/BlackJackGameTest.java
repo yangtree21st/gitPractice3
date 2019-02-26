@@ -118,16 +118,16 @@ public class BlackJackGameTest {
     }
 
     @Test
-    public void giveWinningsToPlayerTest() {
+    public void giveJackpotToPlayerTest() {
         // Given
         BlackJackPlayer getPlayer = (BlackJackPlayer) blackJack.getPlayer();
 //        System.out.println(getPlayer.getGuest().getAccountBalance());
-        Double expected = 120.00;
-        blackJack.receiveBetFromPlayer(20.00);
+        Double expected = 140.00;
+        blackJack.setBet(20.00);
 //        System.out.println(getPlayer.getGuest().getAccountBalance());
 
         // When
-        blackJack.giveWinningsToPlayer(20.00);
+        blackJack.giveJackpotToPlayer();
 //        System.out.println(getPlayer.getGuest().getAccountBalance());
 
         // Then
@@ -182,7 +182,7 @@ public class BlackJackGameTest {
         Player playerOne = new Player(guest);
         BlackJack blackJackGame = new BlackJack(guest);
         blackJackGame.setBet(10.00);
-        Double bet = blackJackGame.getMinBet();
+        Double bet = blackJackGame.getBet();
 //        System.out.println(playerOne.getAccountBalance());
 
         // Then
@@ -203,7 +203,7 @@ public class BlackJackGameTest {
         Player playerOne = new Player(guest);
         BlackJack blackJackGame = new BlackJack(guest);
         blackJackGame.setBet(15.00);
-        Double bet = blackJackGame.getMinBet();
+        Double bet = blackJackGame.getBet();
 //        System.out.println(playerOne.getAccountBalance());
 
         // Then
@@ -212,5 +212,27 @@ public class BlackJackGameTest {
         // When
         Assert.assertTrue(actual);
     }
+
+    @Test
+    public void enoughMoneyForBetTest3() {
+        // Given
+        Casino casino = new Casino(System.in, System.out);
+        Double expected = 1.00;
+        GuestAccount guestAccount = new GuestAccount("Julian", 1, expected);
+        Guest guest = new Guest("Julian", guestAccount);
+        Player playerOne = new Player(guest);
+        BlackJack blackJackGame = new BlackJack(guest);
+        blackJackGame.setBet(15.00);
+        Double bet = blackJackGame.getBet();
+
+        // Then
+        boolean actual = blackJackGame.enoughMoneyForBet(bet, playerOne);
+
+        // When
+        Assert.assertFalse(actual);
+    }
+
+//    @Test
+//    public void
 
 }
