@@ -46,7 +46,7 @@ public class HiLoGameTest {
     @Test
     public void playFullGameTest2() {
         // Given
-        String input = "4\n10\nh\nno\n";
+        String input = "0\n10\nh\nno\n";
         ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
         Casino testCasino = new Casino(bytArrInpStr, System.out);
         Double startingBalance = 1000.0;
