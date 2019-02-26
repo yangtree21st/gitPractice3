@@ -258,7 +258,7 @@ public class Craps extends DiceGame implements Game {
     /**
      * This method asks the user what how much they would like to bet, and then returns their bet amount as a Double.
      * This method will continue to prompt the player if they have entered a bet that is larger than their avaliable
-     * balance.
+     * balance. It also checks to make sure that their bet is greater than or equal to the minimum bet.
      *
      * @return the Double value of the amount the user is betting
      */
