@@ -52,7 +52,7 @@ public class HiLo extends CardGame implements GamblingGame {
      * @return a card
      */
     public Card deal() {
-       
+
 
         if (currentCard != null) {
 
@@ -114,7 +114,9 @@ public class HiLo extends CardGame implements GamblingGame {
      * This method lets the guest play a full game of Hi-Lo by putting the methods in the order they need to be used
      */
     public void playFullGame() {
+        welcomeMessage();
         setUp();
+
         do {
             currentCard = null;
             this.bet = Casino.console.getDoubleInput("Please enter your bet:");
@@ -126,6 +128,7 @@ public class HiLo extends CardGame implements GamblingGame {
             if (enoughMoneyForBet(bet, hiloPlayer)) {
                 receiveBetFromPlayer(bet);
                 showFirstCardAndGetHiOrLo();
+
                 checkPlayersBalance(hiloPlayer);
                 showSecondCard();
                 winning();
@@ -201,7 +204,8 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void showFirstCardAndGetHiOrLo() {
         deal();
-        Casino.console.println(currentCard.toString());
+        Casino.console.println(currentCard.toString()+"Guess next Card"cardFaceDown());
+        cardFaceDown();
         this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
 
     }
@@ -210,7 +214,7 @@ public class HiLo extends CardGame implements GamblingGame {
      * This method update the display by printing the nextCard the user needs to see
      */
     public void showSecondCard() {
-        dealSecondCard();
+        deal();
         Casino.console.println(nextCard.toString());
     }
 
@@ -267,30 +271,48 @@ public class HiLo extends CardGame implements GamblingGame {
         }
     }
 
-    public void welcomeMessage(){
+    public void welcomeMessage() {
 
-        /$$      /$$           /$$                                                     /$$                     /$$   /$$ /$$         /$$
-                | $$  /$ | $$          | $$                                                    | $$                    | $$  | $$|__/        | $$
-                | $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$       | $$  | $$ /$$        | $$        /$$$$$$
-                | $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      | $$$$$$$$| $$ /$$$$$$| $$       /$$__  $$
-                | $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \ $$| $$ \ $$ \ $$| $$$$$$$$        | $$    | $$  \ $$      | $$__  $$| $$|______/| $$      | $$  \ $$
-                | $$$/ \  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$      | $$  | $$| $$        | $$      | $$  | $$
-                | $$/   \  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/      | $$  | $$| $$        | $$$$$$$$|  $$$$$$/
-                |__/     \__/ \_______/|__/ \_______/ \______/ |__/ |__/ |__/ \_______/         \___/   \______/       |__/  |__/|__/        |________/ \______/
+        Casino.console.println("/$$      /$$           /$$                                                     /$$                     /$$   /$$ /$$         /$$\n" +
+                "                | $$  /$ | $$          | $$                                                    | $$                    | $$  | $$|__/        | $$\n" +
+                "                | $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$       | $$  | $$ /$$        | $$        /$$$$$$\n" +
+                "                | $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      | $$$$$$$$| $$ /$$$$$$| $$       /$$__  $$\n" +
+                "                | $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$      | $$__  $$| $$|______/| $$      | $$  \\ $$\n" +
+                "                | $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$      | $$  | $$| $$        | $$      | $$  | $$\n" +
+                "                | $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/      | $$  | $$| $$        | $$$$$$$$|  $$$$$$/\n" +
+                "                |__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/       |__/  |__/|__/        |________/ \\______/\n" +
+                "        ");
 
+
+    }
+
+
+    public void cardFaceDown(){
+        Casino.console.println("\n"+
+                 "-------------- \n" +
+                 "|            | \n" +
+                 "|            | \n" +
+                 "|            | \n" +
+                 "|            | \n" +
+                 "|            | \n" +
+                 "|            | \n" +
+                 "|            | \n" +
+                 "--------------  ");
 
 
 
     }
+
 
 
 
     public static void main(String[] args) {
         Casino testCasino = new Casino();
         HiLo testHiLo = new HiLo(new Guest("", new GuestAccount("", 0, 1000.0)));
+
         testHiLo.playFullGame();
     }
-
+}
 //    public static void main(String[] args) {
 //        Casino testCasino = new Casino();
 //        GuestAccount guestAccount = new GuestAccount("Marlys", 1, 100.0);
@@ -302,7 +324,7 @@ public class HiLo extends CardGame implements GamblingGame {
 //    }
 
 
-}
+
 
 
 //
