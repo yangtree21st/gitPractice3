@@ -5,6 +5,8 @@ import io.zipcoder.casino.Games.Craps;
 import io.zipcoder.casino.Games.GoFish;
 import io.zipcoder.casino.Games.HiLo;
 import io.zipcoder.casino.Interfaces.Game;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class CasinoGames {
 
@@ -13,6 +15,12 @@ public class CasinoGames {
 
     CasinoGames(Guest guest) {
         this.currentGuest = guest;
+    }
+
+    public void runSelectedGUIGames() {
+        CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
+        Main.mainStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
+        Main.mainStage.show();
     }
 
     void runSelectedGames() {
@@ -55,7 +63,7 @@ public class CasinoGames {
 
         while(!(gameChoice.equals("gofish") || gameChoice.equals("blackjack") || gameChoice.equals("hilo") || gameChoice.equals("craps"))) {
             gameChoice = Casino.console.getStringInput("Error: Please enter one of the following games exactly as they are written\n" +
-                    "'GoFish', 'BlackJack', 'HiLo', or 'Craps'");
+                    "'GoFish', 'BlackJack', 'HiLo', or 'Craps'").toLowerCase();
         }
 
         return gameChoice;

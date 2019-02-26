@@ -2,6 +2,7 @@ package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Models.Die;
+import io.zipcoder.casino.utilities.AnsiStuff;
 
 public abstract class DiceGame {
     Die die;
@@ -23,7 +24,8 @@ public abstract class DiceGame {
      */
     static private void displaySingleRollResult(Integer value) {
         String representation = createDieRepresentation(value);
-        Casino.console.print(representation);
+        String ansiColor = AnsiStuff.getRandomAnsiColor();
+        Casino.console.print(ansiColor + representation + AnsiStuff.ANSI_RESET);
     }
 
     /**
@@ -63,9 +65,9 @@ public abstract class DiceGame {
         String result = "";
 
         if (value == 6 || value == 5 || value == 4) {
-            result = "| o   o |\n";
+            result = "| \u25CF   \u25CF |\n";
         } else if (value == 3 || value == 2) {
-            result = "| o     |\n";
+            result = "| \u25CF     |\n";
         } else if (value == 1) {
             result = "|       |\n";
         }
@@ -81,9 +83,9 @@ public abstract class DiceGame {
         String result = "";
 
         if (value == 6) {
-            result = "| o   o |\n";
+            result = "| \u25CF   \u25CF |\n";
         } else if (value == 5 || value == 3 || value == 1) {
-            result = "|   o   |\n";
+            result = "|   \u25CF   |\n";
         } else if (value == 4 || value == 2) {
             result = "|       |\n";
         }
@@ -99,14 +101,21 @@ public abstract class DiceGame {
         String result = "";
 
         if (value == 6 || value == 5 || value == 4) {
-            result = "| o   o |\n";
+            result = "| \u25CF   \u25CF |\n";
         } else if (value == 3 || value == 2) {
-            result = "|     o |\n";
+            result = "|     \u25CF |\n";
         } else if (value == 1) {
             result = "|       |\n";
         }
 
         return result;
     }
+
+//    public static void main(String[] args) {
+//        Casino casino = new Casino();
+//        Die die = new Die();
+//        for(int i = 0; i < 10; i++)
+//        rollSingleDieAndDisplayResult(die);
+//    }
 
 }

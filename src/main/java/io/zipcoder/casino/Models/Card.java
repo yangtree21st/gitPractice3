@@ -1,5 +1,7 @@
 package io.zipcoder.casino.Models;
 
+import io.zipcoder.casino.utilities.AnsiStuff;
+
 public class Card {
 
     public enum Suit {HEARTS, SPADES, DIAMONDS, CLUBS}
@@ -60,43 +62,50 @@ public class Card {
                 boundaryLineOfCard() + '\n';
     }
 
-    String boundaryLineOfCard() {
-        return "--------------";
+    public String boundaryLineOfCard() {
+        String color = getCardColor();
+        return color + "--------------" + AnsiStuff.ANSI_RESET;
     }
 
-    String firstRankLineOfCard() {
+    public String firstRankLineOfCard() {
+        String color = getCardColor();
         if (this.value == Rank.TEN) {
-            return "|10          |";
+            return color + "|10          |" + AnsiStuff.ANSI_RESET;
         } else {
-            return String.format("|%s           |", this.getRankAsString());
+            return color + String.format("|%s           |", this.getRankAsString()) + AnsiStuff.ANSI_RESET;
         }
     }
 
-    String secondRankLineOfCard() {
+    public String secondRankLineOfCard() {
+        String color = getCardColor();
         if (this.value == Rank.TEN) {
-            return "|          10|";
+            return color + "|          10|" + AnsiStuff.ANSI_RESET;
         } else {
-            return String.format("|           %s|", this.getRankAsString());
+            return color + String.format("|           %s|", this.getRankAsString()) + AnsiStuff.ANSI_RESET;
         }
     }
 
-    String firstSuitLineOfCard() {
-        return String.format("|%c           |", this.getSuitAsChar());
+    public String firstSuitLineOfCard() {
+        String color = getCardColor();
+        return color + String.format("|%c           |", this.getSuitAsChar()) + AnsiStuff.ANSI_RESET;
     }
 
-    String secondSuitLineOfCard() {
-        return String.format("|           %c|", this.getSuitAsChar());
+    public String secondSuitLineOfCard() {
+        String color = getCardColor();
+        return color + String.format("|           %c|", this.getSuitAsChar()) + AnsiStuff.ANSI_RESET;
     }
 
-    String emptyLineOfCard() {
-        return "|            |";
+    public String emptyLineOfCard() {
+        String color = getCardColor();
+        return color + "|            |" + AnsiStuff.ANSI_RESET;
     }
 
-    String middleLineOfCard() {
+    public String middleLineOfCard() {
+        String color = getCardColor();
         if (this.value == Rank.TEN) {
-            return String.format("|    %s%c     |", this.getRankAsString(), this.getSuitAsChar());
+            return color + String.format("|    %s%c     |", this.getRankAsString(), this.getSuitAsChar()) + AnsiStuff.ANSI_RESET;
         } else {
-            return String.format("|     %s%c     |", this.getRankAsString(), this.getSuitAsChar());
+            return color + String.format("|     %s%c     |", this.getRankAsString(), this.getSuitAsChar()) + AnsiStuff.ANSI_RESET;
         }
     }
 
@@ -142,6 +151,16 @@ public class Card {
             default: // DIAMONDS
                 return '\u2666';
         }
+    }
+
+    private String getCardColor() {
+        String color;
+        if (this.cardSuit == Suit.HEARTS || this.cardSuit == Suit.DIAMONDS){
+            color = AnsiStuff.ANSI_RED;
+        } else {
+            color = AnsiStuff.ANSI_BLACK;
+        }
+        return color;
     }
 
     public String toStringCard() {

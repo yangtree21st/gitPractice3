@@ -14,7 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class CasinoGamesTest{
-    
+    /*
     @Test
     public void runSelectedGames1() {
         // Given
@@ -70,7 +70,7 @@ public class CasinoGamesTest{
         // Then
         Assert.assertEquals(expectedOutput, actualOutput);
     }
-
+*/
     @Test
     public void getUserChoiceToContinuePlayingTest1() {
         // Given
