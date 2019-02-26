@@ -60,11 +60,11 @@ public class Card {
                 boundaryLineOfCard() + '\n';
     }
 
-    String boundaryLineOfCard() {
+    public String boundaryLineOfCard() {
         return "--------------";
     }
 
-    String firstRankLineOfCard() {
+    public String firstRankLineOfCard() {
         if (this.value == Rank.TEN) {
             return "|10          |";
         } else {
@@ -72,7 +72,7 @@ public class Card {
         }
     }
 
-    String secondRankLineOfCard() {
+    public String secondRankLineOfCard() {
         if (this.value == Rank.TEN) {
             return "|          10|";
         } else {
@@ -80,19 +80,19 @@ public class Card {
         }
     }
 
-    String firstSuitLineOfCard() {
+    public String firstSuitLineOfCard() {
         return String.format("|%c           |", this.getSuitAsChar());
     }
 
-    String secondSuitLineOfCard() {
+    public String secondSuitLineOfCard() {
         return String.format("|           %c|", this.getSuitAsChar());
     }
 
-    String emptyLineOfCard() {
+    public String emptyLineOfCard() {
         return "|            |";
     }
 
-    String middleLineOfCard() {
+    public String middleLineOfCard() {
         if (this.value == Rank.TEN) {
             return String.format("|    %s%c     |", this.getRankAsString(), this.getSuitAsChar());
         } else {
