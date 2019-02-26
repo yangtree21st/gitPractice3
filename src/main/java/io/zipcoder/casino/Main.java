@@ -2,6 +2,7 @@ package io.zipcoder.casino;
 
 
 import io.zipcoder.casino.Models.GuestAccount;
+import io.zipcoder.casino.utilities.ImageUtilities;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,8 +13,10 @@ public class Main extends Application{
     public static Stage mainStage;
     public static Stage secondStage = new Stage();
     public static Casino casino = new Casino();
+    public ImageUtilities imageUtilities = new ImageUtilities();
 
     public static void main(String[] args) {
+
         //setUpforDisplayTesting();
         String choice = consoleOrGUI();
         if(choice.equals("console")) {
@@ -47,11 +50,11 @@ public class Main extends Application{
     public static String consoleOrGUI(){
 
         while(true) {
-            String choice = (casino.console.getStringInput("Would you like to gamble using the <Console> or <GUI> Interface").toLowerCase());
-            if (choice.equals("gui") || choice.equals("console")) {
+            String choice = (casino.console.getStringInput("Would you like to gamble using the <Retro> or <Modern> Interface").toLowerCase());
+            if (choice.equals("modern") || choice.equals("retro")) {
                 return choice;
             } else {
-                return casino.console.getStringInput("Incorrect input, please try again. <Console> or <GUI>").toLowerCase();
+                return casino.console.getStringInput("Incorrect input, please try again. <Retro> or <Modern>").toLowerCase();
             }
         }
 
