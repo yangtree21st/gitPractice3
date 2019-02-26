@@ -16,18 +16,21 @@ public class HiLoDisplay extends Display {
 
     Text hiLoBanner = new Text("HiLo Game");
     TextArea areaInfo = new TextArea();
+    GridPane hiLoGrid = createStandardGrid();
 
     public Parent createHiLoContent(Game game) {
         this.displayGame = game;
-        GridPane hiLoGrid = createStandardGrid();
+        //GridPane hiLoGrid = createStandardGrid();
         Button btnStart = new Button("Start HiLo Game");
         btnStart.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
         hiLoGrid.add(btnStart,3,6,1,1);
 
         btnStart.setOnAction(e ->{
-            Main.mainStage.setScene(new Scene(placeBetContent()));
-
+            //Main.mainStage.setScene(new Scene(placeBetContent()));
+            hiLoGrid.getChildren().remove(btnStart);
+            //hiLoGrid.getChildren().retainAll(hiLoBanner,btnExit,btnForInstructions,areaInfo);
+            placeBetContent();
         });
 
         return hiLoGrid;
@@ -35,17 +38,18 @@ public class HiLoDisplay extends Display {
 
 
     public Parent placeBetContent() {
-        GridPane placeBetGridPane = createStandardGrid();
+        //GridPane placeBetGridPane = createStandardGrid();
 
-        Button btnPlaceBet = new Button("Start HiLo Game");
+        Button btnPlaceBet = new Button("Place Bet");
         btnPlaceBet.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        hiLoGrid.add(btnPlaceBet,3,6,1,1);
 
         btnPlaceBet.setOnAction(e ->{
             Main.mainStage.setScene(new Scene(placeBetContent()));
 
         });
 
-        return placeBetGridPane;
+        return hiLoGrid;
 
     }
 

@@ -63,7 +63,7 @@ public class Display{
         grid.setPadding(new Insets(15, 15, 15, 15));
         //sets the background to the rgba value
         grid.setBackground(Background.EMPTY);
-        String style = "-fx-background-color: rgba(67, 30, 30, 0.8);";
+        String style = "-fx-background-color: rgba(167, 130, 130, 0.8);";
         grid.setStyle(style);
 
         //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
