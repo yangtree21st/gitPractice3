@@ -20,9 +20,7 @@ public class CrapsDisplay extends Display {
     public Parent createCrapsContent(Game game){
         this.displayGame = (Craps) game;
 
-        GridPane crapsGrid = super.createGrid();
-        crapsGrid.getColumnConstraints().addAll(super.createColumnConstraints(),super.createColumnConstraints());
-        crapsGrid.getRowConstraints().addAll(super.createRowConstraints(), super.createRowConstraints(),super.createRowConstraints());
+        GridPane crapsGrid = super.createGameGrid();
         GridPane centerGrid = createCenterGrid();
 
         crapsGrid.add(centerGrid, 0,4);

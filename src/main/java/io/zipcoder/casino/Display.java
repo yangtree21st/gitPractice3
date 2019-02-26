@@ -93,4 +93,13 @@ public class Display{
         return rowConstraints;
     }
 
+    public GridPane createGameGrid(){
+        GridPane gameGridPane = createGrid();
+
+        gameGridPane.getColumnConstraints().addAll(createColumnConstraints(),createColumnConstraints());
+        gameGridPane.getRowConstraints().addAll(createRowConstraints(), createRowConstraints(),createRowConstraints());
+
+        return gameGridPane;
+    }
+
 }

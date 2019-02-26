@@ -50,8 +50,9 @@ public class CasinoGamesDisplay extends Display {
 
 
         btnExit.setOnAction(e -> {
-            Stage casinoStage = super.setExitAction(btnExit);
-            casinoStage.close();
+            CasinoDisplay casinoDisplay = new CasinoDisplay();
+            Main.mainStage.setScene(new Scene(casinoDisplay.createSecondaryCasinoContent()));
+            Main.mainStage.show();
         });
 
         btnBlackJack.setOnAction(e -> {
@@ -71,7 +72,9 @@ public class CasinoGamesDisplay extends Display {
 
         btnHilo.setOnAction(e -> {
             HiLo hiLoGames = new HiLo(Main.casino.getGuest());
-            hiLoGames.();
+            HiLoDisplay hiLoDisplay = new HiLoDisplay();
+            Main.mainStage.setScene(new Scene(hiLoDisplay.createHiLoContent(hiLoGames)));
+            Main.mainStage.show();
         });
 
         return casinoGamesGrid;

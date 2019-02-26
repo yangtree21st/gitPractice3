@@ -24,6 +24,8 @@ public class CasinoDisplay extends Display {
     Text enterStartingBalanceField = new Text("Enter starting balance");
     TextField startingBalanceField = new TextField();
 
+    TextArea areaInfo = new TextArea();
+
 
     public Parent createCasinoContent() {
         GridPane casinoGrid = createStandardGridPane();
@@ -41,6 +43,10 @@ public class CasinoDisplay extends Display {
 
 
         submitInfo.setOnAction(e -> {
+            String nameInput = nameField.getText();
+            Double balanceInput = Double.parseDouble(startingBalanceField.getText());
+            Main.casino.initializeAccountCreation(nameInput, balanceInput);
+
             Main.mainStage.setScene(new Scene(createSecondaryCasinoContent()));
             Main.mainStage.show();
         });
@@ -54,7 +60,7 @@ public class CasinoDisplay extends Display {
 
         GridPane casinoGrid = createStandardGridPane();
 
-        TextArea areaInfo = new TextArea();
+
         areaInfo.setPrefRowCount(2);
 
         Button btnEnterCasinoFloor = new Button("Enter Game Floor");
@@ -69,11 +75,8 @@ public class CasinoDisplay extends Display {
         btnExit.setMaxWidth(Double.MAX_VALUE);
 
         //getUserInput
-        String name = nameField.getText();
-        Double amount = Double.parseDouble(startingBalanceField.getText());
 
-        areaInfo.setText(Main.casino.initializeAccountCreation(name, amount));
-
+        areaInfo.setText(Main.casino.accountToString(Main.casino.getGuest()));
 
         nameField.setEditable(false);
         startingBalanceField.setEditable(false);

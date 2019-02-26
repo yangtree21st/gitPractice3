@@ -1,6 +1,7 @@
 package io.zipcoder.casino;
 
 
+import io.zipcoder.casino.Models.GuestAccount;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,6 +24,7 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        setUpforDisplayTesting();
 /*
         this.mainStage = stage;
         mainStage.setTitle("Casino Royale");
@@ -53,5 +55,10 @@ public class Main extends Application{
             }
         }
 
+    }
+
+    public void setUpforDisplayTesting(){
+        GuestAccount newGuestAccount = new GuestAccount("Marshilla Brahma", 1,10000.00);
+        casino.setGuest("Marshilla Brahma", newGuestAccount);
     }
 }
