@@ -1,6 +1,6 @@
 package io.zipcoder.casino.Games;
 
-import io.zipcoder.casino.Games.GoFish;
+import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.CardDeck;
@@ -10,7 +10,13 @@ import io.zipcoder.casino.Players.GoFishPlayer;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class GoFishTest {
 
@@ -21,8 +27,6 @@ public class GoFishTest {
     Guest guest2 = new Guest("guest2", guestAccount2);
     GoFishPlayer playerOne = new GoFishPlayer(guest);
     GoFishPlayer playerTwo = new GoFishPlayer(guest2);
-    CardDeck gameDeck = new CardDeck();
-    Hand playerHand = new Hand();
     Hand player2Hand = new Hand();
     GoFish game = new GoFish(guest);
     Card testCard1 = new Card(Card.Suit.SPADES, Card.Rank.TEN);
@@ -36,34 +40,207 @@ public class GoFishTest {
 
 
     @Test
-    public void setUpTest() {
+    public void setUpTest1() {
         //Given
-        playerHand.addCard(gameDeck.dealNextCard());
-        playerHand.addCard(gameDeck.dealNextCard());
-        playerHand.addCard(gameDeck.dealNextCard());
-        playerHand.getAllOfPlayerCards();
+        GoFish testGoFish = new GoFish(guest);
+
+        testGoFish.setUp();
+
+        Assert.assertNotNull(testGoFish.getPlayerHand());
+    }
+
+    @Test
+    public void setUpTest2() {
+        //Given
+        GoFish testGoFish = new GoFish(guest);
+
+        testGoFish.setUp();
+
+        Assert.assertNotNull(testGoFish.getOpponentHand());
+    }
+
+
+    @Test
+    public void takeTurnTest1() {
+        //Given
+        String input = "0\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+
+        GoFish testGoFish = new GoFish(guest);
+
+        Hand playerHand = new Hand();
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+
+        Hand opponentHand = new Hand();
+        opponentHand.addCard(testCard2);
+        opponentHand.addCard(testCard3);
+        opponentHand.addCard(testCard4);
+        opponentHand.addCard(testCard5);
+
+        testGoFish.takeTurn(playerHand, opponentHand);
+
+        Assert.assertFalse(opponentHand.getAllOfPlayerCards().contains(testCard2));
+    }
+
+
+    @Test
+    public void takeTurnTest2() {
+        //Given
+        String input = "0\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+
+        Casino testCasino = new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
+
+        GoFish testGoFish = new GoFish(guest);
+
+        Hand playerHand = new Hand();
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+
+        Hand opponentHand = new Hand();
+        opponentHand.addCard(testCard2);
+        opponentHand.addCard(testCard3);
+        opponentHand.addCard(testCard4);
+        opponentHand.addCard(testCard5);
+
+        String expectedOutput = "Take Your Turn\n" +
+                "\"Pick A Card To Fish For [Enter Index Number Below Card Choice]: \"\n";
+
+        testGoFish.takeTurn(playerHand, opponentHand);
+
+        String actualOutput = bytArrOutStr.toString();
+
+        Assert.assertEquals(expectedOutput, actualOutput);
+    }
+
+
+    @Test
+    public void opponentTurnTest1() {
+        //Given
+        String input = "0\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+
+        Casino testCasino = new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
+
+        GoFish testGoFish = new GoFish(guest);
+
+        Hand playerHand = new Hand();
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+
+        Hand opponentHand = new Hand();
+        opponentHand.addCard(testCard2);
+        opponentHand.addCard(testCard3);
+        opponentHand.addCard(testCard4);
+        opponentHand.addCard(testCard5);
+
+        String expectedOutput = "Now It Is Your Opponent's Turn\n" +
+                "Do You Have Any TEN\n" +
+                "Press [Enter] To Continue";
+
+        testGoFish.opponentTurn(playerHand, opponentHand);
+
+        String actualOutput = bytArrOutStr.toString();
+
+        Assert.assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    public void opponentTurnTest2() {
+        //Given
+        String input = "0\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+
+        GoFish testGoFish = new GoFish(guest);
+
+        Hand playerHand = new Hand();
+        playerHand.addCard(testCard2);
+        playerHand.addCard(testCard3);
+        playerHand.addCard(testCard4);
+        playerHand.addCard(testCard5);
+
+        Hand opponentHand = new Hand();
+        opponentHand.addCard(testCard2);
+        opponentHand.addCard(testCard3);
+        opponentHand.addCard(testCard4);
+        opponentHand.addCard(testCard5);
+
+        testGoFish.opponentTurn(playerHand, opponentHand);
+
+        Assert.assertFalse(playerHand.getAllOfPlayerCards().contains(testCard2));
+    }
+
+
+
+    @Test
+    public void dealTest(){
+        //Given
+        game.getPlayerHand().addCard(game.deal());
+        Integer expected = 2;
 
         //When
-        Boolean expected = playerHand.getAllOfPlayerCards().isEmpty();
+        game.getPlayerHand().addCard(game.deal());
+        Integer actual = game.getPlayerHand().getAllOfPlayerCards().size();
 
         //Then
-        Assert.assertFalse(expected);
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void dealTest2(){
+        //Given
+        Card expected = game.getDeck().peekAtTopCard();
+
+
+        //When
+       Card actual = game.deal();
+
+
+        //Then
+        Assert.assertEquals(expected,actual);
+
+    }
+
+    @Test
+    public void shuffleDeckTest(){
+        //Given
+        Card peek = game.getDeck().peekAtTopCard();
+
+        //When
+        game.getDeck().shuffleDeck();
+        Card newPeek = game.getDeck().peekAtTopCard();
+
+        //Then
+        Assert.assertNotEquals(peek, newPeek);
 
     }
 
     @Test
     public void containsPairsTest() {
         //Given
-        playerHand.addCard(testCard1);
-        playerHand.addCard(testCard2);
-        playerHand.addCard(testCard3);
-        playerHand.addCard(testCard4);
-        playerHand.addCard(testCard5);
+        game.getPlayerHand().addCard(testCard1);
+        game.getPlayerHand().addCard(testCard2);
+        game.getPlayerHand().addCard(testCard3);
+        game.getPlayerHand().addCard(testCard4);
+        game.getPlayerHand().addCard(testCard5);
         Integer expected = 1;
 
 
         //When
-        Integer actual = game.containsPairs(playerHand);
+        Integer actual = game.containsPairs(game.getPlayerHand());
 
         //Then
         Assert.assertEquals(expected, actual);
@@ -72,15 +249,15 @@ public class GoFishTest {
     @Test
     public void containsPairsTest2() {
         //Given
-        playerHand.addCard(testCard2);
-        playerHand.addCard(testCard3);
-        playerHand.addCard(testCard4);
-        playerHand.addCard(testCard5);
+        game.getPlayerHand().addCard(testCard2);
+        game.getPlayerHand().addCard(testCard3);
+        game.getPlayerHand().addCard(testCard4);
+        game.getPlayerHand().addCard(testCard5);
         Integer expected = 0;
 
 
         //When
-        Integer actual = game.containsPairs(playerHand);
+        Integer actual = game.containsPairs(game.getPlayerHand());
 
         //Then
         Assert.assertEquals(expected, actual);
@@ -89,16 +266,16 @@ public class GoFishTest {
     @Test
     public void removePairsTest1() {
         //Given
-        playerHand.addCard(testCard1);
-        playerHand.addCard(testCard2);
-        playerHand.addCard(testCard3);
-        playerHand.addCard(testCard4);
-        playerHand.addCard(testCard5);
+        game.getPlayerHand().addCard(testCard1);
+        game.getPlayerHand().addCard(testCard2);
+        game.getPlayerHand().addCard(testCard3);
+        game.getPlayerHand().addCard(testCard4);
+        game.getPlayerHand().addCard(testCard5);
         Integer expected = 3;
         //When
-        game.containsPairs(playerHand);
+        game.containsPairs(game.getPlayerHand());
 
-        Integer actual = playerHand.getAllOfPlayerCards().size();
+        Integer actual = game.getPlayerHand().getAllOfPlayerCards().size();
 
         //Then
         Assert.assertEquals(expected, actual);
@@ -107,35 +284,39 @@ public class GoFishTest {
     @Test
     public void removePairsTest2() {
         //Given
-        playerHand.addCard(testCard2);
-        playerHand.addCard(testCard3);
-        playerHand.addCard(testCard4);
-        playerHand.addCard(testCard5);
+        game.getPlayerHand().addCard(testCard2);
+        game.getPlayerHand().addCard(testCard3);
+        game.getPlayerHand().addCard(testCard4);
+        game.getPlayerHand().addCard(testCard5);
         Integer expected = 4;
 
         //When
-        game.containsPairs(playerHand);
-        Integer actual = playerHand.getAllOfPlayerCards().size();
+        game.containsPairs(game.getPlayerHand());
+        Integer actual = game.getPlayerHand().getAllOfPlayerCards().size();
 
         //Then
         Assert.assertEquals(expected, actual);
 
     }
 
+
+
     @Test
     public void playerTurnTest() {
 
         //Given
-        playerHand.addCard(testCard2);
-        playerHand.addCard(testCard3);
-        playerHand.addCard(testCard4);
-        playerHand.addCard(testCard5);
+        game.getPlayerHand().addCard(testCard2);
+        game.getPlayerHand().addCard(testCard3);
+        game.getPlayerHand().addCard(testCard4);
+        game.getPlayerHand().addCard(testCard5);
         player2Hand.addCard(testCard2);
         player2Hand.addCard(testCard6);
         player2Hand.addCard(testCard8);
 
 
     }
+
+
 
 
 }
