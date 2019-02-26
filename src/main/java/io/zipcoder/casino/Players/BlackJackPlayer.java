@@ -58,6 +58,7 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     public Hand addCardToHand(Card cardToAdd){
         playerhand.addCard(cardToAdd);
+        getHandTotal();
         return  playerhand;
     }
 
@@ -69,13 +70,15 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     public Hand removeCardFromHand(Card cardToRemove){
         playerhand.removeCard(cardToRemove);
+        getHandTotal();
         return playerhand;
 }
     public Integer getHandTotal() {
-
+        result = 0;
+        int aceCounter = 0;
         for(Card card : playerhand.getAllOfPlayerCards()) {
+            int score;
             String c = card.getValue().toString();
-            int score = 0;
             if (c.equals("TEN") || c.equals("JACK") || c.equals("QUEEN") || c.equals("KING")) {
                 c = "10";
                 score = Integer.parseInt(c);
@@ -90,6 +93,7 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
                     c = "11";
                     score = Integer.parseInt(c);
                     result += score;
+                    aceCounter++;
                 }
             }// need to make a choice for two int value which are 1 and 11;
             else if (c.equals("TWO")) {
@@ -134,6 +138,11 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 //                return result;
             }
 
+        }
+        if(result > 21){
+            for(int i = 0 ; i < aceCounter ; i++){
+                result -= 10;
+            }
         }
            return result;
         }
