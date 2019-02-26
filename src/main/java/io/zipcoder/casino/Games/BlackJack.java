@@ -118,8 +118,10 @@ public class BlackJack implements GamblingGame, Game {
         }
         while (continueGame && checkPlayersBalance(this.player) > minBet);
         //TODO - print when you are kicked out of loop because of insufficient funds
-        Casino.console.println("You broke go get more money.");
         Casino.console.println("You have played a full game of Black Jack!");
+        if(checkPlayersBalance(this.player) < minBet) {
+            Casino.console.println("You broke go get more money.");
+        }
     }
 
     /**
@@ -143,7 +145,6 @@ public class BlackJack implements GamblingGame, Game {
             giveWinningsToPlayer(bet);
             Casino.console.println("You won!!");
         } else if (this.dealer.getHandTotal() > this.player.getHandTotal() && this.dealer.getHandTotal() < 21) {
-            giveWinningsToPlayer(bet);
             Casino.console.println("You lost!!");
         }
     }
