@@ -3,8 +3,6 @@ package io.zipcoder.casino.Games;
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.CardDeck;
-import io.zipcoder.casino.Models.GuestAccount;
-import io.zipcoder.casino.Players.GoFishPlayer;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.Hand;
@@ -13,7 +11,6 @@ import io.zipcoder.casino.Players.Player;
 import java.util.Random;
 
 public class GoFish extends CardGame implements Game {
-    private Guest guest;
     private Player player;
     private Player dealer;
     private Integer numberOfPairsPlayer;
@@ -23,8 +20,6 @@ public class GoFish extends CardGame implements Game {
     private Hand dealerHand;
     private Card currentCard;
     private Card checkCard;
-    private Card pairCard1;
-    private Card pairCard2;
 
 
     public GoFish(Guest guest) {
@@ -45,11 +40,12 @@ public class GoFish extends CardGame implements Game {
         return player;
     }
 
-    public Player getOpponent() {
-        return dealer;
-    }
+    //public Player getOpponent() {
+    //     return dealer;
+    // }
 
     public void playFullGame() {
+
 
         updateDisplay();
 
@@ -57,15 +53,25 @@ public class GoFish extends CardGame implements Game {
 
         setUp();
 
-        while (!(playerHand.getAllOfPlayerCards().size() == 0 || dealerHand.getAllOfPlayerCards().size() == 0)) {
 
-            containsPairs(playerHand);
-            containsPairs(dealerHand);
+        do {
+            removePairsBetweenTurns();
+
             takeTurn(playerHand, dealerHand);
+
             opponentTurn(dealerHand, playerHand);
-        }
+
+        } while (!(playerHand.getAllOfPlayerCards().size() == 0 || dealerHand.getAllOfPlayerCards().size() == 0 || goFishDeck.getCardDeckSize() == 0));
+
+        winning(numberOfPairsPlayer, numberOfPairsDealer);
+
+        losing(numberOfPairsDealer, numberOfPairsPlayer);
+
+        tie(numberOfPairsPlayer, numberOfPairsDealer);
 
         Casino.console.println("You have played a full game of Go Fish!");
+
+        Casino.console.getStringInput("Do You Wish To Play Again? [Y]es [N]o");
 
     }
 
@@ -78,7 +84,7 @@ public class GoFish extends CardGame implements Game {
                 " ##::: ##:: ##:::: ##:::: ##...::::: ##:::..... ##: ##.... ##:\n" +
                 " ##::: ##:: ##:::: ##:::: ##:::::::: ##::'##::: ##: ##:::: ##:\n" +
                 ". ######:::. #######::::: ##:::::::'####:. ######:: ##:::: ##:\n" +
-                ":......:::::.......::::::..::::::::....:::......:::..:::::..::");
+                ":......:::::.......::::::..::::::::....:::......:::..:::::..::\n");
 
     }
 
@@ -111,7 +117,6 @@ public class GoFish extends CardGame implements Game {
         dealerHand.addCard(goFishDeck.dealNextCard());
 
 
-
         playerHand.getAllOfPlayerCards();
 
         printOutCurrentHand();
@@ -119,12 +124,19 @@ public class GoFish extends CardGame implements Game {
 
     }
 
-    public Card deal () {
+    public void removePairsBetweenTurns() {
+        numberOfPairsPlayer += containsPairs(playerHand);
+
+        numberOfPairsDealer += containsPairs(dealerHand);
+
+    }
+
+    public Card deal() {
         return super.getDeck().dealNextCard();
     }
 
 
-    public Boolean containsPairs(Hand hand) {
+    public Integer containsPairs(Hand hand) {
         int counter = 0;
 
         for (int cardIndex = 0; cardIndex < hand.getAllOfPlayerCards().size() - 1; cardIndex++) {
@@ -135,10 +147,12 @@ public class GoFish extends CardGame implements Game {
                 if (currentCard.getValue() == checkCard.getValue()) {
                     counter++;
                     removePairs(hand);
+                    cardIndex--;
+
                 }
             }
         }
-        return (counter > 0);
+        return counter;
     }
 
 
@@ -156,6 +170,7 @@ public class GoFish extends CardGame implements Game {
         Casino.console.println("Take Your Turn");
 
         printOutCurrentHand();
+        displayCurrentScore();
 
         boolean goFish = true;
 
@@ -163,24 +178,27 @@ public class GoFish extends CardGame implements Game {
         for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++) {
             if (playerHand.getAllOfPlayerCards().get(input).getValue() == dealerHand.getAllOfPlayerCards().get(dealerIndex).getValue()) {
                 dealerHand.removeCard(dealerHand.getAllOfPlayerCards().get(dealerIndex));
-                playerHand.removeCard(playerHand.getAllOfPlayerCards().get(input));
-                numberOfPairsPlayer++;
+                playerHand.addCard(playerHand.getAllOfPlayerCards().get(input));
+
                 goFish = false;
                 break;
 
             }
         }
-         if (goFish){
+        if (goFish) {
             Casino.console.println("Go Fish!!!");
-            playerHand.addCard(goFishDeck.dealNextCard());}
+            playerHand.addCard(goFishDeck.dealNextCard());
+        }
 
-        displayCurrentScore();
+
     }
 
 
     public void opponentTurn(Hand dealerHand, Hand playerHand) {
 
         Casino.console.println("Now It Is Your Opponent's Turn");
+        printOutCurrentHand();
+        displayCurrentScore();
 
         Random randomNumGen = new Random();
 
@@ -208,14 +226,11 @@ public class GoFish extends CardGame implements Game {
         }
 
 
-        displayCurrentScore();
-        }
-
-
+    }
 
 
     private void printOutCurrentHand() {
-        Casino.console.println(playerHand.toString());
+        Casino.console.println(playerHand.toString() + "\n");
         for (int i = 0; i < playerHand.getAllOfPlayerCards().size(); i++) {
             Casino.console.print("[%d]            ", i);
         }
@@ -265,6 +280,35 @@ public class GoFish extends CardGame implements Game {
 
     }
 
+    public void tie(Integer numberOfPairsDealer, Integer numberOfPairsPlayer) {
+
+        if (numberOfPairsDealer == numberOfPairsPlayer) {
+
+            Casino.console.println("\n" +
+                    "                                                            \n" +
+                    "  /###           /                ###      ###      ###     \n" +
+                    " /  ############/ #                ###      ###      ###    \n" +
+                    "/     #########  ###                ##       ##       ##    \n" +
+                    "#     /  #        #                 ##       ##       ##    \n" +
+                    " ##  /  ##                          ##       ##       ##    \n" +
+                    "    /  ###      ###       /##       ##       ##       ##    \n" +
+                    "   ##   ##       ###     / ###      ##       ##       ##    \n" +
+                    "   ##   ##        ##    /   ###     ##       ##       ##    \n" +
+                    "   ##   ##        ##   ##    ###    ##       ##       ##    \n" +
+                    "   ##   ##        ##   ########     ### /    ### /    ### / \n" +
+                    "    ##  ##        ##   #######       ##/      ##/      ##/  \n" +
+                    "     ## #      /  ##   ##                                   \n" +
+                    "      ###     /   ##   ####    /     #        #        #    \n" +
+                    "       ######/    ### / ######/     ###      ###      ###   \n" +
+                    "         ###       ##/   #####       #        #        #    \n" +
+                    "                                                            \n" +
+                    "                                                            \n" +
+                    "                                                            \n" +
+                    "                                                            \n");
+        }
+    }
+}
+/*
     public void quitGame() {
 
     }
@@ -278,45 +322,8 @@ public class GoFish extends CardGame implements Game {
     public void losing() {
 
     }
-}
-
-        /*public Hand getPlayerHand (GoFishPlayer player){
-            return null;
-        }
-
-        public Card askOtherPlayerforCard () {
-            return null;
-        }
-
-        public void goFish () {
-
-        }
-
-        public GoFishPlayer breakTie () {
-            return null;
-        }
-
-        public void incrementNumberOfPairs (GoFishPlayer playerToIncrement){
-
-        }
+}*/
 
 
-
-
-        public static void main (String[]args){
-            GuestAccount guestAccount = new GuestAccount("la", null, 0.0);
-            Guest guest = new Guest("la", guestAccount);
-            Casino console = new Casino();
-            GoFish goFish = new GoFish(guest);
-            goFish.playFullGame();
-
-
-        }
-
-}
-/* for (int cardIndex = 0; cardIndex < playerHand.getAllOfPlayerCards().size(); cardIndex++) {
-
-        if (playerHand.getAllOfPlayerCards().get(cardIndex) == null) {
-        System.out.println("Annnnnnd That's Game!!"); */
 
 
