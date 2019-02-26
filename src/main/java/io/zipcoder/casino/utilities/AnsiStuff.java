@@ -13,7 +13,10 @@ public class AnsiStuff {
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
     public static final String ANSI_CYAN = "\u001B[36m";
+
     public static final String ANSI_WHITE = "\u001B[37m";
+
+    public static final String[] ANSI_COLOR_ARRAY = {ANSI_BLACK, ANSI_RED, ANSI_GREEN, ANSI_YELLOW, ANSI_BLUE, ANSI_PURPLE, ANSI_CYAN};
 
     public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
@@ -24,9 +27,9 @@ public class AnsiStuff {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    Random random = new Random();
+    private static Random random = new Random();
 
     public static String getRandomAnsiColor(){
-        return ANSI_BLACK;
+        return ANSI_COLOR_ARRAY[random.nextInt(ANSI_COLOR_ARRAY.length)];
     }
 }
