@@ -14,10 +14,20 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     private Hand playerhand = new Hand();
 
+    private int result;
 
 
     public BlackJackPlayer(Guest newGuest){
         super(newGuest);
+        this.result = 0;
+    }
+
+    public BlackJackPlayer() {
+        this.result =0;
+    }
+
+    public void setResult(int result) {
+        this.result = result;
     }
 
     public Guest getGuest(){
@@ -48,6 +58,7 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     public Hand addCardToHand(Card cardToAdd){
         playerhand.addCard(cardToAdd);
+        getHandTotal();
         return  playerhand;
     }
 
@@ -59,66 +70,79 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     public Hand removeCardFromHand(Card cardToRemove){
         playerhand.removeCard(cardToRemove);
+        getHandTotal();
         return playerhand;
 }
     public Integer getHandTotal() {
-
-
-        int result=0;
-
-        for(Card card : cardsHand) {
+        result = 0;
+        int aceCounter = 0;
+        for(Card card : playerhand.getAllOfPlayerCards()) {
+            int score;
             String c = card.getValue().toString();
             if (c.equals("TEN") || c.equals("JACK") || c.equals("QUEEN") || c.equals("KING")) {
                 c = "10";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             } else if (c.equals("ACE")) {
-                return null;
+                if(result > 10) {
+                    c = "1";
+                    score = Integer.parseInt(c);
+                    result += score;
+                } else {
+                    c = "11";
+                    score = Integer.parseInt(c);
+                    result += score;
+                    aceCounter++;
+                }
             }// need to make a choice for two int value which are 1 and 11;
             else if (c.equals("TWO")) {
                 c = "2";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             } else if (c.equals("THREE")) {
                 c = "3";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             } else if (c.equals("FOUR")) {
                 c = "4";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             } else if (c.equals("FIVE")) {
                 c = "5";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             } else if (c.equals("SIX")) {
                 c = "6";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             } else if (c.equals("SEVEN")) {
                 c = "7";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
-
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             } else if (c.equals("EIGHT")) {
                 c = "8";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             } else if (c.equals("NINE")) {
                 c = "9";
-                int Score = Integer.parseInt(c);
-                result += Score;
-                return result;
+                score = Integer.parseInt(c);
+                result += score;
+//                return result;
             }
 
+        }
+        if(result > 21){
+            for(int i = 0 ; i < aceCounter ; i++){
+                result -= 10;
+            }
         }
            return result;
         }
