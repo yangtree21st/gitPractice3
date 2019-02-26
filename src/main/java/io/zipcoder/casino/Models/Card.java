@@ -170,13 +170,13 @@ public class Card {
 
     }
 
-    public static void main(String[] args) {
-        Card testCard = new Card(Suit.SPADES, Rank.THREE);
-        Card testCard2 = new Card(Suit.HEARTS, Rank.ACE);
-        Card testCard3 = new Card(Suit.DIAMONDS, Rank.TEN);
-        System.out.println(testCard);
-        System.out.println(testCard2);
-        System.out.println(testCard3);
-    }
+//    public static void main(String[] args) {
+//        Card testCard = new Card(Suit.SPADES, Rank.THREE);
+//        Card testCard2 = new Card(Suit.HEARTS, Rank.ACE);
+//        Card testCard3 = new Card(Suit.DIAMONDS, Rank.TEN);
+//        System.out.println(testCard);
+//        System.out.println(testCard2);
+//        System.out.println(testCard3);
+//    }
 
 }
