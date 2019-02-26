@@ -174,10 +174,10 @@ public class SlotReel {
 
 
 
-    public static void main(String[] args) {
-        SlotReel testReel = new SlotReel();
-        int[] results = {0, 4, 9};
-        System.out.println(testReel.getStringRepresentationOfSlotReelResults(results));
-    }
+//    public static void main(String[] args) {
+//        SlotReel testReel = new SlotReel();
+//        int[] results = {0, 4, 9};
+//        System.out.println(testReel.getStringRepresentationOfSlotReelResults(results));
+//    }
 
 }
