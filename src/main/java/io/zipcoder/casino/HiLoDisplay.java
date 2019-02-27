@@ -205,7 +205,7 @@ public class HiLoDisplay extends Display {
 
     public boolean proceedWithHiloGameSwitch(Double betAmount){
 
-        boolean enoughMoney = displayGame.enoughMoneyForBet(betAmount,displayGame.getPlayer());
+        boolean enoughMoney = true;
 
         if(!enoughMoney && betAmount < 5.0){
             areaInfo.setText(betTooLowText + "\n" + insuffiencientFundsText);
@@ -245,7 +245,7 @@ public class HiLoDisplay extends Display {
     }
     */
 
-    private String returnInstructions(){
+    public String returnInstructions(){
         return "Hi-Lo, or High-Low, is a fairly simple card game. It uses a standard deck of 52 cards,\n" +
                 "and it has players guess whether a certain card is higher or lower than one showing on the table.\n" +
                 "There are variations for drinking and gambling, but it's a pretty standard and simple game.\n\n" +
