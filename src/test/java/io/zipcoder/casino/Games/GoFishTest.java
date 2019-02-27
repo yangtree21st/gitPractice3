@@ -43,7 +43,7 @@ public class GoFishTest {
     @Test
     public void setUpTest1() {
         //Given
-        game.getPlayer();
+        game.getPlayer(guest);
 
         //When
         game.setUp();

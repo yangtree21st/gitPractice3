@@ -253,22 +253,21 @@ public class GoFish extends CardGame implements Game {
         while (input < 0 || input >= playerHand.getAllOfPlayerCards().size()) {
             input = Casino.console.getIntegerInput("\"Pick A Card To Fish For [Enter Index Number Below Card Choice]: \"");
         }
+        for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++){
+        if (playerHand.getAllOfPlayerCards().get(input).getValue() == dealerHand.getAllOfPlayerCards().get(dealerIndex).getValue()) {
 
-        for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++) {
-
-            if (playerHand.getAllOfPlayerCards().get(input).getValue() == dealerHand.getAllOfPlayerCards().get(dealerIndex).getValue()) {
-                Card match = dealerHand.getAllOfPlayerCards().get(dealerIndex);
-                dealerHand.removeCard(match);
-                playerHand.addCard(match);
+                dealerHand.removeCard(dealerHand.getAllOfPlayerCards().get(dealerIndex));
+                playerHand.addCard(dealerHand.getAllOfPlayerCards().get(dealerIndex));
                 Casino.console.println("\nYOU GOT YOUR OPPONENT'S\n  " +  dealerHand.getAllOfPlayerCards().get(dealerIndex).toString() );
                 goFish = false;
-                break;
-            }
+
+
+                }
         }
-        if (goFish) {
-            Casino.console.println("\nGo Fish!!!");
-            playerHand.addCard(deal());
-        }
+            if (goFish) {
+                Casino.console.println("\nGO FISH!!!");
+                playerHand.addCard(deal());
+                }
 
     }
 
@@ -286,11 +285,24 @@ public class GoFish extends CardGame implements Game {
         Casino.console.println("\nDo You Have Any " + fishCard.getValue());
         Casino.console.getStringInput("\nPress [Enter] To Continue");
         boolean goFish = true;
-        for (int cardIndex = 0; cardIndex < playerHand.getAllOfPlayerCards().size(); cardIndex++) {
-            if (playerHand.getAllOfPlayerCards().get(cardIndex).getValue() == fishCard.getValue()) {
-                playerHand.getAllOfPlayerCards().remove(cardIndex);
+//        for (int cardIndex = 0; cardIndex < playerHand.getAllOfPlayerCards().size(); cardIndex++) {
+//            if (playerHand.getAllOfPlayerCards().get(cardIndex).getValue() == fishCard.getValue()) {
+//                playerHand.getAllOfPlayerCards().remove(cardIndex);
+//                dealerHand.removeCard(fishCard);
+//                Casino.console.println("\nYOU JUST GAVE UP YOUR\n  " +  playerHand.getAllOfPlayerCards().get(cardIndex).toString() );
+//                numberOfPairsDealer++;
+//
+//                goFish = false;
+//                break;
+//
+//            }
+//        }
+
+        for (Card c : playerHand.getAllOfPlayerCards()) {
+            if (c.getValue() == fishCard.getValue()) {
+                playerHand.getAllOfPlayerCards().remove(c);
                 dealerHand.removeCard(fishCard);
-                Casino.console.println("\nYOU JUST GAVE UP YOUR\n  " +  playerHand.getAllOfPlayerCards().get(cardIndex).toString() );
+                Casino.console.println("\nYOU JUST GAVE UP YOUR\n  " +  c.toString());
                 numberOfPairsDealer++;
 
                 goFish = false;
@@ -299,7 +311,7 @@ public class GoFish extends CardGame implements Game {
             }
         }
         if (goFish) {
-            Casino.console.println("You Laugh And Tell Your Opponent To Go Fish!!!");
+            Casino.console.println("YOU LAUGH AND TELL YOUR OPPONENT TO GO FISH!!!");
             if (goFishDeck.getCardDeckSize() > 0) {
 
                 dealerHand.addCard(deal());
