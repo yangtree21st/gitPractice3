@@ -1,7 +1,5 @@
 package io.zipcoder.casino.Models;
 
-import io.zipcoder.casino.Casino;
-
 public class GuestAccount {
 
     private String name;
