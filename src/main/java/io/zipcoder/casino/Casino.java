@@ -73,7 +73,6 @@ public class Casino {
 
         console.println("Goodbye, and thank you for visiting the Casino Royale!");
         System.exit(1);
-
     }
 
     /**
