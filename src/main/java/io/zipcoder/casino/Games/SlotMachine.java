@@ -193,9 +193,9 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
         this.zigZag = zigZag;
     }
 
-    public static void main(String[] args) {
-        Casino testCasino = new Casino();
-        SlotMachine slotMachine = new SlotMachine(new Guest("", new GuestAccount("", 0, 1000.0)));
-        slotMachine.playFullGame();
-    }
+//    public static void main(String[] args) {
+//        Casino testCasino = new Casino();
+//        SlotMachine slotMachine = new SlotMachine(new Guest("", new GuestAccount("", 0, 1000.0)));
+//        slotMachine.playFullGame();
+//    }
 }

@@ -7,6 +7,7 @@ import io.zipcoder.casino.Models.SlotReel;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
@@ -60,8 +61,78 @@ public class SlotMachineTest {
 
     @Test
     public void playFullGameTest1() {
+        // Given
+        String input = "yes\nyes\n15\nno\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        SlotMachine testSlotMachine = new SlotMachine(testGuest, noLinesReel);
 
+        // When
+        testSlotMachine.playFullGame();
 
+        // Then
+        Assert.assertFalse(testSlotMachine.isZigZag());
+    }
+
+    @Test
+    public void playFullGameTest2() {
+        // Given
+        String input = "no\nyes\n20\nno\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        SlotMachine testSlotMachine = new SlotMachine(testGuest, zigZagReel);
+
+        // When
+        testSlotMachine.playFullGame();
+
+        // Then
+        Assert.assertTrue(testSlotMachine.isZigZag());
+    }
+
+    @Test
+    public void playFullGameTest3() {
+        // Given
+        String input = "alksdjfh\nyes\naisudhf\nyes\noiausgdf\n30\nbuiasdgf\nno\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        SlotMachine testSlotMachine = new SlotMachine(testGuest, diagonalReel);
+
+        // When
+        testSlotMachine.playFullGame();
+
+        // Then
+        Assert.assertTrue(testSlotMachine.isDiagonal());
+    }
+
+    @Test
+    public void playFullGameTest4() {
+        // Given
+        String input = "no\nyes\n40\nno\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        SlotMachine testSlotMachine = new SlotMachine(testGuest, jackpotReel);
+
+        // When
+        testSlotMachine.playFullGame();
+
+        // Then
+        Assert.assertTrue(testSlotMachine.isJackpot());
+    }
+
+    @Test
+    public void playFullGameTest5() {
+        // Given
+        Guest noMoneyGuest = new Guest("", new GuestAccount("", 1, 3.0));
+        String input = "no\nyes\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        SlotMachine testSlotMachine = new SlotMachine(noMoneyGuest, jackpotReel);
+
+        // When
+        testSlotMachine.playFullGame();
+
+        // Then
+        Assert.assertFalse(testSlotMachine.isJackpot());
     }
 
     @Test
@@ -71,8 +142,49 @@ public class SlotMachineTest {
         SlotMachine testSlotMachine = new SlotMachine(testGuest, noLinesReel);
 
         // When
-        
+        testSlotMachine.useTheSlots();
 
+        // Then
+        Assert.assertFalse(testSlotMachine.isZigZag());
+    }
+
+    @Test
+    public void useTheSlotsTest2() {
+        // Given
+        Casino testCasino = new Casino();
+        SlotMachine testSlotMachine = new SlotMachine(testGuest, zigZagReel);
+
+        // When
+        testSlotMachine.useTheSlots();
+
+        // Then
+        Assert.assertTrue(testSlotMachine.isZigZag());
+    }
+
+    @Test
+    public void useTheSlotsTest3() {
+        // Given
+        Casino testCasino = new Casino();
+        SlotMachine testSlotMachine = new SlotMachine(testGuest, diagonalReel);
+
+        // When
+        testSlotMachine.useTheSlots();
+
+        // Then
+        Assert.assertTrue(testSlotMachine.isDiagonal());
+    }
+
+    @Test
+    public void useTheSlotsTest4() {
+        // Given
+        Casino testCasino = new Casino();
+        SlotMachine testSlotMachine = new SlotMachine(testGuest, jackpotReel);
+
+        // When
+        testSlotMachine.useTheSlots();
+
+        // Then
+        Assert.assertTrue(testSlotMachine.isJackpot());
     }
 
     @Test
