@@ -65,9 +65,10 @@ public class CasinoDisplay extends Display {
         Button btnCashier = new Button("Cashier");
         btnCashier.setAlignment(Pos.CENTER);
         btnCashier.setMaxWidth(Double.MAX_VALUE);
+        btnCashier.setDisable(true);
 
-        Button btnExit = new Button("Exit Casino ");
-        btnExit.setMaxWidth(Double.MAX_VALUE);
+        Button btnExitCompletely = new Button("Exit Casino ");
+        btnExitCompletely.setMaxWidth(Double.MAX_VALUE);
 
         //getUserInput
 
@@ -80,10 +81,10 @@ public class CasinoDisplay extends Display {
         casinoGrid.add(areaInfo, 1,4,3,1);
         casinoGrid.add(btnCashier, 1, 5,1,1);
         casinoGrid.add(btnEnterCasinoFloor, 2, 5,1,1);
-        casinoGrid.add(btnExit, 3, 5,1,1);
+        casinoGrid.add(btnExitCompletely, 3, 5,1,1);
 
-        btnExit.setOnAction(e -> {
-            Stage casinoStage = super.setExitAction(btnExit);
+        btnExitCompletely.setOnAction(e -> {
+            Stage casinoStage = super.setExitAction(btnExitCompletely);
             casinoStage.close();
         });
 

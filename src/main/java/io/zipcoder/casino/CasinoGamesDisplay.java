@@ -17,28 +17,26 @@ public class CasinoGamesDisplay extends Display {
         GridPane casinoGamesGrid = super.createGrid();
         casinoGamesGrid.getColumnConstraints().remove(1);
 
-        TextArea areaInfo = new TextArea();
-        areaInfo.setPrefRowCount(2);
-
         Text casinoGamesBanner = new Text("Which game would you like to play?");
         casinoGamesBanner.setFont(Font.font("Verdana", 30));
 
 
         Button btnBlackJack = new Button("BlackJack");
         btnBlackJack.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        //btnBlackJack.setAlignment(Pos.CENTER);
+        btnBlackJack.setDisable(true);
 
         Button btnCraps = new Button("Craps");
         btnCraps.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnCraps.setDisable(true);
 
         Button btnGoFish = new Button("Go Fish");
         btnGoFish.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnGoFish.setDisable(true);
 
         Button btnHilo = new Button("Hi-Lo");
-        //btnHilo.setAlignment(Pos.CENTER);
         btnHilo.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
-        Button btnExit = new Button("Exit Casino");
+        Button btnExit = new Button("Casino Floor");
         btnExit.setMaxWidth(Double.MAX_VALUE);
 
         casinoGamesGrid.add(casinoGamesBanner, 0, 0, 4, 2);

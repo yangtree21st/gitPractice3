@@ -84,7 +84,6 @@ public class GoFish extends CardGame implements Game {
     }
 
 
-    @Override
     public CardDeck getDeck() {
         return this.goFishDeck;
     }
