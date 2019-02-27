@@ -56,7 +56,7 @@ public class SlotMachineTest {
         SlotMachine testSlotMachine = new SlotMachine(testGuest);
 
         //Then
-        Assert.assertEquals(testSlotMachine.getMinimumBet(), 5);
+        Assert.assertEquals(testSlotMachine.getMinimumBet(), 1);
     }
 
     @Test
