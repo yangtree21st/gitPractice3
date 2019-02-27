@@ -87,6 +87,34 @@ public class CrapsTest {
     }
 
     @Test
+    public void playFullGameTest3() {
+        // Hit point seed, Pass Bet, Bet is $100, Starting balance is $2000, new balance should be $2100
+        // Given
+        String input = "no\nyes\n";
+        bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        bytArrOutStr = new ByteArrayOutputStream();
+        testCasino = getCasinoWithBufferedInputAndOutput(input, bytArrOutStr);
+        Double startingBalance = 4.99;
+        testCraps = getNewCraps(startingBalance, new Random(HIT_POINT_SEED));
+
+        String expectedOutput = "\n" +
+                "Welcome to the Craps table!\n" +
+                "The minimum bet is $5.\n" +
+                "Would you like to read the instructions? (yes or no):\n" +
+                "Would you like to start playing Craps? (yes or no):\n" +
+                "Sorry, you do not have enough money to play Craps.\n" +
+                "The minimum bet is $5, and your current balance is $4.99.\n\n" +
+                "We hope you enjoyed your visit to the Craps table!\n";
+
+        // When
+        testCraps.playFullGame();
+        String actualOutput = bytArrOutStr.toString();
+
+        // Then
+        Assert.assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
     public void shootCrapsTest1() {
         // Natural 7, Pass Bet, Should return true
         // Given
@@ -539,6 +567,24 @@ public class CrapsTest {
     public void takeBetFromPlayer3() {
         // Given
         String input = "1500\n500\n";
+        bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        bytArrOutStr = new ByteArrayOutputStream();
+        testCasino = getCasinoWithBufferedInputAndOutput(input, bytArrOutStr);
+        testCraps = getNewCraps(1100.0);
+
+        Double expectedBet = 500.0;
+
+        // When
+        Double actualBet = testCraps.takeBetFromPlayer();
+
+        // Then
+        Assert.assertEquals(expectedBet, actualBet);
+    }
+
+    @Test
+    public void takeBetFromPlayer4() {
+        // Given
+        String input = "4\n1500\n500\n";
         bytArrInpStr = new ByteArrayInputStream(input.getBytes());
         bytArrOutStr = new ByteArrayOutputStream();
         testCasino = getCasinoWithBufferedInputAndOutput(input, bytArrOutStr);

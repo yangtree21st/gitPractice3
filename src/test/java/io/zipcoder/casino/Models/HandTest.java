@@ -1,7 +1,5 @@
 package io.zipcoder.casino.Models;
 
-import io.zipcoder.casino.Models.Card;
-import io.zipcoder.casino.Models.Hand;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -19,6 +17,20 @@ public class HandTest {
 
         //Then
         Assert.assertEquals(expectedHand, actualHand);
+    }
+
+    @Test
+    public void clearHandTest() {
+        // Given
+        Hand hand = new Hand();
+        Card card = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
+        hand.addCard(card);
+
+        // When
+        hand.clearHand();
+
+        // Then
+        Assert.assertEquals(hand.getAllOfPlayerCards().size(), 0);
     }
 
     @Test
@@ -98,15 +110,15 @@ public class HandTest {
         Card expectedCardThird = new Card(Card.Suit.SPADES, Card.Rank.SEVEN);
         hand.addCard(expectedCardThird);
 
-        String expectedString = "-------------- -------------- -------------- \n" +
-                "|A           | |10          | |7           | \n" +
-                "|♥           | |♦           | |♠           | \n" +
-                "|            | |            | |            | \n" +
-                "|     A♥     | |    10♦     | |     7♠     | \n" +
-                "|            | |            | |            | \n" +
-                "|           ♥| |           ♦| |           ♠| \n" +
-                "|           A| |          10| |           7| \n" +
-                "-------------- -------------- -------------- \n";
+        String expectedString = "\u001B[31m--------------\u001B[0m \u001B[31m--------------\u001B[0m \u001B[30m--------------\u001B[0m \n" +
+                "\u001B[31m|A           |\u001B[0m \u001B[31m|10          |\u001B[0m \u001B[30m|7           |\u001B[0m \n" +
+                "\u001B[31m|♥           |\u001B[0m \u001B[31m|♦           |\u001B[0m \u001B[30m|♠           |\u001B[0m \n" +
+                "\u001B[31m|            |\u001B[0m \u001B[31m|            |\u001B[0m \u001B[30m|            |\u001B[0m \n" +
+                "\u001B[31m|     A♥     |\u001B[0m \u001B[31m|    10♦     |\u001B[0m \u001B[30m|     7♠     |\u001B[0m \n" +
+                "\u001B[31m|            |\u001B[0m \u001B[31m|            |\u001B[0m \u001B[30m|            |\u001B[0m \n" +
+                "\u001B[31m|           ♥|\u001B[0m \u001B[31m|           ♦|\u001B[0m \u001B[30m|           ♠|\u001B[0m \n" +
+                "\u001B[31m|           A|\u001B[0m \u001B[31m|          10|\u001B[0m \u001B[30m|           7|\u001B[0m \n" +
+                "\u001B[31m--------------\u001B[0m \u001B[31m--------------\u001B[0m \u001B[30m--------------\u001B[0m \n";
 
         // When
         String actualString = hand.toString();

@@ -27,9 +27,30 @@ public class AnsiStuff {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    private static Random random = new Random();
+    private Random random;
 
-    public static String getRandomAnsiColor(){
+    /**
+     * Default constructor, sets the random to a new random.
+     */
+    public AnsiStuff() {
+        this.random = new Random();
+    }
+
+    /**
+     * For testing purposes only
+     * @param testRandom seeded Random for predictable results.
+     */
+    public AnsiStuff(Random testRandom){
+        this.random = testRandom;
+    }
+
+    /**
+     * Method for getting a random color.
+     * @return random Ansi color
+     */
+    public String getRandomAnsiColor(){
         return ANSI_COLOR_ARRAY[random.nextInt(ANSI_COLOR_ARRAY.length)];
     }
+
+
 }

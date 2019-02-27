@@ -98,15 +98,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(HEARTS, ACE);
 
-        String expectedString = "--------------\n" +
-                "|A           |\n" +
-                "|♥           |\n" +
-                "|            |\n" +
-                "|     A♥     |\n" +
-                "|            |\n" +
-                "|           ♥|\n" +
-                "|           A|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|A           |\u001B[0m\n" +
+                "\u001B[31m|♥           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     A♥     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♥|\u001B[0m\n" +
+                "\u001B[31m|           A|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -120,15 +120,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(SPADES, ACE);
 
-        String expectedString = "--------------\n" +
-                "|A           |\n" +
-                "|♠           |\n" +
-                "|            |\n" +
-                "|     A♠     |\n" +
-                "|            |\n" +
-                "|           ♠|\n" +
-                "|           A|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[30m--------------\u001B[0m\n" +
+                "\u001B[30m|A           |\u001B[0m\n" +
+                "\u001B[30m|♠           |\u001B[0m\n" +
+                "\u001B[30m|            |\u001B[0m\n" +
+                "\u001B[30m|     A♠     |\u001B[0m\n" +
+                "\u001B[30m|            |\u001B[0m\n" +
+                "\u001B[30m|           ♠|\u001B[0m\n" +
+                "\u001B[30m|           A|\u001B[0m\n" +
+                "\u001B[30m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -142,15 +142,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(CLUBS, ACE);
 
-        String expectedString = "--------------\n" +
-                "|A           |\n" +
-                "|♣           |\n" +
-                "|            |\n" +
-                "|     A♣     |\n" +
-                "|            |\n" +
-                "|           ♣|\n" +
-                "|           A|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[30m--------------\u001B[0m\n" +
+                "\u001B[30m|A           |\u001B[0m\n" +
+                "\u001B[30m|♣           |\u001B[0m\n" +
+                "\u001B[30m|            |\u001B[0m\n" +
+                "\u001B[30m|     A♣     |\u001B[0m\n" +
+                "\u001B[30m|            |\u001B[0m\n" +
+                "\u001B[30m|           ♣|\u001B[0m\n" +
+                "\u001B[30m|           A|\u001B[0m\n" +
+                "\u001B[30m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -164,15 +164,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, TWO);
 
-        String expectedString = "--------------\n" +
-                "|2           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     2♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           2|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|2           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     2♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           2|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -186,15 +186,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, THREE);
 
-        String expectedString = "--------------\n" +
-                "|3           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     3♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           3|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|3           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     3♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           3|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -208,15 +208,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, FOUR);
 
-        String expectedString = "--------------\n" +
-                "|4           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     4♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           4|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|4           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     4♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           4|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -230,15 +230,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, FIVE);
 
-        String expectedString = "--------------\n" +
-                "|5           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     5♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           5|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|5           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     5♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           5|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -252,15 +252,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, SIX);
 
-        String expectedString = "--------------\n" +
-                "|6           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     6♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           6|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|6           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     6♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           6|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -274,15 +274,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, SEVEN);
 
-        String expectedString = "--------------\n" +
-                "|7           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     7♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           7|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|7           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     7♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           7|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -296,15 +296,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, EIGHT);
 
-        String expectedString = "--------------\n" +
-                "|8           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     8♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           8|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|8           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     8♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           8|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -318,15 +318,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, NINE);
 
-        String expectedString = "--------------\n" +
-                "|9           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     9♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           9|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|9           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     9♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           9|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -340,15 +340,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, TEN);
 
-        String expectedString = "--------------\n" +
-                "|10          |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|    10♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|          10|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|10          |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|    10♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|          10|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -362,15 +362,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, JACK);
 
-        String expectedString = "--------------\n" +
-                "|J           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     J♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           J|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|J           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     J♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           J|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -384,15 +384,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, QUEEN);
 
-        String expectedString = "--------------\n" +
-                "|Q           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     Q♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           Q|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|Q           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     Q♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           Q|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
@@ -406,15 +406,15 @@ public class CardTest {
         // Given
         Card testCard = new Card(DIAMONDS, KING);
 
-        String expectedString = "--------------\n" +
-                "|K           |\n" +
-                "|♦           |\n" +
-                "|            |\n" +
-                "|     K♦     |\n" +
-                "|            |\n" +
-                "|           ♦|\n" +
-                "|           K|\n" +
-                "--------------\n";
+        String expectedString = "\u001B[31m--------------\u001B[0m\n" +
+                "\u001B[31m|K           |\u001B[0m\n" +
+                "\u001B[31m|♦           |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|     K♦     |\u001B[0m\n" +
+                "\u001B[31m|            |\u001B[0m\n" +
+                "\u001B[31m|           ♦|\u001B[0m\n" +
+                "\u001B[31m|           K|\u001B[0m\n" +
+                "\u001B[31m--------------\u001B[0m\n";
 
         // When
         String actualString = testCard.toString();
