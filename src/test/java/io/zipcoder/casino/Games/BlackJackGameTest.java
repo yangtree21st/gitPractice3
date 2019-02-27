@@ -3,14 +3,20 @@ package io.zipcoder.casino.Games;
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.Card;
+import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Players.Player;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
 public class BlackJackGameTest {
-    Casino testCasino = new Casino();
+    private Casino testCasino;
+    private ByteArrayInputStream bytArrInpStr;
+    private ByteArrayOutputStream bytArrOutStr;
 
     GuestAccount guestAccount = new GuestAccount("Julian", 1, 100.0);
     Guest guest = new Guest("Julian", guestAccount);
@@ -22,13 +28,13 @@ public class BlackJackGameTest {
     public void hitTest() {
         // Given
         BlackJackPlayer getPlayer  = (BlackJackPlayer) blackJack.getPlayer();
-        Integer expected = getPlayer.getHandTotal();
+        Integer expected = getPlayer.getHandScore();
         // Then
         blackJack.hit();
         // When
-        Integer actual = getPlayer.getHandTotal();
-        System.out.println(expected);
-        System.out.println(actual);
+        Integer actual = getPlayer.getHandScore();
+//        System.out.println(expected);
+//        System.out.println(actual);
 
         Assert.assertTrue(expected < actual);
     }
@@ -44,9 +50,9 @@ public class BlackJackGameTest {
         getPlayer.getPlayerHand().addCard(cardTwo);
 
         // Then
-        Integer actual = getPlayer.getHandTotal();
-        System.out.println(expected);
-        System.out.println(actual);
+        Integer actual = getPlayer.getHandScore();
+//        System.out.println(expected);
+//        System.out.println(actual);
 
         //When
         Assert.assertEquals(expected, actual);
@@ -63,9 +69,9 @@ public class BlackJackGameTest {
         getPlayer.getPlayerHand().addCard(cardTwo);
 
         // Then
-        Integer actual = getPlayer.getHandTotal();
-        System.out.println(expected);
-        System.out.println(actual);
+        Integer actual = getPlayer.getHandScore();
+//        System.out.println(expected);
+//        System.out.println(actual);
 
         //When
         Assert.assertEquals(expected, actual);
@@ -82,9 +88,9 @@ public class BlackJackGameTest {
         getPlayer.getPlayerHand().addCard(cardTwo);
 
         // Then
-        Integer actual = getPlayer.getHandTotal();
-        System.out.println(expected);
-        System.out.println(actual);
+        Integer actual = getPlayer.getHandScore();
+//        System.out.println(expected);
+//        System.out.println(actual);
 
         //When
         Assert.assertEquals(expected, actual);
@@ -94,10 +100,9 @@ public class BlackJackGameTest {
     public void dealTest() {
         // Given
         BlackJackPlayer getPlayer = (BlackJackPlayer) blackJack.getPlayer();
-        Integer expected = getPlayer.getHandTotal();
-        blackJack.deal();
+        blackJack.dealOneCard();
         // When
-        Integer actual = getPlayer.getHandTotal();
+        Integer actual = getPlayer.getHandScore();
 
         // Then
         Assert.assertNotNull(actual);
@@ -107,11 +112,11 @@ public class BlackJackGameTest {
     public void getHandTotalTestInBlackJack() {
         // Given
         BlackJackPlayer getPlayer = (BlackJackPlayer) blackJack.getPlayer();
-        blackJack.deal();
-        Integer expected = getPlayer.getHandTotal();
+        blackJack.dealOneCard();
+        Integer expected = getPlayer.getHandScore();
 
         // When
-        Integer actual = blackJack.getHandTotal();
+        Integer actual = blackJack.getHandScore();
 
         // Then
         Assert.assertEquals(expected, actual);
@@ -160,15 +165,6 @@ public class BlackJackGameTest {
 
         // Then
         Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void playFullGameTest() {
-        // Given
-
-        // Then
-
-        // When
     }
 
     @Test
@@ -232,7 +228,191 @@ public class BlackJackGameTest {
         Assert.assertFalse(actual);
     }
 
+    @Test
+    public void clearPlayersHandPlayersTest() {
+        // Given
+        BlackJackPlayer getPlayer = (BlackJackPlayer) blackJack.getPlayer();
+        BlackJackPlayer dealer = new BlackJackPlayer(guest);
+        blackJack.dealOneCard();
+        Integer expected = 0;
+
+        // Then
+        blackJack.clearPlayersHandPlayers();
+        Integer actualPlayerHand = getPlayer.getHandScore();
+
+        // When
+        Assert.assertEquals(expected, actualPlayerHand);
+
+    }
+
+    @Test
+    public void clearPlayersHandPlayersTest2() {
+        // Given
+        BlackJackPlayer getPlayer = (BlackJackPlayer) blackJack.getPlayer();
+        BlackJackPlayer dealer = new BlackJackPlayer(guest);
+        blackJack.dealOneCard();
+        Integer expected = 0;
+
+        // Then
+        blackJack.clearPlayersHandPlayers();
+        Integer actualDealerHand = dealer.getHandScore();
+
+        // When
+        Assert.assertEquals(expected, actualDealerHand);
+    }
+
+    @Test
+    public void dealCardsTest() {
+        // Given
+        Player getPlayer = blackJack.getPlayer();
+
+        blackJack.dealCards();
+        Integer expected = 2;
+
+        // When
+        Integer actualPlayerHand = blackJack.getPlayer().getPlayerHand().getAllOfPlayerCards().size();
+
+        // Then
+        Assert.assertEquals(expected, actualPlayerHand);
+    }
+
+    @Test
+    public void dealCardsTest2() {
+        // Given
+        BlackJackPlayer dealer = new BlackJackPlayer(guest);
+        blackJack.dealCards();
+        Integer expected = 1;
+
+        // When
+        Integer actualDealerHand = blackJack.getDealer().getPlayerHand().getAllOfPlayerCards().size();
+
+        // Then
+        Assert.assertEquals(expected, actualDealerHand);
+    }
+
+    @Test
+    public void continueGameInputTest() {
+        // Given
+        String input = "yes";
+        bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        bytArrOutStr = new ByteArrayOutputStream();
+        testCasino = new Casino (bytArrInpStr, System.out);
+        String expected = "yes";
+
+        // When
+        String actual = blackJack.continueGameInput();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void continueGameInputTest2() {
+        // Given
+        String input = "no";
+        bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        bytArrOutStr = new ByteArrayOutputStream();
+        testCasino = new Casino (bytArrInpStr, System.out);
+        String expected = "no";
+
+        // When
+        String actual = blackJack.continueGameInput();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
 //    @Test
-//    public void
+//    public void continueGameInputTest3() {
+//        // Given
+//        String input = "no";
+//        bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+//        bytArrOutStr = new ByteArrayOutputStream();
+//        testCasino = new Casino (bytArrInpStr, bytArrOutStr = new ByteArrayOutputStream());
+//        String expected = "no";
+//
+//        // When
+//        String actual = blackJack.continueGameInput();
+//
+//        // Then
+//        Assert.assertEquals(expected, actual);
+//    }
+
+    @Test
+    public void endGameTest() {
+        // Given
+        Boolean actual = blackJack.endGame("no");
+        // Then
+        Assert.assertFalse(actual);
+    }
+
+    @Test
+    public void endGameTest2() {
+        // Given
+        Boolean actual = blackJack.endGame("yes");
+        // Then
+        Assert.assertTrue(actual);
+    }
+
+    @Test
+    public void playFullGameTest1() {
+        // Given
+        String input = "15\ns\nno\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        Double startingBalance = 1000.0;
+        Guest testGuest = new Guest("", new GuestAccount("", 0, startingBalance));
+        BlackJack testBlackJack = new BlackJack(testGuest, new CardDeck()); // This deck has not been shuffled
+
+        Double expectedFinalBalance = 1000.00;
+
+        // When
+        testBlackJack.playFullGame();
+        Double actualFinalBalance = testGuest.getAccountBalance();
+
+        // Then
+        Assert.assertEquals(expectedFinalBalance, actualFinalBalance);
+    }
+
+    @Test
+    public void playFullGameTest2() {
+        // Given
+        String input = "0\n15\nh\nno\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        Double startingBalance = 1000.0;
+        Guest testGuest = new Guest("", new GuestAccount("", 0, startingBalance));
+        BlackJack testBlackJack = new BlackJack(testGuest, new CardDeck()); // This deck has not been shuffled
+
+        Double expectedFinalBalance = 985.00;
+
+        // When
+        testBlackJack.playFullGame();
+        Double actualFinalBalance = testGuest.getAccountBalance();
+
+        // Then
+        Assert.assertEquals(expectedFinalBalance, actualFinalBalance);
+    }
+
+    @Test
+    public void playFullGameTest3() {
+        // Given
+        String input = "0";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        Double startingBalance = 0.0;
+        Guest testGuest = new Guest("", new GuestAccount("", 0, startingBalance));
+        BlackJack testBlackJack = new BlackJack(testGuest, new CardDeck()); // This deck has not been shuffled
+
+        Double expectedFinalBalance = 0.00;
+
+        // When
+        testBlackJack.playFullGame();
+        Double actualFinalBalance = testGuest.getAccountBalance();
+
+        // Then
+        Assert.assertEquals(expectedFinalBalance, actualFinalBalance);
+    }
+
 
 }
