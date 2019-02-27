@@ -67,7 +67,7 @@ public class Hand {
         return card.getValue().toString();
     }
 
-    public void clearHand(){
+    public void clearHand() {
         this.playerHand.clear();
     }
 

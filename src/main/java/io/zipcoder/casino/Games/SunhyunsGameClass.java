@@ -9,6 +9,7 @@ public abstract class SunhyunsGameClass implements Game {
 
     /**
      * Standard constructor sets guest to currentGuest
+     *
      * @param guest guest who is playing the game
      */
     SunhyunsGameClass(Guest guest) {

@@ -2,15 +2,16 @@ package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
+import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Interfaces.Game;
+import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Players.BlackJackPlayer;
-import io.zipcoder.casino.Interfaces.GamblingGame;
-import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Players.Player;
 
 /**
  * The BlackJack class simulates a gambling game the object of the game is to get a higher score than 21.
+ *
  * @ authors Yang Shu, Marshilla Brahma, and Julian Rios
  * @ version 2-26-19
  */
@@ -31,6 +32,7 @@ public class BlackJack implements GamblingGame, Game {
 
     /**
      * BlackJack game constructor
+     *
      * @param guest Guest
      */
     public BlackJack(Guest guest) {
@@ -45,11 +47,12 @@ public class BlackJack implements GamblingGame, Game {
 
     /**
      * Test constructor
+     *
      * @param testGuest Test guest
-     * @param testDeck Test deck
+     * @param testDeck  Test deck
      */
     BlackJack(Guest testGuest, CardDeck testDeck) {
-        this.deck= testDeck;
+        this.deck = testDeck;
         player = new BlackJackPlayer(testGuest);
         dealer = new BlackJackPlayer();
         this.continueGame = true;
@@ -80,24 +83,16 @@ public class BlackJack implements GamblingGame, Game {
 
     /**
      * This method will end the game if the player's account balance is less than the buy in.
+     *
      * @param answer Answer is the string passed from continue game input.
      * @return Returns a new answer of no to end the game.
      */
     String kickOutIfBroke(String answer) {
-        if(checkPlayersBalance(this.player) < minBet) {
+        if (checkPlayersBalance(this.player) < minBet) {
             Casino.console.println("You broke go get more money.");
             answer = "no";
         }
         return answer;
-    }
-
-    /**
-     * This method will set the bet.
-     *
-     * @param bet The bet the player gives.
-     */
-    void setBet(Double bet) {
-        this.bet = bet;
     }
 
     /**
@@ -107,6 +102,15 @@ public class BlackJack implements GamblingGame, Game {
      */
     public Double getBet() {
         return this.bet;
+    }
+
+    /**
+     * This method will set the bet.
+     *
+     * @param bet The bet the player gives.
+     */
+    void setBet(Double bet) {
+        this.bet = bet;
     }
 
     /**
@@ -122,7 +126,7 @@ public class BlackJack implements GamblingGame, Game {
     /**
      * This method will return a boolean of dependent on the amount of the player's bet and balance.
      *
-     * @param bet The bet a player wants to place.
+     * @param bet           The bet a player wants to place.
      * @param currentPlayer The current player placing a bet.
      * @return Returns a boolean dependent on the bet and balance of the current player.
      */
@@ -134,8 +138,7 @@ public class BlackJack implements GamblingGame, Game {
                 Casino.console.println("Not enough funds, please try again");
                 return false;
             }
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -173,7 +176,7 @@ public class BlackJack implements GamblingGame, Game {
      * This method will instantly end the game if the player gets 21.
      */
     void twentyOne() {
-        if(player.getHandScore() == 21){
+        if (player.getHandScore() == 21) {
             Casino.console.println("You won!!");
             giveJackpotToPlayer();
             continueGame = false;
@@ -227,7 +230,7 @@ public class BlackJack implements GamblingGame, Game {
      */
     void takeTurn() {
 
-        while(player.getHandScore() < 21 && dealer.getHandScore() < 21) {
+        while (player.getHandScore() < 21 && dealer.getHandScore() < 21) {
             this.playerChoice = Casino.console.getStringInput("Enter 'S' for Stand,  Enter'H' for Hit");
 
             while (!(this.playerChoice.equalsIgnoreCase("H") || (playerChoice.equalsIgnoreCase("S")))) {
@@ -302,7 +305,7 @@ public class BlackJack implements GamblingGame, Game {
             Casino.console.println("You won!!");
         } else if (this.dealer.getHandScore() > this.player.getHandScore() && this.dealer.getHandScore() < 21) {
             Casino.console.println("You lost!!");
-        } else if(this.dealer.getHandScore() == this.player.getHandScore()) {
+        } else if (this.dealer.getHandScore() == this.player.getHandScore()) {
             Casino.console.println("Draw!!");
             player.addFunds(getBet());
         }
@@ -340,9 +343,9 @@ public class BlackJack implements GamblingGame, Game {
     String continueGameInput() {
         String answer = Casino.console.getStringInput("Enter Yes to play again or No to quit the game");
 
-        while(!(answer.equals("yes") || answer.equals("no"))) {
+        while (!(answer.equals("yes") || answer.equals("no"))) {
             answer = Casino.console.getStringInput("Enter Yes to play again or No to quit the game");
-            if(answer.equals("yes") || answer.equals("no")) {
+            if (answer.equals("yes") || answer.equals("no")) {
                 answer = answer.toLowerCase();
                 break;
             }
@@ -379,6 +382,7 @@ public class BlackJack implements GamblingGame, Game {
 
     /**
      * This method will return a guest.
+     *
      * @return Returns a guest.
      */
     BlackJackPlayer getDealer() {
@@ -396,6 +400,7 @@ public class BlackJack implements GamblingGame, Game {
 
     /**
      * This method will get a return the winning player.
+     *
      * @param player The blackjack player.
      * @param dealer The blackjack dealer.
      * @return Returns the winner.
@@ -409,6 +414,7 @@ public class BlackJack implements GamblingGame, Game {
     }
 
     // TODO REMOVE THIS
+
     /**
      * This method will double the player's bet and add it into their account.
      *

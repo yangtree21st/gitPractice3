@@ -118,11 +118,7 @@ public class HiLo extends CardGame implements GamblingGame {
         Integer firstCardValue = firstCard.getValue().ordinal() + 1;
         Integer secondCardValue = secondCard.getValue().ordinal() + 1;
 
-        if (secondCardValue < firstCardValue) {
-
-            return true;
-        }
-        return false;
+        return secondCardValue < firstCardValue;
     }
 
     /**
@@ -337,7 +333,6 @@ public class HiLo extends CardGame implements GamblingGame {
         createHand.append('\n');
         return createHand.toString();
     }
-
 
 
     /**

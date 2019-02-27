@@ -2,9 +2,9 @@ package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
-import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Card;
+import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.Hand;
 import io.zipcoder.casino.Players.Player;
 

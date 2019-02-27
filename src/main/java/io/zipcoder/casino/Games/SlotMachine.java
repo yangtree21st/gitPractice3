@@ -6,11 +6,6 @@ import io.zipcoder.casino.Models.SlotReel;
 import io.zipcoder.casino.utilities.AnsiStuff;
 
 public class SlotMachine extends SunhyunsGamblingGameClass {
-    private SlotReel slotReel;
-    private boolean jackpot;
-    private boolean diagonal;
-    private boolean zigZag;
-
     private static final String JACKPOT_DISPLAY = AnsiStuff.ANSI_GREEN + "    /$$$$$  /$$$$$$   /$$$$$$  /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$$ /$$ /$$ /$$\n" +
             "   |__  $$ /$$__  $$ /$$__  $$| $$  /$$/| $$__  $$ /$$__  $$|__  $$__/| $$| $$| $$\n" +
             "      | $$| $$  \\ $$| $$  \\__/| $$ /$$/ | $$  \\ $$| $$  \\ $$   | $$   | $$| $$| $$\n" +
@@ -21,8 +16,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
             " \\______/ |__/  |__/ \\______/ |__/  \\__/|__/       \\______/    |__/   |__/|__/|__/\n" +
             "                                                                                  \n" +
             "                                                                                  \n" +
-            "                                                                                  " + AnsiStuff.ANSI_RESET;;
-
+            "                                                                                  " + AnsiStuff.ANSI_RESET;
     private static final String DIAGONAL_DISPLAY = AnsiStuff.ANSI_GREEN + " /$$$$$$$  /$$                                                   /$$ /$$\n" +
             "| $$__  $$|__/                                                  | $$| $$\n" +
             "| $$  \\ $$ /$$  /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$ | $$| $$\n" +
@@ -34,7 +28,6 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
             "                         /$$  \\ $$                                      \n" +
             "                        |  $$$$$$/                                      \n" +
             "                         \\______/                                       " + AnsiStuff.ANSI_RESET;
-
     private static final String ZIG_ZAG_DISPLAY = AnsiStuff.ANSI_GREEN + " /$$$$$$$$ /$$                /$$$$$$$$                     /$$\n" +
             "|_____ $$ |__/               |_____ $$                     | $$\n" +
             "     /$$/  /$$  /$$$$$$           /$$/   /$$$$$$   /$$$$$$ | $$\n" +
@@ -46,9 +39,14 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
             "               /$$  \\ $$                          /$$  \\ $$    \n" +
             "              |  $$$$$$/                         |  $$$$$$/    \n" +
             "               \\______/                           \\______/     " + AnsiStuff.ANSI_RESET;
+    private SlotReel slotReel;
+    private boolean jackpot;
+    private boolean diagonal;
+    private boolean zigZag;
 
     /**
      * Standard constructor, sets currentGuest to guest, sets slotReel to new SlotReel
+     *
      * @param guest guest who is playing the game
      */
     public SlotMachine(Guest guest) {
@@ -58,7 +56,8 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
 
     /**
      * For testing purposes
-     * @param testGuest test guest
+     *
+     * @param testGuest    test guest
      * @param testSlotReel seeded slotReel with predictable output
      */
     SlotMachine(Guest testGuest, SlotReel testSlotReel) {
@@ -119,6 +118,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
 
     /**
      * This method checks the results of the slot machine spin, and sets the various win conditions accordingly
+     *
      * @param slotResults the results of the slot machine spin
      */
     void checkReelResults(int[] slotResults) {
@@ -156,7 +156,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
      * @param currentBet the amount the player bet on the preceding game
      */
     void payOut(Double currentBet) {
-        if(jackpot) {
+        if (jackpot) {
             this.currentGuest.addFunds(currentBet * 51);
             println("You won $%.2f!\nYour balance is now $%.2f.", currentBet * 50, this.currentGuest.getAccountBalance());
         } else if (diagonal) {
@@ -217,6 +217,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
     SlotReel getSlotReel() {
         return slotReel;
     }
+
     /**
      * For testing purposes
      */

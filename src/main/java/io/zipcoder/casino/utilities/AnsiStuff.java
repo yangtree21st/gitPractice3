@@ -38,17 +38,19 @@ public class AnsiStuff {
 
     /**
      * For testing purposes only
+     *
      * @param testRandom seeded Random for predictable results.
      */
-    public AnsiStuff(Random testRandom){
+    public AnsiStuff(Random testRandom) {
         this.random = testRandom;
     }
 
     /**
      * Method for getting a random color.
+     *
      * @return random Ansi color
      */
-    public String getRandomAnsiColor(){
+    public String getRandomAnsiColor() {
         return ANSI_COLOR_ARRAY[random.nextInt(ANSI_COLOR_ARRAY.length)];
     }
 

@@ -25,7 +25,7 @@ public class CashierDisplay extends Display {
 
         Text cashierBanner = new Text("Please select an option");
         cashierBanner.setTextAlignment(TextAlignment.CENTER);
-        cashierBanner.setFont(Font.font ("Verdana", 25));
+        cashierBanner.setFont(Font.font("Verdana", 25));
 
         Button btnAddFunds = new Button("Add Funds");
         btnAddFunds.setAlignment(Pos.CENTER);
@@ -38,21 +38,20 @@ public class CashierDisplay extends Display {
 
 
         Text amountText = new Text("Amount to withdraw or deposit");
-        amountText.setFont(Font.font ("Verdana", 20));
+        amountText.setFont(Font.font("Verdana", 20));
 
 
-
-        casinoGrid.add(cashierBanner, 0,0, 5,1);
-        casinoGrid.add(btnAddFunds, 1,1,1,1);
-        casinoGrid.add(btnRemoveFunds, 2,1,1,1);
-        casinoGrid.add(btnCashout, 3,1,1,1);
+        casinoGrid.add(cashierBanner, 0, 0, 5, 1);
+        casinoGrid.add(btnAddFunds, 1, 1, 1, 1);
+        casinoGrid.add(btnRemoveFunds, 2, 1, 1, 1);
+        casinoGrid.add(btnCashout, 3, 1, 1, 1);
         TextField amountField = new TextField();
         casinoGrid.getChildren().remove(btnExit);
-        casinoGrid.add(areaInfo, 1,2,3,2);
-        casinoGrid.add(amountText,1,4,3,1);
-        casinoGrid.add(amountField, 1,5,3,1);
+        casinoGrid.add(areaInfo, 1, 2, 3, 2);
+        casinoGrid.add(amountText, 1, 4, 3, 1);
+        casinoGrid.add(amountField, 1, 5, 3, 1);
         areaInfo.setText(Main.casino.accountToString(guest));
-        casinoGrid.add(btnExit, 2,6);
+        casinoGrid.add(btnExit, 2, 6);
 
 
         btnExit.setOnAction(e -> {

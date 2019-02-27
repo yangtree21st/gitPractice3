@@ -4,16 +4,11 @@ import io.zipcoder.casino.utilities.AnsiStuff;
 
 public class Card {
 
-    public enum Suit {HEARTS, SPADES, DIAMONDS, CLUBS}
-
-    public enum Rank {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
-
     protected Suit cardSuit;
     protected Rank value;
 
     public Card() {
     }
-
     public Card(Suit cardSuit, Rank value) {
         this.cardSuit = cardSuit;
         this.value = value;
@@ -23,17 +18,16 @@ public class Card {
         return value;
     }
 
+    public void setValue(Rank value) {
+        this.value = value;
+    }
+
     public Suit getCardSuit() {
         return cardSuit;
     }
 
     public void setCardSuit(Suit cardSuit) {
         this.cardSuit = cardSuit;
-    }
-
-
-    public void setValue(Rank value) {
-        this.value = value;
     }
 
     /**
@@ -155,7 +149,7 @@ public class Card {
 
     private String getCardColor() {
         String color;
-        if (this.cardSuit == Suit.HEARTS || this.cardSuit == Suit.DIAMONDS){
+        if (this.cardSuit == Suit.HEARTS || this.cardSuit == Suit.DIAMONDS) {
             color = AnsiStuff.ANSI_RED;
         } else {
             color = AnsiStuff.ANSI_BLACK;
@@ -169,6 +163,10 @@ public class Card {
         return String.format("\n %10s \n %10s", cardS, cardV);
 
     }
+
+    public enum Suit {HEARTS, SPADES, DIAMONDS, CLUBS}
+
+    public enum Rank {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}
 
 //    public static void main(String[] args) {
 //        Card testCard = new Card(Suit.SPADES, Rank.THREE);

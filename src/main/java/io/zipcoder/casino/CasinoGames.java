@@ -24,7 +24,7 @@ public class CasinoGames {
         Casino.console.println("Welcome to the Casino Game Floor!");
         boolean continuePlayingAGame = getUserChoiceToContinuePlaying();
 
-        while(continuePlayingAGame) {
+        while (continuePlayingAGame) {
             String gameChoice = getUserChoiceForWhichGameToPlay();
             createAndSetCurrentGame(gameChoice);
 
@@ -44,7 +44,7 @@ public class CasinoGames {
 
         String choice = Casino.console.getStringInput("Would you like to play one of the games? (yes or no):").toLowerCase();
 
-        while(!(choice.equals("yes") || choice.equals("no"))) {
+        while (!(choice.equals("yes") || choice.equals("no"))) {
             choice = Casino.console.getStringInput("Sorry, I couldn't understand you. Please enter 'yes' or 'no':");
         }
 
@@ -60,7 +60,7 @@ public class CasinoGames {
         String gameChoice = Casino.console.getStringInput("Which game would you like to play?\n" +
                 "Please enter: 'Slots' 'Go Fish', 'Black Jack', 'Hi-Lo', or 'Craps'").toLowerCase().replaceAll("-", "").replaceAll(" ", "");
 
-        while(!(gameChoice.equals("slots") || gameChoice.equals("gofish") || gameChoice.equals("blackjack") || gameChoice.equals("hilo") || gameChoice.equals("craps"))) {
+        while (!(gameChoice.equals("slots") || gameChoice.equals("gofish") || gameChoice.equals("blackjack") || gameChoice.equals("hilo") || gameChoice.equals("craps"))) {
             gameChoice = Casino.console.getStringInput("Error: Please enter one of the following games\n" +
                     "'Slots', 'Go Fish', 'Black Jack', 'Hi-Lo', or 'Craps'").toLowerCase();
         }
@@ -74,16 +74,16 @@ public class CasinoGames {
             case "slots":
                 this.currentGame = new SlotMachine(this.currentGuest);
                 break;
-            case "gofish" :
+            case "gofish":
                 this.currentGame = new GoFish(this.currentGuest);
                 break;
-            case "blackjack" :
+            case "blackjack":
                 this.currentGame = new BlackJack(this.currentGuest);
                 break;
-            case "hilo" :
+            case "hilo":
                 this.currentGame = new HiLo(this.currentGuest);
                 break;
-            case "craps" :
+            case "craps":
                 this.currentGame = new Craps(this.currentGuest);
         }
     }
