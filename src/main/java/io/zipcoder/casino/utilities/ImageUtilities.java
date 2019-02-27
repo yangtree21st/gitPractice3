@@ -7,7 +7,7 @@ import java.util.TreeMap;
 public class ImageUtilities {
 
     public static TreeMap<String,String> cardImageTreeMap = new TreeMap<>();
-    public static TreeMap<Integer,String> diceImageTreeMap = new TreeMap<>();
+    //public static TreeMap<Integer,String> diceImageTreeMap = new TreeMap<>();
 
 
     public ImageUtilities() {
@@ -77,8 +77,13 @@ public class ImageUtilities {
         return new Image(pathValue,180,240,true,true);
     }
 
+    public static TreeMap<String, String> getCardImageTreeMap() {
+        return cardImageTreeMap;
+    }
 
-
+    public static void setCardImageTreeMap(TreeMap<String, String> cardImageTreeMap) {
+        ImageUtilities.cardImageTreeMap = cardImageTreeMap;
+    }
 
 
 }
