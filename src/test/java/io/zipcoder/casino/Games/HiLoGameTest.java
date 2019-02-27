@@ -6,7 +6,6 @@ import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
-import io.zipcoder.casino.Players.HiLowPlayer;
 import io.zipcoder.casino.Players.Player;
 import org.junit.Assert;
 
@@ -114,17 +113,15 @@ public class HiLoGameTest {
         Double expected = 20.00;
         GuestAccount guestAccount = new GuestAccount(null,null,expected);
         Guest guest = new Guest(null,guestAccount);
-        HiLowPlayer hiLowPlayer = new HiLowPlayer(guest);
+        Player hiLowPlayer = new Player(guest);
         HiLo hiloGame = new HiLo(guest);
 
         //When
-        Double actual = hiloGame.checkPlayersBalance(hiLowPlayer);
+        Double actual = hiloGame.checkPlayersBalance(hiloGame.getPlayer());
 
 
         //Then
         Assert.assertEquals(expected,actual);
-
-
     }
 
     @Test
