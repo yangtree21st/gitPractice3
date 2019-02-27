@@ -128,8 +128,8 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
         boolean downwardsDiagonal = ((slotResults[0] == slotResults[1] + 1) || (slotResults[0] == 0 && slotResults[1] == 9)) && ((slotResults[1] == slotResults[2] + 1) || (slotResults[1] == 0 && slotResults[2] == 9));
         boolean diagonalBoolean = upwardsDiagonal || downwardsDiagonal;
 
-        boolean zigZag0And1 = ((Math.abs(slotResults[0] % 9 - slotResults[1] % 9) <= 1) || (Math.abs(slotResults[0] - slotResults[1]) <= 1));
-        boolean zigZag1And2 = ((Math.abs(slotResults[1] % 9 - slotResults[2] % 9) <= 1) || (Math.abs(slotResults[1] - slotResults[2]) <= 1));
+        boolean zigZag0And1 = ((Math.abs(slotResults[0] % 9 - slotResults[1] % 9) == 0) || (Math.abs(slotResults[0] - slotResults[1]) <= 1));
+        boolean zigZag1And2 = ((Math.abs(slotResults[1] % 9 - slotResults[2] % 9) == 0) || (Math.abs(slotResults[1] - slotResults[2]) <= 1));
         boolean zigZagBoolean = zigZag0And1 && zigZag1And2;
 
         if (jackpotBoolean) {
