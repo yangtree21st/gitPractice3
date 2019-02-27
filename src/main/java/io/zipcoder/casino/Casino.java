@@ -3,6 +3,7 @@ package io.zipcoder.casino;
 import io.zipcoder.casino.Displays.CasinoDisplay;
 import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.utilities.AnsiStuff;
+import io.zipcoder.casino.utilities.Banners;
 import io.zipcoder.casino.utilities.Console;
 import javafx.scene.Scene;
 
@@ -52,7 +53,6 @@ public class Casino {
      */
     public void startCasinoExperience() {
         welcomeHeader();
-
         console.println("Welcome to the Casino lobby!\nA friendly attendant asks you for your name to start a new account at the Casino Royale.");
 
         String guestNewName = getGuestName();
@@ -111,29 +111,7 @@ public class Casino {
      */
 
     public void welcomeHeader() {
-        console.println(AnsiStuff.ANSI_PURPLE + "\n\n\n /$$      /$$           /$$                                                     /$$                       /$$     /$$                \n" +
-                "| $$  /$ | $$          | $$                                                    | $$                      | $$    | $$                \n" +
-                "| $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$        /$$$$$$  | $$$$$$$   /$$$$$$ \n" +
-                "| $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      |_  $$_/  | $$__  $$ /$$__  $$\n" +
-                "| $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$        | $$    | $$  \\ $$| $$$$$$$$\n" +
-                "| $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$        | $$ /$$| $$  | $$| $$_____/\n" +
-                "| $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/        |  $$$$/| $$  | $$|  $$$$$$$\n" +
-                "|__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/          \\___/  |__/  |__/ \\_______/\n" +
-                "                                                                                                                                     \n" +
-                "                                                                                                                                     \n" +
-                "                                                                                                                                     \n" +
-                "        /$$$$$$                      /$$                           /$$$$$$$                                /$$                       \n" +
-                "       /$$__  $$                    |__/                          | $$__  $$                              | $$                       \n" +
-                "      | $$  \\__/  /$$$$$$   /$$$$$$$ /$$ /$$$$$$$   /$$$$$$       | $$  \\ $$  /$$$$$$  /$$   /$$  /$$$$$$ | $$  /$$$$$$              \n" +
-                "      | $$       |____  $$ /$$_____/| $$| $$__  $$ /$$__  $$      | $$$$$$$/ /$$__  $$| $$  | $$ |____  $$| $$ /$$__  $$             \n" +
-                "      | $$        /$$$$$$$|  $$$$$$ | $$| $$  \\ $$| $$  \\ $$      | $$__  $$| $$  \\ $$| $$  | $$  /$$$$$$$| $$| $$$$$$$$             \n" +
-                "      | $$    $$ /$$__  $$ \\____  $$| $$| $$  | $$| $$  | $$      | $$  \\ $$| $$  | $$| $$  | $$ /$$__  $$| $$| $$_____/             \n" +
-                "      |  $$$$$$/|  $$$$$$$ /$$$$$$$/| $$| $$  | $$|  $$$$$$/      | $$  | $$|  $$$$$$/|  $$$$$$$|  $$$$$$$| $$|  $$$$$$$             \n" +
-                "       \\______/  \\_______/|_______/ |__/|__/  |__/ \\______/       |__/  |__/ \\______/  \\____  $$ \\_______/|__/ \\_______/             \n" +
-                "                                                                                       /$$  | $$                                     \n" +
-                "                                                                                      |  $$$$$$/                                     \n" +
-                "                                                                                       \\______/                                      " +
-                AnsiStuff.ANSI_RESET + "\n\n");
+        console.println(AnsiStuff.ANSI_PURPLE + Banners.casinoWelcomeHeader + AnsiStuff.ANSI_RESET + "\n\n");
     }
 
     /**
@@ -207,6 +185,10 @@ public class Casino {
             }
         }
 
+    }
+
+    public boolean contOrExitInputCheck(Integer numberInputted){
+        return false;
     }
 
     public void accessAccount() {
