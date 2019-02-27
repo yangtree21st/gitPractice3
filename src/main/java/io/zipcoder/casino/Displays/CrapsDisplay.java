@@ -17,17 +17,17 @@ public class CrapsDisplay extends Display {
     TextArea areaInfo = new TextArea();
 
 
-    public Parent createCrapsContent(Game game){
-        this.displayGame = (Craps) game;
+    public Parent createCrapsContent(Game game) {
+        this.displayGame = game;
 
         GridPane crapsGrid = createStandardGrid();
         GridPane centerGrid = createCenterGrid();
 
-        crapsGrid.add(centerGrid, 0,4);
+        crapsGrid.add(centerGrid, 0, 4);
         return crapsGrid;
     }
 
-    public GridPane createCenterGrid(){
+    public GridPane createCenterGrid() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         /*
@@ -42,13 +42,13 @@ public class CrapsDisplay extends Display {
         return grid;
     }
 
-    private GridPane createStandardGrid(){
+    private GridPane createStandardGrid() {
         GridPane crapsStandardGrid = super.createGameGrid();
 
-        crapsStandardGrid.add(crapsBanner, 1,0, 5,1);
-        crapsStandardGrid.add(areaInfo,1,1,3,4);
+        crapsStandardGrid.add(crapsBanner, 1, 0, 5, 1);
+        crapsStandardGrid.add(areaInfo, 1, 1, 3, 4);
 
-        btnForInstructions.setOnAction(e ->{
+        btnForInstructions.setOnAction(e -> {
             setInstructionsForButton(returnInstructions());
 
         });
@@ -58,7 +58,7 @@ public class CrapsDisplay extends Display {
     }
 
 
-    private String returnInstructions(){
+    private String returnInstructions() {
         return "Craps is a dice game involving the rolling of two dice. You win or lose money depending on what the result of the dice tosses are.\n" +
                 "The game is split into two phases: the first roll, called the Come-Out roll, and every subsequent roll, which are called Point rolls.\n\n" +
                 "There are two main bets in the game of Craps - Pass and Don’t Pass, which both pay even money. Let’s explain the Pass bet first.\n\n" +

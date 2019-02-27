@@ -122,6 +122,7 @@ public class SlotReel {
 
     /**
      * For testing purposes, to use a rigged slotReel to check the different scenarios.
+     *
      * @param testRandom the Random provided with a known seed.
      */
     public SlotReel(Random testRandom) {
@@ -132,6 +133,7 @@ public class SlotReel {
     /**
      * This method gets the results of the slot reel spins and dipslays the result. It also returns the slot reel
      * results as an int array.
+     *
      * @param numOfReels the number of reels for this slot machine.
      * @return an int array that contains the results of the middle line of the slot machine spin.
      */

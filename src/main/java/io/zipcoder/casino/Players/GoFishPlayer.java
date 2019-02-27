@@ -1,20 +1,18 @@
 package io.zipcoder.casino.Players;
 
 import io.zipcoder.casino.Guest;
-import io.zipcoder.casino.Models.*;
+import io.zipcoder.casino.Models.Hand;
 
-import java.util.ArrayList;
-
-public class GoFishPlayer extends CardPlayer{
+public class GoFishPlayer extends CardPlayer {
 
     private Hand playerHand;
 
-    public GoFishPlayer(Guest newGuest){
+    public GoFishPlayer(Guest newGuest) {
         super(newGuest);
         this.playerHand = new Hand();
     }
 
-    public Guest getGuest(){
+    public Guest getGuest() {
         return super.getGuest();
     }
 

@@ -2,9 +2,9 @@ package io.zipcoder.casino.Players;
 
 import io.zipcoder.casino.Guest;
 
-public abstract class CardPlayer extends Player{
+public abstract class CardPlayer extends Player {
 
-    public CardPlayer(Guest newGuest){
+    public CardPlayer(Guest newGuest) {
         super(newGuest);
     }
 

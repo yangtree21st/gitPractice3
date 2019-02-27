@@ -1,6 +1,7 @@
 package io.zipcoder.casino.Games;
 
-import io.zipcoder.casino.*;
+import io.zipcoder.casino.Casino;
+import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.Die;
 import io.zipcoder.casino.utilities.AnsiStuff;
 
@@ -9,8 +10,6 @@ public class Craps extends SunhyunsGamblingGameClass {
     Die die;
     private boolean roundIsStillGoing;
     private int point;
-
-    enum TypeOfBet {PASS, DONT_PASS}
 
     /**
      * Constructor. Creates a die, and assigns the specified guest to the currentGuest field.
@@ -101,7 +100,6 @@ public class Craps extends SunhyunsGamblingGameClass {
                 "                                         | $$                                                                                        \n" +
                 "                                         |__/                                                                                        " + AnsiStuff.ANSI_RESET);
     }
-
 
     /**
      * This method takes care of the actual rolling of the dice. It takes in the currentTypeOfBet and determines whether
@@ -282,6 +280,8 @@ public class Craps extends SunhyunsGamblingGameClass {
 
         return typeOfBetChoice;
     }
+
+    enum TypeOfBet {PASS, DONT_PASS}
 
 //    public static void main(String[] args) {
 //        Casino casino = new Casino();

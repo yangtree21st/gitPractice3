@@ -3,7 +3,6 @@ package io.zipcoder.casino.Displays;
 
 import io.zipcoder.casino.CasinoGames;
 import io.zipcoder.casino.Display;
-import io.zipcoder.casino.Displays.CashierDisplay;
 import io.zipcoder.casino.Main;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -35,11 +34,10 @@ public class CasinoDisplay extends Display {
         GridPane casinoGrid = createStandardGridPane();
 
 
-
         Button submitInfo = new Button("Submit Information");
         submitInfo.setMaxWidth(Double.MAX_VALUE);
 
-        casinoGrid.add(submitInfo, 2, 4,1,1);
+        casinoGrid.add(submitInfo, 2, 4, 1, 1);
 
 
         submitInfo.setOnAction(e -> {
@@ -52,11 +50,10 @@ public class CasinoDisplay extends Display {
         });
 
 
-
         return casinoGrid;
     }
 
-    public Parent createSecondaryCasinoContent(){
+    public Parent createSecondaryCasinoContent() {
 
         GridPane casinoGrid = createStandardGridPane();
 
@@ -82,10 +79,10 @@ public class CasinoDisplay extends Display {
         startingBalanceField.setEditable(false);
         areaInfo.setEditable(false);
 
-        casinoGrid.add(areaInfo, 1,4,3,1);
-        casinoGrid.add(btnCashier, 1, 5,1,1);
-        casinoGrid.add(btnEnterCasinoFloor, 2, 5,1,1);
-        casinoGrid.add(btnExitCompletely, 3, 5,1,1);
+        casinoGrid.add(areaInfo, 1, 4, 3, 1);
+        casinoGrid.add(btnCashier, 1, 5, 1, 1);
+        casinoGrid.add(btnEnterCasinoFloor, 2, 5, 1, 1);
+        casinoGrid.add(btnExitCompletely, 3, 5, 1, 1);
 
         btnExitCompletely.setOnAction(e -> {
             Stage casinoStage = super.setExitAction(btnExitCompletely);
@@ -108,21 +105,21 @@ public class CasinoDisplay extends Display {
         return casinoGrid;
     }
 
-    public GridPane createStandardGridPane(){
+    public GridPane createStandardGridPane() {
         GridPane standardGridPane = super.createGrid();
 
         //casinoBanner.setTextAlignment(TextAlignment.CENTER);
-        casinoBanner.setFont(Font.font ("Verdana", 35));
+        casinoBanner.setFont(Font.font("Verdana", 35));
 
         //casinoSubBanner.setTextAlignment(TextAlignment.CENTER);
-        casinoSubBanner.setFont(Font.font ("Verdana", 15));
+        casinoSubBanner.setFont(Font.font("Verdana", 15));
 
-        standardGridPane.add(casinoBanner, 0,0, 5,1);
-        standardGridPane.add(casinoSubBanner, 1,1, 3,1);
-        standardGridPane.add(enterNameField, 1,2,1,1);
-        standardGridPane.add(nameField, 1,3,1,1);
-        standardGridPane.add(enterStartingBalanceField, 3,2,1,1);
-        standardGridPane.add(startingBalanceField, 3,3,1,1);
+        standardGridPane.add(casinoBanner, 0, 0, 5, 1);
+        standardGridPane.add(casinoSubBanner, 1, 1, 3, 1);
+        standardGridPane.add(enterNameField, 1, 2, 1, 1);
+        standardGridPane.add(nameField, 1, 3, 1, 1);
+        standardGridPane.add(enterStartingBalanceField, 3, 2, 1, 1);
+        standardGridPane.add(startingBalanceField, 3, 3, 1, 1);
 
         return standardGridPane;
     }

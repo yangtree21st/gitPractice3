@@ -31,8 +31,8 @@ public class Casino {
      * @param outputStream
      */
     public Casino(GuestAccountDataBase gab, InputStream inStream, PrintStream outputStream) {
-        this.guestAccountDatabase = gab;
-        this.console = new Console(inStream, outputStream);
+        guestAccountDatabase = gab;
+        console = new Console(inStream, outputStream);
     }
 
     /**
@@ -43,8 +43,8 @@ public class Casino {
      */
 
     public Casino(InputStream inStream, PrintStream outputStream) {
-        this.guestAccountDatabase = new GuestAccountDataBase();
-        this.console = new Console(inStream, outputStream);
+        guestAccountDatabase = new GuestAccountDataBase();
+        console = new Console(inStream, outputStream);
     }
 
     /**
@@ -102,7 +102,7 @@ public class Casino {
      */
 
     public GuestAccountDataBase getGuestAccountDatabase() {
-        return this.guestAccountDatabase;
+        return guestAccountDatabase;
     }
 
 

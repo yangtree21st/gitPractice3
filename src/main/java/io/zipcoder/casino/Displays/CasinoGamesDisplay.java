@@ -22,28 +22,28 @@ public class CasinoGamesDisplay extends Display {
 
 
         Button btnBlackJack = new Button("BlackJack");
-        btnBlackJack.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnBlackJack.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         btnBlackJack.setDisable(true);
 
         Button btnCraps = new Button("Craps");
-        btnCraps.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnCraps.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         btnCraps.setDisable(true);
 
         Button btnGoFish = new Button("Go Fish");
-        btnGoFish.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnGoFish.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         btnGoFish.setDisable(true);
 
         Button btnHilo = new Button("Hi-Lo");
-        btnHilo.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnHilo.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         Button btnExit = new Button("Casino Floor");
         btnExit.setMaxWidth(Double.MAX_VALUE);
 
         casinoGamesGrid.add(casinoGamesBanner, 0, 0, 4, 2);
         casinoGamesGrid.add(btnBlackJack, 0, 2, 1, 1);
-        casinoGamesGrid.add(btnCraps, 1, 2,1,1);
-        casinoGamesGrid.add(btnGoFish, 2, 2,1,1);
-        casinoGamesGrid.add(btnHilo, 3, 2,1,1);
+        casinoGamesGrid.add(btnCraps, 1, 2, 1, 1);
+        casinoGamesGrid.add(btnGoFish, 2, 2, 1, 1);
+        casinoGamesGrid.add(btnHilo, 3, 2, 1, 1);
         casinoGamesGrid.add(btnExit, 1, 4, 2, 1);
 
 
