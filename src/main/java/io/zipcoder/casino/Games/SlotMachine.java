@@ -2,7 +2,6 @@ package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
-import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Models.SlotReel;
 import io.zipcoder.casino.utilities.AnsiStuff;
 
@@ -12,12 +11,48 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
     private boolean diagonal;
     private boolean zigZag;
 
+    private static final String JACKPOT_DISPLAY = AnsiStuff.ANSI_GREEN + "    /$$$$$  /$$$$$$   /$$$$$$  /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$$ /$$ /$$ /$$\n" +
+            "   |__  $$ /$$__  $$ /$$__  $$| $$  /$$/| $$__  $$ /$$__  $$|__  $$__/| $$| $$| $$\n" +
+            "      | $$| $$  \\ $$| $$  \\__/| $$ /$$/ | $$  \\ $$| $$  \\ $$   | $$   | $$| $$| $$\n" +
+            "      | $$| $$$$$$$$| $$      | $$$$$/  | $$$$$$$/| $$  | $$   | $$   | $$| $$| $$\n" +
+            " /$$  | $$| $$__  $$| $$      | $$  $$  | $$____/ | $$  | $$   | $$   |__/|__/|__/\n" +
+            "| $$  | $$| $$  | $$| $$    $$| $$\\  $$ | $$      | $$  | $$   | $$               \n" +
+            "|  $$$$$$/| $$  | $$|  $$$$$$/| $$ \\  $$| $$      |  $$$$$$/   | $$    /$$ /$$ /$$\n" +
+            " \\______/ |__/  |__/ \\______/ |__/  \\__/|__/       \\______/    |__/   |__/|__/|__/\n" +
+            "                                                                                  \n" +
+            "                                                                                  \n" +
+            "                                                                                  " + AnsiStuff.ANSI_RESET;;
+
+    private static final String DIAGONAL_DISPLAY = AnsiStuff.ANSI_GREEN + " /$$$$$$$  /$$                                                   /$$ /$$\n" +
+            "| $$__  $$|__/                                                  | $$| $$\n" +
+            "| $$  \\ $$ /$$  /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$ | $$| $$\n" +
+            "| $$  | $$| $$ |____  $$ /$$__  $$ /$$__  $$| $$__  $$ |____  $$| $$| $$\n" +
+            "| $$  | $$| $$  /$$$$$$$| $$  \\ $$| $$  \\ $$| $$  \\ $$  /$$$$$$$| $$|__/\n" +
+            "| $$  | $$| $$ /$$__  $$| $$  | $$| $$  | $$| $$  | $$ /$$__  $$| $$    \n" +
+            "| $$$$$$$/| $$|  $$$$$$$|  $$$$$$$|  $$$$$$/| $$  | $$|  $$$$$$$| $$ /$$\n" +
+            "|_______/ |__/ \\_______/ \\____  $$ \\______/ |__/  |__/ \\_______/|__/|__/\n" +
+            "                         /$$  \\ $$                                      \n" +
+            "                        |  $$$$$$/                                      \n" +
+            "                         \\______/                                       " + AnsiStuff.ANSI_RESET;
+
+    private static final String ZIG_ZAG_DISPLAY = AnsiStuff.ANSI_GREEN + " /$$$$$$$$ /$$                /$$$$$$$$                     /$$\n" +
+            "|_____ $$ |__/               |_____ $$                     | $$\n" +
+            "     /$$/  /$$  /$$$$$$           /$$/   /$$$$$$   /$$$$$$ | $$\n" +
+            "    /$$/  | $$ /$$__  $$ /$$$$$$ /$$/   |____  $$ /$$__  $$| $$\n" +
+            "   /$$/   | $$| $$  \\ $$|______//$$/     /$$$$$$$| $$  \\ $$|__/\n" +
+            "  /$$/    | $$| $$  | $$       /$$/     /$$__  $$| $$  | $$    \n" +
+            " /$$$$$$$$| $$|  $$$$$$$      /$$$$$$$$|  $$$$$$$|  $$$$$$$ /$$\n" +
+            "|________/|__/ \\____  $$     |________/ \\_______/ \\____  $$|__/\n" +
+            "               /$$  \\ $$                          /$$  \\ $$    \n" +
+            "              |  $$$$$$/                         |  $$$$$$/    \n" +
+            "               \\______/                           \\______/     " + AnsiStuff.ANSI_RESET;
+
     /**
      * Standard constructor, sets currentGuest to guest, sets slotReel to new SlotReel
      * @param guest guest who is playing the game
      */
     public SlotMachine(Guest guest) {
-        super(guest, 5);
+        super(guest, 1);
         this.slotReel = new SlotReel();
     }
 
@@ -33,7 +68,9 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
     }
 
     public void playFullGame() {
-        println("\nWelcome to the Slot Machine!\nThe minimum bet is $%d.", minimumBet);
+        displayWelcome();
+
+        println("The minimum bet is $%d.", minimumBet);
 
         if (yesOrNoQuestion("Would you like to read the instructions? (yes or no):")) {
             printInstructions();
@@ -61,6 +98,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
 
         println("\nWe hope you enjoyed your visit to the Slot Machine!");
     }
+
 
     /**
      * Resets all the win conditions to false
@@ -95,13 +133,13 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
         boolean zigZagBoolean = zigZag0And1 && zigZag1And2;
 
         if (jackpotBoolean) {
-            Casino.console.println(AnsiStuff.ANSI_GREEN + "JACKPOT!!!" + AnsiStuff.ANSI_RESET + '\n');
+            Casino.console.println(JACKPOT_DISPLAY + '\n');
             jackpot = true;
         } else if (diagonalBoolean) {
-            Casino.console.println(AnsiStuff.ANSI_GREEN + "Diagonal!" + AnsiStuff.ANSI_RESET + '\n');
+            Casino.console.println(DIAGONAL_DISPLAY + '\n');
             diagonal = true;
         } else if (zigZagBoolean) {
-            Casino.console.println(AnsiStuff.ANSI_GREEN + "Zig-Zag!" + AnsiStuff.ANSI_RESET + '\n');
+            Casino.console.println(ZIG_ZAG_DISPLAY + '\n');
             zigZag = true;
         } else {
             Casino.console.println("Sorry, no Lines...\n");
@@ -143,6 +181,34 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
                 "in the reels to be the same. You get a diagonal by getting three numbers to line up in a diagonal, and you\n" +
                 "get a zig-zag by getting three numbers to line up in any other way (but any two numbers in the line must be\n" +
                 "at least diagonally adjacent).\n");
+    }
+
+    /**
+     * Displays the welcome sign
+     */
+    private void displayWelcome() {
+        Casino.console.println(AnsiStuff.ANSI_BLUE + " /$$      /$$           /$$                                                     /$$                       /$$     /$$                \n" +
+                "| $$  /$ | $$          | $$                                                    | $$                      | $$    | $$                \n" +
+                "| $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$        /$$$$$$  | $$$$$$$   /$$$$$$ \n" +
+                "| $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      |_  $$_/  | $$__  $$ /$$__  $$\n" +
+                "| $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$        | $$    | $$  \\ $$| $$$$$$$$\n" +
+                "| $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$        | $$ /$$| $$  | $$| $$_____/\n" +
+                "| $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/        |  $$$$/| $$  | $$|  $$$$$$$\n" +
+                "|__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/          \\___/  |__/  |__/ \\_______/\n" +
+                "                                                                                                                                     \n" +
+                "                                                                                                                                     \n" +
+                "                                                                                                                                     \n" +
+                "              /$$$$$$  /$$             /$$           /$$      /$$                     /$$       /$$                     /$$          \n" +
+                "             /$$__  $$| $$            | $$          | $$$    /$$$                    | $$      |__/                    | $$          \n" +
+                "            | $$  \\__/| $$  /$$$$$$  /$$$$$$        | $$$$  /$$$$  /$$$$$$   /$$$$$$$| $$$$$$$  /$$ /$$$$$$$   /$$$$$$ | $$          \n" +
+                "            |  $$$$$$ | $$ /$$__  $$|_  $$_/        | $$ $$/$$ $$ |____  $$ /$$_____/| $$__  $$| $$| $$__  $$ /$$__  $$| $$          \n" +
+                "             \\____  $$| $$| $$  \\ $$  | $$          | $$  $$$| $$  /$$$$$$$| $$      | $$  \\ $$| $$| $$  \\ $$| $$$$$$$$|__/          \n" +
+                "             /$$  \\ $$| $$| $$  | $$  | $$ /$$      | $$\\  $ | $$ /$$__  $$| $$      | $$  | $$| $$| $$  | $$| $$_____/              \n" +
+                "            |  $$$$$$/| $$|  $$$$$$/  |  $$$$/      | $$ \\/  | $$|  $$$$$$$|  $$$$$$$| $$  | $$| $$| $$  | $$|  $$$$$$$ /$$          \n" +
+                "             \\______/ |__/ \\______/    \\___/        |__/     |__/ \\_______/ \\_______/|__/  |__/|__/|__/  |__/ \\_______/|__/          \n" +
+                "                                                                                                                                     \n" +
+                "                                                                                                                                     \n" +
+                "                                                                                                                                     " + AnsiStuff.ANSI_RESET);
     }
 
     /**

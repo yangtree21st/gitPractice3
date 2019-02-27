@@ -2,6 +2,7 @@ package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.*;
 import io.zipcoder.casino.Models.Die;
+import io.zipcoder.casino.utilities.AnsiStuff;
 
 public class Craps extends SunhyunsGamblingGameClass {
 
@@ -43,7 +44,9 @@ public class Craps extends SunhyunsGamblingGameClass {
      * they would like to play again.
      */
     public void playFullGame() {
-        println("\nWelcome to the Craps table!\nThe minimum bet is $%d.", minimumBet);
+        displayWelcome();
+
+        println("\nThe minimum bet is $%d.", minimumBet);
 
         if (yesOrNoQuestion("Would you like to read the instructions? (yes or no):")) {
             printInstructions();
@@ -69,6 +72,34 @@ public class Craps extends SunhyunsGamblingGameClass {
         }
 
         println("\nWe hope you enjoyed your visit to the Craps table!");
+    }
+
+    /**
+     * Displays the welcome sign
+     */
+    private void displayWelcome() {
+        Casino.console.println(AnsiStuff.ANSI_RED + " /$$      /$$           /$$                                                     /$$                       /$$     /$$                \n" +
+                "| $$  /$ | $$          | $$                                                    | $$                      | $$    | $$                \n" +
+                "| $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$        /$$$$$$  | $$$$$$$   /$$$$$$ \n" +
+                "| $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      |_  $$_/  | $$__  $$ /$$__  $$\n" +
+                "| $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$        | $$    | $$  \\ $$| $$$$$$$$\n" +
+                "| $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$        | $$ /$$| $$  | $$| $$_____/\n" +
+                "| $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/        |  $$$$/| $$  | $$|  $$$$$$$\n" +
+                "|__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/          \\___/  |__/  |__/ \\_______/\n" +
+                "                                                                                                                                     \n" +
+                "                                                                                                                                     \n" +
+                "                                                                                                                                     \n" +
+                "              /$$$$$$                                               /$$$$$$$$        /$$       /$$           /$$                     \n" +
+                "             /$$__  $$                                             |__  $$__/       | $$      | $$          | $$                     \n" +
+                "            | $$  \\__/  /$$$$$$  /$$$$$$   /$$$$$$   /$$$$$$$         | $$  /$$$$$$ | $$$$$$$ | $$  /$$$$$$ | $$                     \n" +
+                "            | $$       /$$__  $$|____  $$ /$$__  $$ /$$_____/         | $$ |____  $$| $$__  $$| $$ /$$__  $$| $$                     \n" +
+                "            | $$      | $$  \\__/ /$$$$$$$| $$  \\ $$|  $$$$$$          | $$  /$$$$$$$| $$  \\ $$| $$| $$$$$$$$|__/                     \n" +
+                "            | $$    $$| $$      /$$__  $$| $$  | $$ \\____  $$         | $$ /$$__  $$| $$  | $$| $$| $$_____/                         \n" +
+                "            |  $$$$$$/| $$     |  $$$$$$$| $$$$$$$/ /$$$$$$$/         | $$|  $$$$$$$| $$$$$$$/| $$|  $$$$$$$ /$$                     \n" +
+                "             \\______/ |__/      \\_______/| $$____/ |_______/          |__/ \\_______/|_______/ |__/ \\_______/|__/                     \n" +
+                "                                         | $$                                                                                        \n" +
+                "                                         | $$                                                                                        \n" +
+                "                                         |__/                                                                                        " + AnsiStuff.ANSI_RESET);
     }
 
 
