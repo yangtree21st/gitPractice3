@@ -1,4 +1,6 @@
 package io.zipcoder.casino;
+import io.zipcoder.casino.Displays.CasinoGamesDisplay;
+import io.zipcoder.casino.Displays.InstructionDisplay;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,9 +21,9 @@ import javafx.stage.Stage;
 
 public class Display{
 
-    Button btnExit = new Button("Exit");
-    Button btnForInstructions = new Button("Instructions");
-    Stage instructionStage = new Stage();
+    public Button btnExit = new Button("Exit");
+    public Button btnForInstructions = new Button("Instructions");
+    public Stage instructionStage = new Stage();
 
     /***
      * Method creates the Welcome scene that users enter into when choosing to use the GUI

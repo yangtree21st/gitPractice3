@@ -1,5 +1,8 @@
-package io.zipcoder.casino;
+package io.zipcoder.casino.Displays;
 
+import io.zipcoder.casino.Display;
+import io.zipcoder.casino.Guest;
+import io.zipcoder.casino.Main;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

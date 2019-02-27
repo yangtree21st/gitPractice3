@@ -1,7 +1,9 @@
-package io.zipcoder.casino;
+package io.zipcoder.casino.Displays;
 
+import io.zipcoder.casino.Display;
 import io.zipcoder.casino.Games.HiLo;
 import io.zipcoder.casino.Interfaces.Game;
+import io.zipcoder.casino.Main;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.utilities.ImageUtilities;
 import javafx.scene.Parent;
@@ -35,7 +37,7 @@ public class HiLoDisplay extends Display {
     boolean nextCardIsLess;
 
     String betTooLowText = "Please bet the minimum amount[$5.00] or more.";
-    String insuffiencientFundsText = "Insufficient funds in account balance.\n Please return to casino floor to add funds at the cashier.";
+    String insuffiencientFundsText = "Insufficient funds in account balance.\nPlease return to casino floor to add funds at the cashier.";
 
     public Parent createHiLoContent(Game game) {
         this.displayGame = (HiLo) game;
@@ -61,7 +63,7 @@ public class HiLoDisplay extends Display {
     public Parent placeBetContent() {
         //GridPane placeBetGridPane = createStandardGrid();
         hiLoGrid.add(areaInfo,2,2,3,2);
-        Button btnPlaceBet = new Button("Place Bet");
+        Button btnPlaceBet = new Button("Place Bet");//TODO : control if a string is passed in for double. Superclass method available for all classes to use
         btnPlaceBet.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         hiLoGrid.add(btnPlaceBet,3,6,1,1);
         hiLoGrid.add(takeBetField,2,5,3,1);
@@ -70,7 +72,7 @@ public class HiLoDisplay extends Display {
             betAmount = Double.parseDouble(takeBetField.getText());
 
             if(proceedWithHiloGameSwitch(betAmount)){
-                hiLoGrid.getChildren().remove(btnPlaceBet);
+                hiLoGrid.getChildren().remove(btnPlaceBet);//TODO create a retainall method for all the standard nodes in the display
                 hiLoGrid.getChildren().remove(takeBetField);
                 beginHiLoGamePlayContent();
             }
@@ -205,7 +207,7 @@ public class HiLoDisplay extends Display {
 
     public boolean proceedWithHiloGameSwitch(Double betAmount){
 
-        boolean enoughMoney = true;
+        boolean enoughMoney = displayGame.enoughMoneyForBet(betAmount, displayGame.getPlayer());
 
         if(!enoughMoney && betAmount < 5.0){
             areaInfo.setText(betTooLowText + "\n" + insuffiencientFundsText);

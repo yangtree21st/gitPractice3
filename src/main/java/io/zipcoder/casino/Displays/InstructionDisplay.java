@@ -1,5 +1,6 @@
-package io.zipcoder.casino;
+package io.zipcoder.casino.Displays;
 
+import io.zipcoder.casino.Display;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

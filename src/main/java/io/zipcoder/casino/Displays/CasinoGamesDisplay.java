@@ -1,15 +1,15 @@
-package io.zipcoder.casino;
+package io.zipcoder.casino.Displays;
 
+import io.zipcoder.casino.Display;
 import io.zipcoder.casino.Games.Craps;
 import io.zipcoder.casino.Games.HiLo;
+import io.zipcoder.casino.Main;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class CasinoGamesDisplay extends Display {
 

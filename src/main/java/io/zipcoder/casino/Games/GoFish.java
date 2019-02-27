@@ -100,13 +100,11 @@ public class GoFish extends CardGame implements Game {
         showPlayerHand(playerHand);
 
 
-
-
         do {
 
 
-            if (containsPairs(playerHand) > 0){
-                numberOfPairsPlayer ++;
+            if (containsPairs(playerHand) > 0) {
+                numberOfPairsPlayer++;
             }
             displayCurrentScore();
             showPlayerHand(playerHand);
@@ -116,12 +114,11 @@ public class GoFish extends CardGame implements Game {
 
             showPlayerHand(playerHand);
 
-            if(containsPairs(dealerHand) > 0){
-               numberOfPairsDealer ++;
+            if (containsPairs(dealerHand) > 0) {
+                numberOfPairsDealer++;
             }
 
             opponentTurn(dealerHand, playerHand);
-
 
 
         } while (!(playerHand.getAllOfPlayerCards().size() == 0 || dealerHand.getAllOfPlayerCards().size() == 0 || goFishDeck.getCardDeckSize() == 0));
@@ -185,7 +182,6 @@ public class GoFish extends CardGame implements Game {
         dealerHand.addCard(deal());
 
 
-
     }
 
     public Card deal() {
@@ -236,9 +232,9 @@ public class GoFish extends CardGame implements Game {
 
     public void pairsCounter() {
 
-           numberOfPairsPlayer += containsPairs(playerHand);
+        numberOfPairsPlayer += containsPairs(playerHand);
 
-           numberOfPairsDealer += containsPairs(dealerHand);
+        numberOfPairsDealer += containsPairs(dealerHand);
 
     }
 
@@ -276,13 +272,12 @@ public class GoFish extends CardGame implements Game {
 
                 }*/
 
-            if (goFish) {
-                Casino.console.println("\nGO FISH!!!");
-                playerHand.addCard(deal());
-                }
+        if (goFish) {
+            Casino.console.println("\nGO FISH!!!");
+            playerHand.addCard(deal());
+        }
 
     }
-
 
 
     public void opponentTurn(Hand dealerHand, Hand playerHand) {
@@ -314,7 +309,7 @@ public class GoFish extends CardGame implements Game {
             if (c.getValue() == fishCard.getValue()) {
                 playerHand.getAllOfPlayerCards().remove(c);
                 dealerHand.removeCard(fishCard);
-                Casino.console.println("\nYOU JUST GAVE UP YOUR\n  " +  c.toString());
+                Casino.console.println("\nYOU JUST GAVE UP YOUR\n  " + c.toString());
                 numberOfPairsDealer++;
 
                 goFish = false;

@@ -1,5 +1,6 @@
 package io.zipcoder.casino;
 
+import io.zipcoder.casino.Displays.CasinoDisplay;
 import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.utilities.AnsiStuff;
 import io.zipcoder.casino.utilities.Console;

@@ -1,16 +1,16 @@
 package io.zipcoder.casino;
 
+import io.zipcoder.casino.Displays.CasinoGamesDisplay;
 import io.zipcoder.casino.Games.*;
 import io.zipcoder.casino.Interfaces.Game;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public class CasinoGames {
 
     private Guest currentGuest;
     private Game currentGame;
 
-    CasinoGames(Guest guest) {
+    public CasinoGames(Guest guest) {
         this.currentGuest = guest;
     }
 
