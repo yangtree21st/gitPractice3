@@ -58,7 +58,7 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     public Hand addCardToHand(Card cardToAdd){
         playerhand.addCard(cardToAdd);
-        getHandTotal();
+        getHandScore();
         return  playerhand;
     }
 
@@ -70,10 +70,10 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     public Hand removeCardFromHand(Card cardToRemove){
         playerhand.removeCard(cardToRemove);
-        getHandTotal();
+        getHandScore();
         return playerhand;
 }
-    public Integer getHandTotal() {
+    public Integer getHandScore() {
         result = 0;
         int aceCounter = 0;
         for(Card card : playerhand.getAllOfPlayerCards()) {
