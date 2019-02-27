@@ -11,7 +11,7 @@ public abstract class SunhyunsGameClass implements Game {
      * Standard constructor sets guest to currentGuest
      * @param guest guest who is playing the game
      */
-    public SunhyunsGameClass(Guest guest) {
+    SunhyunsGameClass(Guest guest) {
         this.currentGuest = guest;
     }
 
@@ -73,6 +73,12 @@ public abstract class SunhyunsGameClass implements Game {
     }
 
     /**
+     * This method simply prints the instructions for the gambling game. This method is only called if the user answers
+     * yes to a preceding question, asking them if they would like to read the instructions.
+     */
+    abstract void printInstructions();
+
+    /**
      * For testing purposes.
      *
      * @return the current guest
@@ -80,11 +86,5 @@ public abstract class SunhyunsGameClass implements Game {
     Guest getCurrentGuest() {
         return currentGuest;
     }
-
-    /**
-     * This method simply prints the instructions for the gambling game. This method is only called if the user answers
-     * yes to a preceding question, asking them if they would like to read the instructions.
-     */
-    abstract void printInstructions();
 
 }

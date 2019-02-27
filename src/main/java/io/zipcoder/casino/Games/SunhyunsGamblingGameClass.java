@@ -5,7 +5,7 @@ import io.zipcoder.casino.Guest;
 public abstract class SunhyunsGamblingGameClass extends SunhyunsGameClass {
     int minimumBet;
 
-    public SunhyunsGamblingGameClass(Guest guest, int minimumBet) {
+    SunhyunsGamblingGameClass(Guest guest, int minimumBet) {
         super(guest);
         this.currentGuest = guest;
         this.minimumBet = minimumBet;
@@ -34,5 +34,12 @@ public abstract class SunhyunsGamblingGameClass extends SunhyunsGameClass {
         println("You have chosen to bet $%.2f", bet);
         currentGuest.removeFunds(bet);
         return bet;
+    }
+
+    /**
+     * for testing purposes
+     */
+    int getMinimumBet() {
+        return minimumBet;
     }
 }
