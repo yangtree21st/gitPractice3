@@ -52,7 +52,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
      * @param guest guest who is playing the game
      */
     public SlotMachine(Guest guest) {
-        super(guest, 5);
+        super(guest, 1);
         this.slotReel = new SlotReel();
     }
 
