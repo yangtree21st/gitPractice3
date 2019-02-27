@@ -253,7 +253,19 @@ public class GoFish extends CardGame implements Game {
         while (input < 0 || input >= playerHand.getAllOfPlayerCards().size()) {
             input = Casino.console.getIntegerInput("\"Pick A Card To Fish For [Enter Index Number Below Card Choice]: \"");
         }
-        for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++){
+
+        for (Card c : dealerHand.getAllOfPlayerCards()) {
+            if (c.getValue() == playerHand.getAllOfPlayerCards().get(input).getValue()) {
+                dealerHand.getAllOfPlayerCards().remove(c);
+                playerHand.addCard(c);
+                Casino.console.println("\nYOU GOT YOUR OPPONENT'S\n  " + c.toString());
+                numberOfPairsDealer++;
+
+                goFish = false;
+                break;
+            }
+        }
+        /*for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++){
         if (playerHand.getAllOfPlayerCards().get(input).getValue() == dealerHand.getAllOfPlayerCards().get(dealerIndex).getValue()) {
 
                 dealerHand.removeCard(dealerHand.getAllOfPlayerCards().get(dealerIndex));
@@ -262,8 +274,8 @@ public class GoFish extends CardGame implements Game {
                 goFish = false;
 
 
-                }
-        }
+                }*/
+
             if (goFish) {
                 Casino.console.println("\nGO FISH!!!");
                 playerHand.addCard(deal());
