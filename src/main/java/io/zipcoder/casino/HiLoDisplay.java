@@ -39,6 +39,9 @@ public class HiLoDisplay extends Display {
 
     public Parent createHiLoContent(Game game) {
         this.displayGame = (HiLo) game;
+        Image bgImage = new Image("File:src/main/java/io/zipcoder/casino/Images/honors_spade-14.png",450,275,true,true);
+        ImageView bgImageView = new ImageView(bgImage);
+        hiLoGrid.add(bgImageView,2,2,4,4);
         //GridPane hiLoGrid = createStandardGrid();
         Button btnStart = new Button("Start HiLo Game");
         btnStart.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
@@ -47,6 +50,7 @@ public class HiLoDisplay extends Display {
 
         btnStart.setOnAction(e ->{
             hiLoGrid.getChildren().remove(btnStart);
+            hiLoGrid.getChildren().remove(bgImageView);
             placeBetContent();
         });
 
@@ -148,11 +152,11 @@ public class HiLoDisplay extends Display {
             outcomeBanner.setText("Sorry! You lose, try again!");
             outcomeBanner.setFont(Font.font ("Verdana", 50));
             outcomeBanner.setFill(Color.CRIMSON);
-            areaInfo.setText(Main.casino.accountToString(displayGame.getGuest()));
+            areaInfo.setText(Main.casino.accountToString(Main.casino.getGuest()));
         }else{
             outcomeBanner.setText("You Win! Must Have Been Luck!");
             outcomeBanner.setFont(Font.font ("Verdana", 50));
-            outcomeBanner.setFill(Color.DARKGREEN);
+            outcomeBanner.setFill(Color.BLACK);
             Main.casino.getGuest().addFunds(betAmount*1.25);
             areaInfo.setText(Main.casino.accountToString(Main.casino.getGuest()));
         }
