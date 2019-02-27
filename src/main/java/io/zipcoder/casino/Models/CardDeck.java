@@ -1,33 +1,34 @@
 package io.zipcoder.casino.Models;
 
-
-import io.zipcoder.casino.Models.Card;
-
-import java.util.ArrayList;
-
+import java.util.Stack;
+import static java.util.Collections.shuffle;
 
 public class CardDeck{
+    private Stack<Card> deckOfCard = new Stack<>();
 
-    private Card nextCard;
+    public CardDeck() {
+        for (Card.Suit suit : Card.Suit.values()) {
+            for (Card.Rank value : Card.Rank.values()) {
+                deckOfCard.push(new Card(suit, value));
+            }
+        }
+    }
 
-    private ArrayList<Card> deckOfCard;
-
-    public void shuffleDeck(){
-
+    public Stack shuffleDeck(){
+        shuffle(deckOfCard);
+        return deckOfCard;
     }
 
     public Card peekAtTopCard(){
-        return null;
+        return deckOfCard.peek() ;
     }
 
-    public void setNextCard(){
-
+    public Card dealNextCard(){
+        return deckOfCard.pop();
     }
 
-    public Card dealARandomCard(){
-        return null;
+    public Integer getCardDeckSize(){
+        return deckOfCard.size();
     }
-
-
 
 }
