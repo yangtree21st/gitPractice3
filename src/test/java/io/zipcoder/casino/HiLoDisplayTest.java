@@ -3,6 +3,7 @@ package io.zipcoder.casino;
 import io.zipcoder.casino.Games.HiLo;
 import io.zipcoder.casino.Models.GuestAccount;
 //import org.testfx.framework.junit.ApplicationTest;
+import javafx.stage.Stage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class HiLoDisplayTest {
         hiLoDisplay.createHiLoContent(hiLoGame);
 
     }
-
+/*
     @Test
     public void constructorTest(){
 
@@ -56,4 +57,5 @@ public class HiLoDisplayTest {
         Assert.assertEquals(expected,actual);
 
     }
+    */
 }
