@@ -119,8 +119,21 @@ public class GoFishTest {
         opponentHand.addCard(testCard4);
         opponentHand.addCard(testCard5);
 
-        String expectedOutput = "\nTake Your Turn\n" +
-                "\"Pick A Card To Fish For [Enter Index Number Below Card Choice]: \"\n";
+        String expectedOutput = "\n" +
+                "Take Your Turn\n" +
+                "\"Pick A Card To Fish For [Enter Index Number Below Card Choice]: \"\n" +
+                "\n" +
+                "YOU GOT YOUR OPPONENT'S\n" +
+                "  \u001B[30m--------------\u001B[0m\n" +
+                "\u001B[30m|2           |\u001B[0m\n" +
+                "\u001B[30m|♠           |\u001B[0m\n" +
+                "\u001B[30m|            |\u001B[0m\n" +
+                "\u001B[30m|     2♠     |\u001B[0m\n" +
+                "\u001B[30m|            |\u001B[0m\n" +
+                "\u001B[30m|           ♠|\u001B[0m\n" +
+                "\u001B[30m|           2|\u001B[0m\n" +
+                "\u001B[30m--------------\u001B[0m\n" +
+                "\n";
 
         testGoFish.takeTurn(playerHand, opponentHand);
 
