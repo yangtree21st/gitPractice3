@@ -150,7 +150,9 @@ public class HiLo extends CardGame implements GamblingGame {
         gameInstructions();
         do {
             firstCard = null;
-            this.bet = Casino.console.getDoubleInput("Let's start!!!\n"+"The minimum bet is $5.00\n"+"Please enter your bet:");
+            this.bet = Casino.console.getDoubleInput("Let's start!!!\n"+
+                    "This is your current balance " + checkPlayersBalance(hiloPlayer)+"\n"+
+                    "The minimum bet is $5.00\n"+"Please enter your bet:");
 
             while (this.bet < 5) {
                 this.bet = Casino.console.getDoubleInput("Error, Please enter a bet equal or grater than $5:");
@@ -345,7 +347,7 @@ public class HiLo extends CardGame implements GamblingGame {
     /**
      * This method display the instructions for the game.
      */
-    public void gameInstructions(){
+    void gameInstructions(){
         Casino.console.println("Game Rules:\n"+
 
                 "Hi-Lo, is a fairly simple card game.It uses a standard deck of 52 cards.\n"+
