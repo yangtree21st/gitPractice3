@@ -39,24 +39,32 @@ public class GoFishTest {
     Card testCard8 = new Card(Card.Suit.DIAMONDS, Card.Rank.FIVE);
 
 
+
     @Test
     public void setUpTest1() {
         //Given
-        GoFish testGoFish = new GoFish(guest);
+        game.getPlayer();
 
-        testGoFish.setUp();
+        //When
+        game.setUp();
+        Boolean actual = game.getPlayerHand().getAllOfPlayerCards().size() > 0;
 
-        Assert.assertNotNull(testGoFish.getPlayerHand());
+        //Then
+        Assert.assertTrue(actual);
     }
 
     @Test
     public void setUpTest2() {
         //Given
-        GoFish testGoFish = new GoFish(guest);
+        game.getOpponent();
 
-        testGoFish.setUp();
 
-        Assert.assertNotNull(testGoFish.getOpponentHand());
+        //When
+        game.setUp();
+        Boolean actual = game.getOpponentHand().getAllOfPlayerCards().size() > 0;
+
+        //Then
+        Assert.assertTrue(actual);
     }
 
 
@@ -111,7 +119,7 @@ public class GoFishTest {
         opponentHand.addCard(testCard4);
         opponentHand.addCard(testCard5);
 
-        String expectedOutput = "Take Your Turn\n" +
+        String expectedOutput = "\nTake Your Turn\n" +
                 "\"Pick A Card To Fish For [Enter Index Number Below Card Choice]: \"\n";
 
         testGoFish.takeTurn(playerHand, opponentHand);
@@ -122,66 +130,9 @@ public class GoFishTest {
     }
 
 
-    @Test
-    public void opponentTurnTest1() {
-        //Given
-        String input = "0\n";
-        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
-        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
 
-        Casino testCasino = new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
 
-        GoFish testGoFish = new GoFish(guest);
 
-        Hand playerHand = new Hand();
-        playerHand.addCard(testCard2);
-        playerHand.addCard(testCard3);
-        playerHand.addCard(testCard4);
-        playerHand.addCard(testCard5);
-
-        Hand opponentHand = new Hand();
-        opponentHand.addCard(testCard2);
-        opponentHand.addCard(testCard3);
-        opponentHand.addCard(testCard4);
-        opponentHand.addCard(testCard5);
-
-        String expectedOutput = "Now It Is Your Opponent's Turn\n" +
-                "Do You Have Any TEN\n" +
-                "Press [Enter] To Continue";
-
-        testGoFish.opponentTurn(playerHand, opponentHand);
-
-        String actualOutput = bytArrOutStr.toString();
-
-        Assert.assertEquals(expectedOutput, actualOutput);
-    }
-
-    @Test
-    public void opponentTurnTest2() {
-        //Given
-        String input = "0\n";
-        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
-
-        Casino testCasino = new Casino(bytArrInpStr, System.out);
-
-        GoFish testGoFish = new GoFish(guest);
-
-        Hand playerHand = new Hand();
-        playerHand.addCard(testCard2);
-        playerHand.addCard(testCard3);
-        playerHand.addCard(testCard4);
-        playerHand.addCard(testCard5);
-
-        Hand opponentHand = new Hand();
-        opponentHand.addCard(testCard2);
-        opponentHand.addCard(testCard3);
-        opponentHand.addCard(testCard4);
-        opponentHand.addCard(testCard5);
-
-        testGoFish.opponentTurn(playerHand, opponentHand);
-
-        Assert.assertFalse(playerHand.getAllOfPlayerCards().contains(testCard2));
-    }
 
 
 
