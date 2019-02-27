@@ -26,19 +26,14 @@ public class CashierDisplay extends Display {
         cashierBanner.setFont(Font.font ("Verdana", 25));
 
         Button btnAddFunds = new Button("Add Funds");
-        //btnAddFunds.setMaxWidth(Double.MAX_VALUE);
         btnAddFunds.setAlignment(Pos.CENTER);
 
         Button btnRemoveFunds = new Button("Remove Funds");
         btnRemoveFunds.setAlignment(Pos.CENTER);
-        //btnRemoveFunds.setMaxWidth(Double.MAX_VALUE);
 
         Button btnCashout = new Button("Cashout");
         btnCashout.setAlignment(Pos.CENTER);
-        //btnCashout.setMaxWidth(Double.MAX_VALUE);
 
-
-        //btnExit.setMaxWidth(Double.MAX_VALUE);
 
         Text amountText = new Text("Amount to withdraw or deposit");
         amountText.setFont(Font.font ("Verdana", 20));

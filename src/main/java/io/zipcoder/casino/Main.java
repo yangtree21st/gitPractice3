@@ -19,7 +19,7 @@ public class Main extends Application{
 
         //setUpforDisplayTesting();
         String choice = consoleOrGUI();
-        if(choice.equals("console")) {
+        if(choice.equals("retro")) {
             casino.startCasinoExperience();
         }else{
             launch(args);

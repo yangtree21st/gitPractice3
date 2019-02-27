@@ -131,8 +131,8 @@ public class Display{
         btnExit.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         btnForInstructions.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
-        gameGridPane.add(btnForInstructions, 0,7,1,1);
-        gameGridPane.add(btnExit,6,7,1,1);
+        gameGridPane.add(btnForInstructions, 0,8,1,1);
+        gameGridPane.add(btnExit,6,8,1,1);
 
         btnExit.setOnAction(e ->{
             CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
