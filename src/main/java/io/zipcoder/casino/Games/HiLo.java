@@ -244,7 +244,7 @@ public class HiLo extends CardGame implements GamblingGame {
         if (playerChoice.equalsIgnoreCase("H") && isMore(firstCard, secondCard) ||
                 (playerChoice.equalsIgnoreCase("L") && isLess(firstCard, secondCard))) {
             Casino.console.println("You Won!!!");
-            giveWinningsToPlayer(winnings);
+            giveWinningsToPlayer(bet);
 
         } else Casino.console.println("You Lost!!!");
         Casino.console.println("This is your balance " + getAccountBalance);
@@ -258,8 +258,8 @@ public class HiLo extends CardGame implements GamblingGame {
 
     public void giveWinningsToPlayer(Double winnings) {
 
-        winnings = bet * 1.25;
-        hiloPlayer.addFunds(winnings);
+        bet =+ (winnings * 1.25);
+        hiloPlayer.addFunds(bet);
         getAccountBalance = hiloPlayer.getAccountBalance();
     }
 
@@ -336,12 +336,12 @@ public class HiLo extends CardGame implements GamblingGame {
 
 
 
-    public static void main(String[] args) {
-        Casino testCasino = new Casino();
-        HiLo testHiLo = new HiLo(new Guest("", new GuestAccount("", 0, 1000.0)));
-
-        testHiLo.playFullGame();
-    }
+//    public static void main(String[] args) {
+//        Casino testCasino = new Casino();
+//        HiLo testHiLo = new HiLo(new Guest("", new GuestAccount("", 0, 1000.0)));
+//
+//        testHiLo.playFullGame();
+//    }
 
 
     /**
@@ -369,16 +369,17 @@ public class HiLo extends CardGame implements GamblingGame {
 
 
 
+
+   public static void main(String[] args) {
+        Casino testCasino = new Casino();
+        GuestAccount guestAccount = new GuestAccount("Marlys", 1, 100.0);
+
+        Guest guest = new Guest("Marlys", guestAccount);
+        Player hiloplayer = new Player(guest);
+        HiLo testHiLo = new HiLo(guest);
+        testHiLo.playFullGame();
+    }
 }
-//    public static void main(String[] args) {
-//        Casino testCasino = new Casino();
-//        GuestAccount guestAccount = new GuestAccount("Marlys", 1, 100.0);
-//
-//        Guest guest = new Guest("Marlys", guestAccount);
-//        Player hiloplayer = new HiLowPlayer(guest);
-//        HiLo testHiLo = new HiLo(guest);
-//        testHiLo.playFullGame();
-//    }
 
 
 

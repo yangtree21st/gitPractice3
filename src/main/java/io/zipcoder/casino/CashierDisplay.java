@@ -2,6 +2,7 @@ package io.zipcoder.casino;
 
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -9,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 
 public class CashierDisplay extends Display {
     TextArea areaInfo = new TextArea();
@@ -25,19 +25,14 @@ public class CashierDisplay extends Display {
         cashierBanner.setFont(Font.font ("Verdana", 25));
 
         Button btnAddFunds = new Button("Add Funds");
-        //btnAddFunds.setMaxWidth(Double.MAX_VALUE);
         btnAddFunds.setAlignment(Pos.CENTER);
 
         Button btnRemoveFunds = new Button("Remove Funds");
         btnRemoveFunds.setAlignment(Pos.CENTER);
-        //btnRemoveFunds.setMaxWidth(Double.MAX_VALUE);
 
         Button btnCashout = new Button("Cashout");
         btnCashout.setAlignment(Pos.CENTER);
-        //btnCashout.setMaxWidth(Double.MAX_VALUE);
 
-
-        //btnExit.setMaxWidth(Double.MAX_VALUE);
 
         Text amountText = new Text("Amount to withdraw or deposit");
         amountText.setFont(Font.font ("Verdana", 20));
@@ -58,8 +53,9 @@ public class CashierDisplay extends Display {
 
 
         btnExit.setOnAction(e -> {
-            Stage casinoStage = super.setExitAction(btnExit);
-            casinoStage.close();
+            CasinoDisplay casinoDisplay = new CasinoDisplay();
+            Main.mainStage.setScene(new Scene(casinoDisplay.createSecondaryCasinoContent()));
+            Main.mainStage.show();
         });
 
         btnAddFunds.setOnAction(e -> {//TODO - if amount field is empty, then don't call method

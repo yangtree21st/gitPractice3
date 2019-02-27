@@ -6,6 +6,8 @@ import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -36,8 +38,11 @@ public class Display{
         btnEnter.setAlignment(Pos.CENTER);
         btnEnter.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
-        grid.add(enterBanner, 0, 1,5,1);
-        grid.add(btnEnter, 2,3,1,1);
+        Image bgImage = new Image("File:src/main/java/io/zipcoder/casino/Images/honors_spade-14.png",400,250,true,true);
+        grid.add(new ImageView(bgImage),1,1,3,3);
+
+        grid.add(enterBanner, 0, 0,5,1);
+        grid.add(btnEnter, 2,4,1,1);
 
 
         btnEnter.setOnAction(e -> {
@@ -63,7 +68,7 @@ public class Display{
         grid.setPadding(new Insets(15, 15, 15, 15));
         //sets the background to the rgba value
         grid.setBackground(Background.EMPTY);
-        String style = "-fx-background-color: rgba(167, 130, 130, 0.8);";
+        String style = "-fx-background-color: rgba(51, 102, 0, 1.0);";
         grid.setStyle(style);
 
         //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
@@ -75,7 +80,7 @@ public class Display{
         // add constraints for columns and rows
         grid.getColumnConstraints().addAll(colConstraint, colConstraint, colConstraint,colConstraint,colConstraint);
         grid.getRowConstraints().addAll(rowConstraints,rowConstraints,rowConstraints,rowConstraints, rowConstraints);
-        grid.setGridLinesVisible(true);
+        //grid.setGridLinesVisible(true);
 
         return grid;
     }
@@ -131,8 +136,8 @@ public class Display{
         btnExit.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
         btnForInstructions.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
 
-        gameGridPane.add(btnForInstructions, 0,7,1,1);
-        gameGridPane.add(btnExit,6,7,1,1);
+        gameGridPane.add(btnForInstructions, 0,8,1,1);
+        gameGridPane.add(btnExit,6,8,1,1);
 
         btnExit.setOnAction(e ->{
             CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
