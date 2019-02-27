@@ -205,7 +205,7 @@ public class HiLoDisplay extends Display {
 
     public boolean proceedWithHiloGameSwitch(Double betAmount){
 
-        boolean enoughMoney = displayGame.enoughMoneyForBet(betAmount,displayGame.getPlayer());
+        boolean enoughMoney = true;
 
         if(!enoughMoney && betAmount < 5.0){
             areaInfo.setText(betTooLowText + "\n" + insuffiencientFundsText);

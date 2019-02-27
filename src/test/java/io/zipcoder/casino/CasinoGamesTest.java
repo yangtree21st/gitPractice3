@@ -36,7 +36,7 @@ public class CasinoGamesTest{
                 "Thank you for visiting the Casino Game Floor!\n";
 
         // When
-        testCasinoGames.runSelectedGames();
+        testCasinoGames.selectAndRunGame();
         String actualOutput = bytArrOutStr.toString();
 
         // Then
@@ -64,7 +64,7 @@ public class CasinoGamesTest{
                 "Thank you for visiting the Casino Game Floor!\n";
 
         // When
-        testCasinoGames.runSelectedGames();
+        testCasinoGames.selectAndRunGame();
         String actualOutput = bytArrOutStr.toString();
 
         // Then
