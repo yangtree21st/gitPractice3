@@ -6,6 +6,7 @@ import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
+import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Players.Player;
 
@@ -25,7 +26,7 @@ public class BlackJack implements GamblingGame, Game {
     private CardDeck deck;
     private String playerChoice;
     private Boolean continueGame;
-    private Double getAccountBalance;
+    //private Double getAccountBalance;
 
 
     // TODO Organize Code Structure follow flow of the game
@@ -41,9 +42,12 @@ public class BlackJack implements GamblingGame, Game {
         deck.shuffleDeck();
         this.continueGame = true;
         player = new BlackJackPlayer(guest);
+        player.setName("Player");
         dealer = new BlackJackPlayer();
+        dealer.setName("Dealer");
         this.playerChoice = "";
     }
+
 
     /**
      * Test constructor
@@ -120,7 +124,7 @@ public class BlackJack implements GamblingGame, Game {
      * @return Returns the current balance of the player.
      */
     public Double checkPlayersBalance(Player currentPlayer) {
-        return currentPlayer.getAccountBalance();
+        return player.getGuest().getAccountBalance();
     }
 
     /**
@@ -150,7 +154,7 @@ public class BlackJack implements GamblingGame, Game {
      */
     public void receiveBetFromPlayer(Double bet) {
         player.removeFunds(bet);
-        getAccountBalance = player.getAccountBalance();
+        //getAccountBalance = player.getAccountBalance();
     }
 
     /**
@@ -177,7 +181,7 @@ public class BlackJack implements GamblingGame, Game {
      */
     void twentyOne() {
         if (player.getHandScore() == 21) {
-            Casino.console.println("You won!!");
+            playerDealerPrintStatus("BlackJack!");
             giveJackpotToPlayer();
             continueGame = false;
         }
@@ -202,12 +206,13 @@ public class BlackJack implements GamblingGame, Game {
      */
     void displayCardsAndScore() {
         Casino.console.println(player.getPlayerHand().toString());
-        Casino.console.println("Player Score: " + player.getHandScore().toString());
+        printCurrentHandStatus(player);
 
 
         Casino.console.println("Dealer's Cards");
         Casino.console.println(dealer.getPlayerHand().toString());
-        Casino.console.println("Dealer Score: " + dealer.getHandScore().toString());
+        printCurrentHandStatus(player);
+
     }
 
     /**
@@ -244,8 +249,10 @@ public class BlackJack implements GamblingGame, Game {
                 stand();
                 break;
             }
+
         }
     }
+
 
     /**
      * This method will add a card to the hand of the player or dealer.
@@ -254,32 +261,48 @@ public class BlackJack implements GamblingGame, Game {
         Card cardOne = dealOneCard();
         player.addCardToHand(cardOne);
         if (player.getHandScore() > 21) {
-            Casino.console.println("You lost!!");
-            Casino.console.println("Player Score: " + player.getHandScore().toString());
+            playerDealerPrintStatus("You Busted!");
             continueGame = false;
         } else if (player.getHandScore() == 21) {
             Card cardTwo = dealOneCard();
             dealer.addCardToHand(cardTwo);
-            if (dealer.getHandScore() == 21) {
-                Casino.console.println("You Draw!!");
-                Casino.console.println("Player Score: " + player.getHandScore().toString());
-                Casino.console.println("Current Dealer Score: " + dealer.getHandScore().toString());
-                player.addFunds(bet);
-                Casino.console.println(checkPlayersBalance(player).toString());
-                continueGame = false;
-            } else {
-                Casino.console.println("You Won!!");
-                Casino.console.println("Current Dealer Score: " + dealer.getHandScore().toString());
-                Casino.console.println("Player Score: " + getHandScore().toString());
-//                giveWinningsToPlayer(bet);
-                giveJackpotToPlayer();
-                Casino.console.println(checkPlayersBalance(player).toString());
-                continueGame = false;
-            }
+            didDealerWinOverPlayer();
         }
         Casino.console.println(cardOne.toString());
         updateDisplay();
     }
+
+    /**
+     *
+     */
+
+    void didDealerWinOverPlayer(){
+        if (dealer.getHandScore() == 21) {
+            playerDealerPrintStatus("You Draw!!");
+            player.addFunds(bet);
+
+        } else {
+            twentyOne();
+        }
+        Casino.console.println(checkPlayersBalance(player).toString());
+        continueGame = false;
+    }
+
+    /**
+     *
+     * @param s
+     */
+
+    private void playerDealerPrintStatus(String s) {
+        Casino.console.println(s);
+        printCurrentHandStatus(dealer);
+        printCurrentHandStatus(player);
+    }
+
+    private void printCurrentHandStatus(BlackJackPlayer player) {
+        Casino.console.println(player.getName()+ " Current Score: " + player.getHandScore().toString());
+    }
+
 
     /**
      * This method will add a card to the opposing player's hand until their hand bust or equals 21.
@@ -289,24 +312,28 @@ public class BlackJack implements GamblingGame, Game {
         while (this.dealer.getHandScore() <= 17) {
             Card cardOne = dealOneCard();
             dealer.addCardToHand(cardOne);
-            Casino.console.println("Dealer's Cards");
-            Casino.console.println(dealer.getPlayerHand().toString());
-            Casino.console.println("Current Dealer Score: " + dealer.getHandScore().toString());
         }
+
+
         if (this.dealer.getHandScore() > 21) {
-//            giveWinningsToPlayer(bet);
+
             giveJackpotToPlayer();
-            Casino.console.println("You won!!");
+            playerDealerPrintStatus("You Won!!");
+
         } else if (this.dealer.getHandScore() == 21) {
-            Casino.console.println("You lost!!");
+
+            playerDealerPrintStatus("You Lost!!");
+
         } else if (this.dealer.getHandScore() < this.player.getHandScore()) {
-//            giveWinningsToPlayer(bet);
             giveJackpotToPlayer();
-            Casino.console.println("You won!!");
+            playerDealerPrintStatus("You Won!!");
+
         } else if (this.dealer.getHandScore() > this.player.getHandScore() && this.dealer.getHandScore() < 21) {
-            Casino.console.println("You lost!!");
+            playerDealerPrintStatus("You Lost!!");
+
+
         } else if (this.dealer.getHandScore() == this.player.getHandScore()) {
-            Casino.console.println("Draw!!");
+            playerDealerPrintStatus("You Draw!!");
             player.addFunds(getBet());
         }
     }
@@ -317,6 +344,16 @@ public class BlackJack implements GamblingGame, Game {
     void giveJackpotToPlayer() {
         Double winning = getBet();
         winning *= 2;
+        player.addFunds(winning);
+        checkPlayersBalance(player);
+    }
+
+    /**
+     * This method will double the player's bet and add it into their account.
+     *
+     * @param winning
+     */
+    public void giveWinningsToPlayer(Double winning) {
         player.addFunds(winning);
         checkPlayersBalance(player);
     }
@@ -358,7 +395,7 @@ public class BlackJack implements GamblingGame, Game {
      *
      * @return returns the total score of hand.
      */
-    Integer getHandScore() {
+    public Integer getHandScore() {
         return player.getHandScore();
     }
 
@@ -367,16 +404,17 @@ public class BlackJack implements GamblingGame, Game {
      *
      * @return Returns the guest account balance.
      */
-    Double getGetAccountBalance() {
-        return getAccountBalance;
-    }
+//
+//    public Double getGetAccountBalance() {
+//        return player.getGuest().getAccountBalance();
+//    }
 
     /**
      * This method will return a player.
      *
      * @return Returns a player.
      */
-    BlackJackPlayer getPlayer() {
+    public BlackJackPlayer getPlayer() {
         return this.player;
     }
 
@@ -385,7 +423,7 @@ public class BlackJack implements GamblingGame, Game {
      *
      * @return Returns a guest.
      */
-    BlackJackPlayer getDealer() {
+    public BlackJackPlayer getDealer() {
         return dealer;
     }
 
@@ -394,7 +432,7 @@ public class BlackJack implements GamblingGame, Game {
      *
      * @return Returns a guest.
      */
-    Guest getGuest() {
+    public Guest getGuest() {
         return guest;
     }
 
@@ -415,24 +453,16 @@ public class BlackJack implements GamblingGame, Game {
 
     // TODO REMOVE THIS
 
-    /**
-     * This method will double the player's bet and add it into their account.
-     *
-     * @param winning
-     */
-    public void giveWinningsToPlayer(Double winning) {
-        player.addFunds(winning);
-        checkPlayersBalance(player);
-    }
 
-//    public static void main(String[] args) {
-//        Casino testCasino = new Casino();
-//        GuestAccount guestAccount = new GuestAccount("Julian", 1, 100.0);
-//
-//        Guest guest = new Guest("Julian", guestAccount);
-//        BlackJackPlayer player = new BlackJackPlayer(guest);
-//        BlackJackPlayer dealer = new BlackJackPlayer(guest);
-//        BlackJack blackJack = new BlackJack(guest);
-//        blackJack.playFullGame();
-//    }
+
+    public static void main(String[] args) {
+        Casino testCasino = new Casino();
+        GuestAccount guestAccount = new GuestAccount("Julian", 1, 100.0);
+
+        Guest guest = new Guest("Julian", guestAccount);
+        BlackJackPlayer player = new BlackJackPlayer(guest);
+        BlackJackPlayer dealer = new BlackJackPlayer(guest);
+        BlackJack blackJack = new BlackJack(guest);
+        blackJack.playFullGame();
+    }
 }
