@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
 
+    String name;
+
     private ArrayList<Card> cardsHand = new ArrayList<Card>();
 
     private Hand playerhand = new Hand();
@@ -32,6 +34,14 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
     public Guest getGuest() {
         return super.getGuest();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
 
