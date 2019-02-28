@@ -1,9 +1,6 @@
 package io.zipcoder.casino;
 
-import io.zipcoder.casino.Games.BlackJack;
-import io.zipcoder.casino.Games.Craps;
-import io.zipcoder.casino.Games.GoFish;
-import io.zipcoder.casino.Games.HiLo;
+import io.zipcoder.casino.Games.*;
 import io.zipcoder.casino.Interfaces.Game;
 
 import java.util.function.Function;
@@ -14,7 +11,8 @@ public enum GameEnum {
     BLACKJACK(BlackJack::new),
     CRAPS(Craps::new),
     GOFISH(GoFish::new),
-    HILO(HiLo::new);
+    HILO(HiLo::new),
+    SLOTS(SlotMachine::new);
 
     private final Function<Guest,Game> function;
 
