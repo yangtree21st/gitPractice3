@@ -142,7 +142,10 @@ public class Casino {
      */
 
     public String welcomeHeader() {
-        String startingHeader = AnsiStuff.ANSI_PURPLE + Banners.casinoWelcomeHeader + AnsiStuff.ANSI_RESET + "\n\n" +
+        Banners.casinoWelcomeHeader();
+        String startingHeader = AnsiStuff.ANSI_PURPLE +
+//
+                AnsiStuff.ANSI_RESET + "\n\n" +
         "Welcome to the Casino lobby!\nA friendly attendant asks you for your name to start a new account at the Casino Royale.";
 
         return startingHeader;

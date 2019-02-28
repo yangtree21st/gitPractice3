@@ -7,6 +7,7 @@ import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.Hand;
 import io.zipcoder.casino.Players.Player;
+import io.zipcoder.casino.utilities.Banners;
 
 
 public class HiLo extends CardGame implements GamblingGame {
@@ -37,7 +38,6 @@ public class HiLo extends CardGame implements GamblingGame {
         this.cardDeck = new CardDeck();
         cardDeck.shuffleDeck();
         this.continueGame = true;
-
     }
 
     /**
@@ -89,8 +89,13 @@ public class HiLo extends CardGame implements GamblingGame {
      *
      * @return a Card
      */
-    Card getsecondCard() {
+    public Card getSecondCard() {
         return secondCard;
+    }
+
+    public void setSecondCard(Card secondCard){
+        this.secondCard = secondCard;
+
     }
 
     /**
@@ -135,32 +140,61 @@ public class HiLo extends CardGame implements GamblingGame {
     }
 
     /**
+     * This method compares the value of the firstCard with the SecondCard and check if they are the same
+     * @param firstCard it takes a Card dealt firstCard
+     * @param secondCard it takes a Card dealt secondCard
+     * @return true if they are the same, false otherwise.
+     */
+    public boolean istheSame(Card firstCard, Card secondCard) {
+        Integer firstCardValue = firstCard.getValue().ordinal() + 1;
+        Integer secondCardValue = secondCard.getValue().ordinal() + 1;
+        if (firstCardValue == secondCardValue) {
+        return true;
+        }
+        return false;
+    }
+
+    /**
      * This method lets the guest play a full game of Hi-Lo by putting the methods in the order they need to be used
      */
     public void playFullGame() {
-        welcomeMessage();
+        Banners.hiLoWelcomeMessage();
         gameInstructions();
         do {
-            firstCard = null;
-            this.bet = Casino.console.getDoubleInput("Let's start!!!\n" +
-                    "This is your current balance " + checkPlayersBalance(hiloPlayer) + "\n" +
-                    "The minimum bet is $5.00\n" + "Please enter your bet:");
-
+            setUp();
             while (this.bet < 5) {
                 this.bet = Casino.console.getDoubleInput("Error, Please enter a bet equal or grater than $5:");
             }
             if (enoughMoneyForBet(bet, hiloPlayer)) {
-                receiveBetFromPlayer(bet);
-                showFirstCardAndGetHiOrLo();
-                checkPlayersBalance(hiloPlayer);
-                showSecondCard();
-                winning();
-                checkPlayersBalance(hiloPlayer);
-                quitGame();
+                gameFlow();
             }
         }
         while (checkPlayersBalance(hiloPlayer) >= minimumBet && this.continueGame == true);
         Casino.console.println("You have played a full game of Hi-Lo!");
+    }
+
+    /**
+     * This method sets up the game by displaying balance, ask for the bet and resets the firstCard for every game.
+     */
+    private void setUp() {
+        firstCard = null;
+        this.bet = Casino.console.getDoubleInput("Let's start!!!\n" +
+                "This is your current balance " + checkPlayersBalance(hiloPlayer) + "\n" +
+                "The minimum bet is $5.00\n" + "Please enter your bet:");
+    }
+
+    /**
+     * This method sets the order of the game by calling the methods below.
+     */
+
+    private void gameFlow() {
+        receiveBetFromPlayer(bet);
+        showFirstCardAndGetHiOrLo();
+        checkPlayersBalance(hiloPlayer);
+        showSecondCard();
+        winning();
+        checkPlayersBalance(hiloPlayer);
+        quitGame();
     }
 
     /**
@@ -183,7 +217,6 @@ public class HiLo extends CardGame implements GamblingGame {
      * @return a boolean, true if the balance is enough to bet, false if it isn't
      */
     public boolean enoughMoneyForBet(Double bet, Player currentPlayer) {
-        //this.bet = Casino.console.getDoubleInput("Please enter your bet:");
         if (bet != 0) {
             if (bet <= checkPlayersBalance(currentPlayer)) {
                 return true;
@@ -216,10 +249,11 @@ public class HiLo extends CardGame implements GamblingGame {
     public void showFirstCardAndGetHiOrLo() {
         deal();
         Casino.console.println(OneCardUpOneDown() + "Guess second Card");
-        this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
-        while (!playerChoice.equalsIgnoreCase("h") && !playerChoice.equalsIgnoreCase("l")) {
+        this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low,'S' for Same");
+        while (!playerChoice.equalsIgnoreCase("h") && !playerChoice.equalsIgnoreCase("l")
+                &&!playerChoice.equalsIgnoreCase("s")){
 
-            this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
+            this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low,'S' for Same");
         }
     }
 
@@ -236,7 +270,8 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void winning() {
         if (playerChoice.equalsIgnoreCase("H") && isMore(firstCard, secondCard) ||
-                (playerChoice.equalsIgnoreCase("L") && isLess(firstCard, secondCard))) {
+                (playerChoice.equalsIgnoreCase("L") && isLess(firstCard, secondCard)||
+        (playerChoice.equalsIgnoreCase("S") && istheSame(firstCard, secondCard)))) {
             Casino.console.println("You Won!!!");
             giveWinningsToPlayer(bet);
 
@@ -281,25 +316,6 @@ public class HiLo extends CardGame implements GamblingGame {
 
     public Player getPlayer() {
         return hiloPlayer;
-    }
-
-    /**
-     * This method displays the welcome message for the player
-     */
-    public void welcomeMessage() {
-
-        Casino.console.println(
-                "\n+" +
-
-                        "                /$$      /$$           /$$                                                     /$$                     /$$   /$$ /$$         /$$\n" +
-                        "                | $$  /$ | $$          | $$                                                    | $$                    | $$  | $$|__/        | $$\n" +
-                        "                | $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$       | $$  | $$ /$$        | $$        /$$$$$$\n" +
-                        "                | $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      | $$$$$$$$| $$ /$$$$$$| $$       /$$__  $$\n" +
-                        "                | $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$      | $$__  $$| $$|______/| $$      | $$  \\ $$\n" +
-                        "                | $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$      | $$  | $$| $$        | $$      | $$  | $$\n" +
-                        "                | $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/      | $$  | $$| $$        | $$$$$$$$|  $$$$$$/\n" +
-                        "                |__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/       |__/  |__/|__/        |________/ \\______/\n" +
-                        "        ");
     }
 
     /**
