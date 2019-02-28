@@ -63,6 +63,155 @@ public class CasinoTest {
         Assert.assertEquals("Marci Brahma", actual.getName());
     }
 
+
+    @Test
+    public void getGuestNameTest() {
+        // Given
+        String input = "Leon\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+
+        String expected = "Leon";
+
+        // When
+        String actual = testCasino.getGuestName();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getStartingBalanceTest() {
+        // Given
+        String input = "100\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+
+        Double expected = 100.0;
+
+        // When
+        Double actual = testCasino.getStartingBalance();
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void createGuestAccountTest() {
+        // Given
+        String name = "asdf";
+        Double balance = 100.0;
+        int id = 1;
+        Casino testCasino = new Casino();
+
+        GuestAccount expectedGuestAccount = new GuestAccount(name, id, balance);
+
+
+        // When
+        GuestAccount actuaGuestAccount = testCasino.createGuestAccount(name, balance);
+
+        // Then
+        Assert.assertEquals(expectedGuestAccount.toString(), actuaGuestAccount.toString());
+    }
+
+    @Test
+    public void initializeAccountCreationTest() {
+        // Given
+        String name = "asdf";
+        Double balance = 100.0;
+        int id = 1;
+        Casino testCasino = new Casino();
+
+        String expected = "This is your new account.\n" +
+                "Name: asdf, ID: 1, Balance: $100.00\n";
+
+
+        // When
+        String actual = testCasino.initializeAccountCreation(name, balance);
+
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+//    @Test
+//    public void addAdditionalFundsTest(){
+//        //given
+//        String name = "Marci";
+//
+//        GuestAccount expectedGuestAccount = new GuestAccount(name, 1, 100.0);
+//        Double input = -50.0;
+//        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.toString().getBytes());
+//        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+//
+//        Casino testCasino = new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
+//        testCasino.setGuest(name,expectedGuestAccount);
+//        String expected = "Sorry, please enter a positive cash amount:";
+//        String actual = bytArrOutStr.toString();
+//        //when
+//        testCasino.addAdditionalFunds(-50.0);
+//        //then
+//        Assert.assertEquals(expected,actual);
+//    }
+
+    @Test
+    public void accountToStringTest() {
+        // Given
+        String name = "asdf";
+        Double balance = 100.0;
+        int id = 1;
+        GuestAccount testGuestAccount = new GuestAccount(name, id, balance);
+        Guest testGuest = new Guest(name, testGuestAccount);
+        Casino testCasino = new Casino();
+        testCasino.getGuestAccountDatabase().addAccount(name, balance);
+
+        String expected = "This is your current account status:\n" +
+                "Name: asdf, ID: 1, Balance: $100.00\n";
+
+        // When
+        String actual = testCasino.accountToString(testGuest);
+
+        // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void continueOrExitTest() {
+        // Given
+        String input = "1\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+
+        // When
+        boolean actual = testCasino.continueOrExit();
+
+        // Then
+        Assert.assertTrue(actual);
+    }
+
+    @Test
+    public void accessAccountTest() {
+        // Given
+        String name = "asdf";
+        Double balance = 100.0;
+        int id = 1;
+        String input = "2\n";
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        Casino testCasino = new Casino(bytArrInpStr, System.out);
+        GuestAccount newGuestAccount = testCasino.createGuestAccount(name, balance);
+        testCasino.setGuest(name, newGuestAccount);
+
+        Double expectedEndingBalance = 0.0;
+
+        // When
+        testCasino.accessAccount();
+
+        Double actualEndingBalance = testCasino.getGuest().getAccountBalance();
+
+        // Then
+        Assert.assertEquals(expectedEndingBalance, actualEndingBalance);
+    }
+
     @Test
     public void welcomeHeaderTest(){
         //given
@@ -145,132 +294,4 @@ public class CasinoTest {
 //        // Then
 //        Assert.assertEquals(expectedOutput, actualOutput);
 //    }
-
-    @Test
-    public void getGuestNameTest() {
-        // Given
-        String input = "Leon\n";
-        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
-        Casino testCasino = new Casino(bytArrInpStr, System.out);
-
-        String expected = "Leon";
-
-        // When
-        String actual = testCasino.getGuestName();
-
-        // Then
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getStartingBalanceTest() {
-        // Given
-        String input = "100\n";
-        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
-        Casino testCasino = new Casino(bytArrInpStr, System.out);
-
-        Double expected = 100.0;
-
-        // When
-        Double actual = testCasino.getStartingBalance();
-
-        // Then
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void createGuestAccountTest() {
-        // Given
-        String name = "asdf";
-        Double balance = 100.0;
-        int id = 1;
-        Casino testCasino = new Casino();
-
-        GuestAccount expectedGuestAccount = new GuestAccount(name, id, balance);
-
-
-        // When
-        GuestAccount actuaGuestAccount = testCasino.createGuestAccount(name, balance);
-
-        // Then
-        Assert.assertEquals(expectedGuestAccount.toString(), actuaGuestAccount.toString());
-    }
-
-    @Test
-    public void initializeAccountCreationTest() {
-        // Given
-        String name = "asdf";
-        Double balance = 100.0;
-        int id = 1;
-        Casino testCasino = new Casino();
-
-        String expected = "This is your new account.\n" +
-                "Name: asdf, ID: 1, Balance: $100.00\n";
-
-
-        // When
-        String actual = testCasino.initializeAccountCreation(name, balance);
-
-
-        // Then
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void accountToStringTest() {
-        // Given
-        String name = "asdf";
-        Double balance = 100.0;
-        int id = 1;
-        GuestAccount testGuestAccount = new GuestAccount(name, id, balance);
-        Guest testGuest = new Guest(name, testGuestAccount);
-        Casino testCasino = new Casino();
-        testCasino.getGuestAccountDatabase().addAccount(name, balance);
-
-        String expected = "This is your current account status:\n" +
-                "Name: asdf, ID: 1, Balance: $100.00\n";
-
-        // When
-        String actual = testCasino.accountToString(testGuest);
-
-        // Then
-        Assert.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void continueOrExitTest() {
-        // Given
-        String input = "1\n";
-        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
-        Casino testCasino = new Casino(bytArrInpStr, System.out);
-
-        // When
-        boolean actual = testCasino.continueOrExit();
-
-        // Then
-        Assert.assertTrue(actual);
-    }
-
-    @Test
-    public void accessAccountTest() {
-        // Given
-        String name = "asdf";
-        Double balance = 100.0;
-        int id = 1;
-        String input = "2\n";
-        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
-        Casino testCasino = new Casino(bytArrInpStr, System.out);
-        GuestAccount newGuestAccount = testCasino.createGuestAccount(name, balance);
-        testCasino.setGuest(name, newGuestAccount);
-
-        Double expectedEndingBalance = 0.0;
-
-        // When
-        testCasino.accessAccount();
-
-        Double actualEndingBalance = testCasino.getGuest().getAccountBalance();
-
-        // Then
-        Assert.assertEquals(expectedEndingBalance, actualEndingBalance);
-    }
 }

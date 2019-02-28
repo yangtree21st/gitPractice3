@@ -5,6 +5,8 @@ import io.zipcoder.casino.Games.*;
 import io.zipcoder.casino.Interfaces.Game;
 import javafx.scene.Scene;
 
+import java.util.Arrays;
+
 public class CasinoGames {
 
     private Guest currentGuest;
@@ -25,13 +27,17 @@ public class CasinoGames {
         boolean continuePlayingAGame = getUserChoiceToContinuePlaying();
 
         while (continuePlayingAGame) {
-            String gameChoice = getUserChoiceForWhichGameToPlay();
-            createAndSetCurrentGame(gameChoice);
+//            String gameChoice = Casino.console.getStringInput("Which game would you like to play?\n";
+//            createAndSetCurrentGame(gameChoice);
+//
+//            currentGame.playFullGame();
 
-            currentGame.playFullGame();
+            String userInput = Casino.console.getStringInput(Arrays.toString(GameEnum.values()));
+            GameEnum enumeration = GameEnum.getValueOf(userInput);
+            Game gameInterface = enumeration.create(currentGuest);
+            gameInterface.playFullGame();
 
             Casino.console.println("Welcome back to the Casino Game Floor!");
-
             continuePlayingAGame = getUserChoiceToContinuePlaying();
         }
 
