@@ -450,19 +450,4 @@ public class BlackJack implements GamblingGame, Game {
             return dealer;
         }
     }
-
-    // TODO REMOVE THIS
-
-
-
-    public static void main(String[] args) {
-        Casino testCasino = new Casino();
-        GuestAccount guestAccount = new GuestAccount("Julian", 1, 100.0);
-
-        Guest guest = new Guest("Julian", guestAccount);
-        BlackJackPlayer player = new BlackJackPlayer(guest);
-        BlackJackPlayer dealer = new BlackJackPlayer(guest);
-        BlackJack blackJack = new BlackJack(guest);
-        blackJack.playFullGame();
-    }
 }
