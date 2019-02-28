@@ -27,11 +27,6 @@ public class CasinoGames {
         boolean continuePlayingAGame = getUserChoiceToContinuePlaying();
 
         while (continuePlayingAGame) {
-//            String gameChoice = Casino.console.getStringInput("Which game would you like to play?\n";
-//            createAndSetCurrentGame(gameChoice);
-//
-//            currentGame.playFullGame();
-
             String userInput = Casino.console.getStringInput(Arrays.toString(GameEnum.values()));
             GameEnum enumeration = GameEnum.getValueOf(userInput);
             Game gameInterface = enumeration.create(currentGuest);
@@ -59,39 +54,6 @@ public class CasinoGames {
         }
 
         return result;
-    }
-
-
-    String getUserChoiceForWhichGameToPlay() {
-        String gameChoice = Casino.console.getStringInput("Which game would you like to play?\n" +
-                "Please enter: 'Slots' 'Go Fish', 'Black Jack', 'Hi-Lo', or 'Craps'").toLowerCase().replaceAll("-", "").replaceAll(" ", "");
-
-        while (!(gameChoice.equals("slots") || gameChoice.equals("gofish") || gameChoice.equals("blackjack") || gameChoice.equals("hilo") || gameChoice.equals("craps"))) {
-            gameChoice = Casino.console.getStringInput("Error: Please enter one of the following games\n" +
-                    "'Slots', 'Go Fish', 'Black Jack', 'Hi-Lo', or 'Craps'").toLowerCase();
-        }
-
-        return gameChoice;
-    }
-
-
-    void createAndSetCurrentGame(String gameName) {
-        switch (gameName) {
-            case "slots":
-                this.currentGame = new SlotMachine(this.currentGuest);
-                break;
-            case "gofish":
-                this.currentGame = new GoFish(this.currentGuest);
-                break;
-            case "blackjack":
-                this.currentGame = new BlackJack(this.currentGuest);
-                break;
-            case "hilo":
-                this.currentGame = new HiLo(this.currentGuest);
-                break;
-            case "craps":
-                this.currentGame = new Craps(this.currentGuest);
-        }
     }
 
     Game getCurrentGame() {
