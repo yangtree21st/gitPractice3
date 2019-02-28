@@ -63,14 +63,11 @@ public class CasinoTest {
         Assert.assertEquals("Marci Brahma", actual.getName());
     }
 
-
     @Test
-    public void welcomeHeaderTest() {
-        // Given
-        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
-        Casino testCasino = new Casino(System.in, new PrintStream(bytArrOutStr));
-
-        String expectedOutput = "\u001B[35m\n" +
+    public void welcomeHeaderTest(){
+        //given
+        Casino newCasino = new Casino();
+        String expected = "\u001B[35m\n" +
                 "\n" +
                 "\n" +
                 " /$$      /$$           /$$                                                     /$$                       /$$     /$$                \n" +
@@ -96,16 +93,58 @@ public class CasinoTest {
                 "                                                                                      |  $$$$$$/                                     \n" +
                 "                                                                                       \\______/                                      \u001B[0m\n" +
                 "\n" +
-                "\n";
+                "Welcome to the Casino lobby!\nA friendly attendant asks you for your name to start a new account at the Casino Royale.";
 
-        // When
-        testCasino.welcomeHeader();
+        //when
+        String actual = newCasino.welcomeHeader();
 
-        String actualOutput = bytArrOutStr.toString();
-
-        // Then
-        Assert.assertEquals(expectedOutput, actualOutput);
+        //then
+        Assert.assertEquals(expected,actual);
     }
+
+
+//    @Test
+//    public void welcomeHeaderTest() {
+//        // Given
+//        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+//        Casino testCasino = new Casino(System.in, new PrintStream(bytArrOutStr));
+//
+//        String expectedOutput = "\u001B[35m\n" +
+//                "\n" +
+//                "\n" +
+//                " /$$      /$$           /$$                                                     /$$                       /$$     /$$                \n" +
+//                "| $$  /$ | $$          | $$                                                    | $$                      | $$    | $$                \n" +
+//                "| $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$        /$$$$$$  | $$$$$$$   /$$$$$$ \n" +
+//                "| $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      |_  $$_/  | $$__  $$ /$$__  $$\n" +
+//                "| $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$        | $$    | $$  \\ $$| $$$$$$$$\n" +
+//                "| $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$        | $$ /$$| $$  | $$| $$_____/\n" +
+//                "| $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/        |  $$$$/| $$  | $$|  $$$$$$$\n" +
+//                "|__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/          \\___/  |__/  |__/ \\_______/\n" +
+//                "                                                                                                                                     \n" +
+//                "                                                                                                                                     \n" +
+//                "                                                                                                                                     \n" +
+//                "        /$$$$$$                      /$$                           /$$$$$$$                                /$$                       \n" +
+//                "       /$$__  $$                    |__/                          | $$__  $$                              | $$                       \n" +
+//                "      | $$  \\__/  /$$$$$$   /$$$$$$$ /$$ /$$$$$$$   /$$$$$$       | $$  \\ $$  /$$$$$$  /$$   /$$  /$$$$$$ | $$  /$$$$$$              \n" +
+//                "      | $$       |____  $$ /$$_____/| $$| $$__  $$ /$$__  $$      | $$$$$$$/ /$$__  $$| $$  | $$ |____  $$| $$ /$$__  $$             \n" +
+//                "      | $$        /$$$$$$$|  $$$$$$ | $$| $$  \\ $$| $$  \\ $$      | $$__  $$| $$  \\ $$| $$  | $$  /$$$$$$$| $$| $$$$$$$$             \n" +
+//                "      | $$    $$ /$$__  $$ \\____  $$| $$| $$  | $$| $$  | $$      | $$  \\ $$| $$  | $$| $$  | $$ /$$__  $$| $$| $$_____/             \n" +
+//                "      |  $$$$$$/|  $$$$$$$ /$$$$$$$/| $$| $$  | $$|  $$$$$$/      | $$  | $$|  $$$$$$/|  $$$$$$$|  $$$$$$$| $$|  $$$$$$$             \n" +
+//                "       \\______/  \\_______/|_______/ |__/|__/  |__/ \\______/       |__/  |__/ \\______/  \\____  $$ \\_______/|__/ \\_______/             \n" +
+//                "                                                                                       /$$  | $$                                     \n" +
+//                "                                                                                      |  $$$$$$/                                     \n" +
+//                "                                                                                       \\______/                                      \u001B[0m\n" +
+//                "\n" +
+//                "\n"+ "Welcome to the Casino lobby!\nA friendly attendant asks you for your name to start a new account at the Casino Royale.";
+//
+//        // When
+//        testCasino.welcomeHeader();
+//
+//        String actualOutput = bytArrOutStr.toString();
+//
+//        // Then
+//        Assert.assertEquals(expectedOutput, actualOutput);
+//    }
 
     @Test
     public void getGuestNameTest() {
@@ -188,7 +227,7 @@ public class CasinoTest {
         Casino testCasino = new Casino();
         testCasino.getGuestAccountDatabase().addAccount(name, balance);
 
-        String expected = "This is your account status:\n" +
+        String expected = "This is your current account status:\n" +
                 "Name: asdf, ID: 1, Balance: $100.00\n";
 
         // When
