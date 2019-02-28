@@ -49,7 +49,7 @@ public class HiLoGameTest {
         //When
         hiloGame.setFirstCard(given);
         hiloGame.deal();
-        Card actual = hiloGame.getsecondCard();
+        Card actual = hiloGame.getSecondCard();
 
         //Then
         Assert.assertNotNull(actual);
@@ -201,6 +201,26 @@ public class HiLoGameTest {
 
         // Then
         Assert.assertEquals(expectedFinalBalance, actualFinalBalance);
+    }
+    @Test
+    public void isTheSameTest() {
+        // Given
+
+        GuestAccount guestAccount =  new GuestAccount("Marlys", 1, 1000.0);
+        Guest guest =new Guest(null,guestAccount);
+        HiLo hiloGame = new HiLo(guest);
+        Card firstCard = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
+        Card secondCard = new Card(Card.Suit.DIAMONDS, Card.Rank.TEN);
+
+        Double expectedFinalBalance = 1025.0;
+
+        // When
+
+        Boolean actual = hiloGame.istheSame(firstCard,secondCard);
+
+
+        // Then
+        Assert.assertTrue(actual);
     }
 
 }

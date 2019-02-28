@@ -4,41 +4,12 @@ import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.SlotReel;
 import io.zipcoder.casino.utilities.AnsiStuff;
+import io.zipcoder.casino.utilities.Banners;
 
 public class SlotMachine extends SunhyunsGamblingGameClass {
-    private static final String JACKPOT_DISPLAY = AnsiStuff.ANSI_GREEN + "    /$$$$$  /$$$$$$   /$$$$$$  /$$   /$$ /$$$$$$$   /$$$$$$  /$$$$$$$$ /$$ /$$ /$$\n" +
-            "   |__  $$ /$$__  $$ /$$__  $$| $$  /$$/| $$__  $$ /$$__  $$|__  $$__/| $$| $$| $$\n" +
-            "      | $$| $$  \\ $$| $$  \\__/| $$ /$$/ | $$  \\ $$| $$  \\ $$   | $$   | $$| $$| $$\n" +
-            "      | $$| $$$$$$$$| $$      | $$$$$/  | $$$$$$$/| $$  | $$   | $$   | $$| $$| $$\n" +
-            " /$$  | $$| $$__  $$| $$      | $$  $$  | $$____/ | $$  | $$   | $$   |__/|__/|__/\n" +
-            "| $$  | $$| $$  | $$| $$    $$| $$\\  $$ | $$      | $$  | $$   | $$               \n" +
-            "|  $$$$$$/| $$  | $$|  $$$$$$/| $$ \\  $$| $$      |  $$$$$$/   | $$    /$$ /$$ /$$\n" +
-            " \\______/ |__/  |__/ \\______/ |__/  \\__/|__/       \\______/    |__/   |__/|__/|__/\n" +
-            "                                                                                  \n" +
-            "                                                                                  \n" +
-            "                                                                                  " + AnsiStuff.ANSI_RESET;
-    private static final String DIAGONAL_DISPLAY = AnsiStuff.ANSI_GREEN + " /$$$$$$$  /$$                                                   /$$ /$$\n" +
-            "| $$__  $$|__/                                                  | $$| $$\n" +
-            "| $$  \\ $$ /$$  /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$$   /$$$$$$ | $$| $$\n" +
-            "| $$  | $$| $$ |____  $$ /$$__  $$ /$$__  $$| $$__  $$ |____  $$| $$| $$\n" +
-            "| $$  | $$| $$  /$$$$$$$| $$  \\ $$| $$  \\ $$| $$  \\ $$  /$$$$$$$| $$|__/\n" +
-            "| $$  | $$| $$ /$$__  $$| $$  | $$| $$  | $$| $$  | $$ /$$__  $$| $$    \n" +
-            "| $$$$$$$/| $$|  $$$$$$$|  $$$$$$$|  $$$$$$/| $$  | $$|  $$$$$$$| $$ /$$\n" +
-            "|_______/ |__/ \\_______/ \\____  $$ \\______/ |__/  |__/ \\_______/|__/|__/\n" +
-            "                         /$$  \\ $$                                      \n" +
-            "                        |  $$$$$$/                                      \n" +
-            "                         \\______/                                       " + AnsiStuff.ANSI_RESET;
-    private static final String ZIG_ZAG_DISPLAY = AnsiStuff.ANSI_GREEN + " /$$$$$$$$ /$$                /$$$$$$$$                     /$$\n" +
-            "|_____ $$ |__/               |_____ $$                     | $$\n" +
-            "     /$$/  /$$  /$$$$$$           /$$/   /$$$$$$   /$$$$$$ | $$\n" +
-            "    /$$/  | $$ /$$__  $$ /$$$$$$ /$$/   |____  $$ /$$__  $$| $$\n" +
-            "   /$$/   | $$| $$  \\ $$|______//$$/     /$$$$$$$| $$  \\ $$|__/\n" +
-            "  /$$/    | $$| $$  | $$       /$$/     /$$__  $$| $$  | $$    \n" +
-            " /$$$$$$$$| $$|  $$$$$$$      /$$$$$$$$|  $$$$$$$|  $$$$$$$ /$$\n" +
-            "|________/|__/ \\____  $$     |________/ \\_______/ \\____  $$|__/\n" +
-            "               /$$  \\ $$                          /$$  \\ $$    \n" +
-            "              |  $$$$$$/                         |  $$$$$$/    \n" +
-            "               \\______/                           \\______/     " + AnsiStuff.ANSI_RESET;
+//    private static final String JACKPOT_DISPLAY ="";//Banners.slotMachineJackPot();
+//    private static final String DIAGONAL_DISPLAY = "";//Banners.slotMachineDiagonal();
+//    private static final String ZIG_ZAG_DISPLAY =  ""; //Banners.slotMachineZigZag();
     private SlotReel slotReel;
     private boolean jackpot;
     private boolean diagonal;
@@ -133,13 +104,13 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
         boolean zigZagBoolean = zigZag0And1 && zigZag1And2;
 
         if (jackpotBoolean) {
-            Casino.console.println(JACKPOT_DISPLAY + '\n');
+            Banners.slotMachineJackPot();
             jackpot = true;
         } else if (diagonalBoolean) {
-            Casino.console.println(DIAGONAL_DISPLAY + '\n');
+            Banners.slotMachineDiagonal();
             diagonal = true;
         } else if (zigZagBoolean) {
-            Casino.console.println(ZIG_ZAG_DISPLAY + '\n');
+            Banners.slotMachineZigZag();
             zigZag = true;
         } else {
             Casino.console.println("Sorry, no Lines...\n");
@@ -187,28 +158,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
      * Displays the welcome sign
      */
     private void displayWelcome() {
-        Casino.console.println(AnsiStuff.ANSI_BLUE + " /$$      /$$           /$$                                                     /$$                       /$$     /$$                \n" +
-                "| $$  /$ | $$          | $$                                                    | $$                      | $$    | $$                \n" +
-                "| $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$        /$$$$$$  | $$$$$$$   /$$$$$$ \n" +
-                "| $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      |_  $$_/  | $$__  $$ /$$__  $$\n" +
-                "| $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$        | $$    | $$  \\ $$| $$$$$$$$\n" +
-                "| $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$        | $$ /$$| $$  | $$| $$_____/\n" +
-                "| $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/        |  $$$$/| $$  | $$|  $$$$$$$\n" +
-                "|__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/          \\___/  |__/  |__/ \\_______/\n" +
-                "                                                                                                                                     \n" +
-                "                                                                                                                                     \n" +
-                "                                                                                                                                     \n" +
-                "              /$$$$$$  /$$             /$$           /$$      /$$                     /$$       /$$                     /$$          \n" +
-                "             /$$__  $$| $$            | $$          | $$$    /$$$                    | $$      |__/                    | $$          \n" +
-                "            | $$  \\__/| $$  /$$$$$$  /$$$$$$        | $$$$  /$$$$  /$$$$$$   /$$$$$$$| $$$$$$$  /$$ /$$$$$$$   /$$$$$$ | $$          \n" +
-                "            |  $$$$$$ | $$ /$$__  $$|_  $$_/        | $$ $$/$$ $$ |____  $$ /$$_____/| $$__  $$| $$| $$__  $$ /$$__  $$| $$          \n" +
-                "             \\____  $$| $$| $$  \\ $$  | $$          | $$  $$$| $$  /$$$$$$$| $$      | $$  \\ $$| $$| $$  \\ $$| $$$$$$$$|__/          \n" +
-                "             /$$  \\ $$| $$| $$  | $$  | $$ /$$      | $$\\  $ | $$ /$$__  $$| $$      | $$  | $$| $$| $$  | $$| $$_____/              \n" +
-                "            |  $$$$$$/| $$|  $$$$$$/  |  $$$$/      | $$ \\/  | $$|  $$$$$$$|  $$$$$$$| $$  | $$| $$| $$  | $$|  $$$$$$$ /$$          \n" +
-                "             \\______/ |__/ \\______/    \\___/        |__/     |__/ \\_______/ \\_______/|__/  |__/|__/|__/  |__/ \\_______/|__/          \n" +
-                "                                                                                                                                     \n" +
-                "                                                                                                                                     \n" +
-                "                                                                                                                                     " + AnsiStuff.ANSI_RESET);
+        Banners.slotMachineWelcome();
     }
 
     /**

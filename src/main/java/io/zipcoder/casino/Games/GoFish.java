@@ -7,6 +7,7 @@ import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.Hand;
 import io.zipcoder.casino.Players.Player;
+import io.zipcoder.casino.utilities.Banners;
 
 import java.util.Random;
 
@@ -91,7 +92,7 @@ public class GoFish extends CardGame implements Game {
     public void playFullGame() {
 
 
-        updateDisplay();
+        Banners.goFishUpdateDisplay();
 
         playGoFish();
 
@@ -135,18 +136,7 @@ public class GoFish extends CardGame implements Game {
 
     }
 
-    public void updateDisplay() {
 
-        Casino.console.println(":'######::::'#######:::::'########:'####::'######::'##::::'##:\n" +
-                "'##... ##::'##.... ##:::: ##.....::. ##::'##... ##: ##:::: ##:\n" +
-                " ##:::..::: ##:::: ##:::: ##:::::::: ##:: ##:::..:: ##:::: ##:\n" +
-                " ##::'####: ##:::: ##:::: ######:::: ##::. ######:: #########:\n" +
-                " ##::: ##:: ##:::: ##:::: ##...::::: ##:::..... ##: ##.... ##:\n" +
-                " ##::: ##:: ##:::: ##:::: ##:::::::: ##::'##::: ##: ##:::: ##:\n" +
-                ". ######:::. #######::::: ##:::::::'####:. ######:: ##:::: ##:\n" +
-                ":......:::::.......::::::..::::::::....:::......:::..:::::..::\n");
-
-    }
 
     public void playGoFish() {
 
@@ -338,38 +328,17 @@ public class GoFish extends CardGame implements Game {
 
     public void winning(Integer numberOfPairsPlayer, Integer numberOfPairsDealer) {
         if (numberOfPairsPlayer > numberOfPairsDealer) {
+            Banners.goFishWinMessage();
 
-            Casino.console.println("\n" +
-                    "  ___    ___ ________  ___  ___          ___       __   ___  ________   ___  ___  ___       \n" +
-                    " |\\  \\  /  /|\\   __  \\|\\  \\|\\  \\        |\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\  \\|\\  \\|\\  \\      \n" +
-                    " \\ \\  \\/  / | \\  \\|\\  \\ \\  \\\\\\  \\       \\ \\  \\    \\ \\  \\ \\  \\ \\  \\\\ \\  \\ \\  \\ \\  \\ \\  \\     \n" +
-                    "  \\ \\    / / \\ \\  \\\\\\  \\ \\  \\\\\\  \\       \\ \\  \\  __\\ \\  \\ \\  \\ \\  \\\\ \\  \\ \\  \\ \\  \\ \\  \\    \n" +
-                    "   \\/  /  /   \\ \\  \\\\\\  \\ \\  \\\\\\  \\       \\ \\  \\|\\__\\_\\  \\ \\  \\ \\  \\\\ \\  \\ \\__\\ \\__\\ \\__\\   \n" +
-                    " __/  / /      \\ \\_______\\ \\_______\\       \\ \\____________\\ \\__\\ \\__\\\\ \\__\\|__|\\|__|\\|__|   \n" +
-                    "|\\___/ /        \\|_______|\\|_______|        \\|____________|\\|__|\\|__| \\|__|   ___  ___  ___ \n" +
-                    "\\|___|/                                                                      |\\__\\|\\__\\|\\__\\\n" +
-                    "                                                                             \\|__|\\|__|\\|__|\n" +
-                    "                                                                                            \n");
         }
-
     }
 
     public void losing(Integer numberOfPairsDealer, Integer numberOfPairsPlayer) {
 
         if (numberOfPairsDealer > numberOfPairsPlayer) {
+            Banners.goFishLostMessage();
 
-            Casino.console.println("\n" +
-                    "                 _,.---._                                    _,.---._      ,-,--.     ,----.        \n" +
-                    " ,--.-.  .-,--.,-.' , -  `.  .--.-. .-.-.          _.-.    ,-.' , -  `.  ,-.'-  _\\ ,-.--` , \\       \n" +
-                    "/==/- / /=/_ //==/_,  ,  - \\/==/ -|/=/  |        .-,.'|   /==/_,  ,  - \\/==/_ ,_.'|==|-  _.-`       \n" +
-                    "\\==\\, \\/=/. /|==|   .=.     |==| ,||=| -|       |==|, |  |==|   .=.     \\==\\  \\   |==|   `.-.       \n" +
-                    " \\==\\  \\/ -/ |==|_ : ;=:  - |==|- | =/  |       |==|- |  |==|_ : ;=:  - |\\==\\ -\\ /==/_ ,    /       \n" +
-                    "  |==|  ,_/  |==| , '='     |==|,  \\/ - |       |==|, |  |==| , '='     |_\\==\\ ,\\|==|    .-'        \n" +
-                    "  \\==\\-, /    \\==\\ -    ,_ /|==|-   ,   /       |==|- `-._\\==\\ -    ,_ //==/\\/ _ |==|_  ,`-._       \n" +
-                    "  /==/._/      '.='. -   .' /==/ , _  .'        /==/ - , ,/'.='. -   .' \\==\\ - , /==/ ,     /       \n" +
-                    "  `--`-`         `--`--''   `--`..---'          `--`-----'   `--`--''    `--`---'`--`-----``        \n");
         }
-
 
     }
 
@@ -377,31 +346,10 @@ public class GoFish extends CardGame implements Game {
 
         if (numberOfPairsDealer == numberOfPairsPlayer) {
 
-            Casino.console.println("\n" +
-                    "                                                            \n" +
-                    "  /###           /                ###      ###      ###     \n" +
-                    " /  ############/ #                ###      ###      ###    \n" +
-                    "/     #########  ###                ##       ##       ##    \n" +
-                    "#     /  #        #                 ##       ##       ##    \n" +
-                    " ##  /  ##                          ##       ##       ##    \n" +
-                    "    /  ###      ###       /##       ##       ##       ##    \n" +
-                    "   ##   ##       ###     / ###      ##       ##       ##    \n" +
-                    "   ##   ##        ##    /   ###     ##       ##       ##    \n" +
-                    "   ##   ##        ##   ##    ###    ##       ##       ##    \n" +
-                    "   ##   ##        ##   ########     ### /    ### /    ### / \n" +
-                    "    ##  ##        ##   #######       ##/      ##/      ##/  \n" +
-                    "     ## #      /  ##   ##                                   \n" +
-                    "      ###     /   ##   ####    /     #        #        #    \n" +
-                    "       ######/    ### / ######/     ###      ###      ###   \n" +
-                    "         ###       ##/   #####       #        #        #    \n" +
-                    "                                                            \n" +
-                    "                                                            \n" +
-                    "                                                            \n" +
-                    "                                                            \n");
+            Banners.goFishStatieMessage();
         }
+
     }
-
-
 }
 
 
