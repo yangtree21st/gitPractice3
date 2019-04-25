@@ -1,19 +1,17 @@
 package io.zipcoder.casino;
 
-import io.zipcoder.casino.Games.BlackJack;
-import io.zipcoder.casino.Games.Craps;
-import io.zipcoder.casino.Games.GoFish;
-import io.zipcoder.casino.Games.HiLo;
+import io.zipcoder.casino.Displays.CasinoGamesDisplay;
 import io.zipcoder.casino.Interfaces.Game;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
+
+import java.util.Arrays;
 
 public class CasinoGames {
 
     private Guest currentGuest;
     private Game currentGame;
 
-    CasinoGames(Guest guest) {
+    public CasinoGames(Guest guest) {
         this.currentGuest = guest;
     }
 
@@ -23,16 +21,17 @@ public class CasinoGames {
         Main.mainStage.show();
     }
 
-    void runSelectedGames() {
+    void selectAndRunGame() {
         Casino.console.println("Welcome to the Casino Game Floor!");
         boolean continuePlayingAGame = getUserChoiceToContinuePlaying();
 
-        while(continuePlayingAGame) {
-            String gameChoice = getUserChoiceForWhichGameToPlay();
-            createAndSetCurrentGame(gameChoice);
+        while (continuePlayingAGame) {
+            String userInput = Casino.console.getStringInput(Arrays.toString(GameEnum.values()));
+            GameEnum enumeration = GameEnum.getValueOf(userInput);
+            Game gameInterface = enumeration.create(currentGuest);
+            gameInterface.playFullGame();
 
-            currentGame.playFullGame();
-
+            Casino.console.println("Welcome back to the Casino Game Floor!");
             continuePlayingAGame = getUserChoiceToContinuePlaying();
         }
 
@@ -43,10 +42,10 @@ public class CasinoGames {
     boolean getUserChoiceToContinuePlaying() {
         boolean result = false;
 
-        String choice = Casino.console.getStringInput("Would you like to play a game? (yes or no):").toLowerCase();
+        String choice = Casino.console.getStringInput("Would you like to play one of the games? (yes or no):").toLowerCase();
 
-        while(!(choice.equals("yes") || choice.equals("no"))) {
-            choice = Casino.console.getStringInput("Error: Please enter yes or no:");
+        while (!(choice.equals("yes") || choice.equals("no"))) {
+            choice = Casino.console.getStringInput("Sorry, I couldn't understand you. Please enter 'yes' or 'no':");
         }
 
         if (choice.equals("yes")) {
@@ -54,36 +53,6 @@ public class CasinoGames {
         }
 
         return result;
-    }
-
-
-    String getUserChoiceForWhichGameToPlay() {
-        String gameChoice = Casino.console.getStringInput("Which game would you like to play?\n" +
-                "Please enter: 'GoFish', 'BlackJack', 'HiLo', or 'Craps'").toLowerCase();
-
-        while(!(gameChoice.equals("gofish") || gameChoice.equals("blackjack") || gameChoice.equals("hilo") || gameChoice.equals("craps"))) {
-            gameChoice = Casino.console.getStringInput("Error: Please enter one of the following games exactly as they are written\n" +
-                    "'GoFish', 'BlackJack', 'HiLo', or 'Craps'").toLowerCase();
-        }
-
-        return gameChoice;
-    }
-
-
-    void createAndSetCurrentGame(String gameName) {
-        switch (gameName) {
-            case "gofish" :
-                this.currentGame = new GoFish(this.currentGuest);
-                break;
-            case "blackjack" :
-                this.currentGame = new BlackJack(this.currentGuest);
-                break;
-            case "hilo" :
-                this.currentGame = new HiLo(this.currentGuest);
-                break;
-            case "craps" :
-                this.currentGame = new Craps(this.currentGuest);
-        }
     }
 
     Game getCurrentGame() {

@@ -10,34 +10,44 @@ import java.util.ArrayList;
 public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
 
 
-    private ArrayList <Card> cardsHand = new ArrayList<Card>();
+    String name;
+
+    private ArrayList<Card> cardsHand = new ArrayList<Card>();
 
     private Hand playerhand = new Hand();
 
     private int result;
 
 
-    public BlackJackPlayer(Guest newGuest){
+    public BlackJackPlayer(Guest newGuest) {
         super(newGuest);
         this.result = 0;
     }
 
     public BlackJackPlayer() {
-        this.result =0;
+        this.result = 0;
     }
 
     public void setResult(int result) {
         this.result = result;
     }
 
-    public Guest getGuest(){
+    public Guest getGuest() {
         return super.getGuest();
     }
 
+    public String getName() {
+        return name;
+    }
 
-    public Boolean takePlayersMoney(Double amount){
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public Boolean takePlayersMoney(Double amount) {
         Boolean result = false;
-        if (this.getAccountBalance() - amount > 0.0001){
+        if (this.getAccountBalance() - amount > 0.0001) {
             return true;
         } else
             return result;
@@ -45,38 +55,39 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
     }
 
 
-    public Boolean givePlayerMoney(Double amount){
+    public Boolean givePlayerMoney(Double amount) {
 
-           this.addFunds(amount);
-           return true;
+        this.addFunds(amount);
+        return true;
     }
 
-    public Boolean checkCurrentBalance(Double amount){
+    public Boolean checkCurrentBalance(Double amount) {
         this.checkCurrentBalance(amount);
         return true;
     }
 
-    public Hand addCardToHand(Card cardToAdd){
+    public Hand addCardToHand(Card cardToAdd) {
         playerhand.addCard(cardToAdd);
         getHandScore();
-        return  playerhand;
+        return playerhand;
     }
 
 
-    public Hand getPlayerHand(){
-       playerhand.getAllOfPlayerCards();
-       return playerhand;
+    public Hand getPlayerHand() {
+        playerhand.getAllOfPlayerCards();
+        return playerhand;
     }
 
-    public Hand removeCardFromHand(Card cardToRemove){
+    public Hand removeCardFromHand(Card cardToRemove) {
         playerhand.removeCard(cardToRemove);
         getHandScore();
         return playerhand;
-}
+    }
+
     public Integer getHandScore() {
         result = 0;
         int aceCounter = 0;
-        for(Card card : playerhand.getAllOfPlayerCards()) {
+        for (Card card : playerhand.getAllOfPlayerCards()) {
             int score;
             String c = card.getValue().toString();
             if (c.equals("TEN") || c.equals("JACK") || c.equals("QUEEN") || c.equals("KING")) {
@@ -85,7 +96,7 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
                 result += score;
 //                return result;
             } else if (c.equals("ACE")) {
-                if(result > 10) {
+                if (result > 10) {
                     c = "1";
                     score = Integer.parseInt(c);
                     result += score;
@@ -139,15 +150,15 @@ public class BlackJackPlayer extends CardPlayer implements GamblingPlayer {
             }
 
         }
-        if(result > 21){
-            for(int i = 0 ; i < aceCounter ; i++){
+        if (result > 21) {
+            for (int i = 0; i < aceCounter; i++) {
                 result -= 10;
             }
         }
-           return result;
-        }
-
+        return result;
     }
+
+}
 
 
 

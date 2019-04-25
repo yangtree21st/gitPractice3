@@ -2,11 +2,12 @@ package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
-import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Card;
+import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.Hand;
 import io.zipcoder.casino.Players.Player;
+import io.zipcoder.casino.utilities.Banners;
 
 import java.util.Random;
 
@@ -84,7 +85,6 @@ public class GoFish extends CardGame implements Game {
     }
 
 
-    @Override
     public CardDeck getDeck() {
         return this.goFishDeck;
     }
@@ -92,34 +92,35 @@ public class GoFish extends CardGame implements Game {
     public void playFullGame() {
 
 
-        updateDisplay();
+        Banners.goFishUpdateDisplay();
 
         playGoFish();
 
         setUp();
 
-        containsPairs(playerHand);
-        removePairs(playerHand);
-        pairsCounter();
-        containsPairs(dealerHand);
-        removePairs(dealerHand);
-        pairsCounter();
+        showPlayerHand(playerHand);
 
 
         do {
+
+
+            if (containsPairs(playerHand) > 0) {
+                numberOfPairsPlayer++;
+            }
             displayCurrentScore();
             showPlayerHand(playerHand);
             takeTurn(playerHand, dealerHand);
-            containsPairs(playerHand);
-            removePairs(playerHand);
-            pairsCounter();
-
             displayCurrentScore();
+
+
             showPlayerHand(playerHand);
+
+            if (containsPairs(dealerHand) > 0) {
+                numberOfPairsDealer++;
+            }
+
             opponentTurn(dealerHand, playerHand);
-            containsPairs(dealerHand);
-            removePairs(dealerHand);
-            pairsCounter();
+
 
         } while (!(playerHand.getAllOfPlayerCards().size() == 0 || dealerHand.getAllOfPlayerCards().size() == 0 || goFishDeck.getCardDeckSize() == 0));
 
@@ -135,22 +136,10 @@ public class GoFish extends CardGame implements Game {
 
     }
 
-    public void updateDisplay() {
-
-        Casino.console.println(":'######::::'#######:::::'########:'####::'######::'##::::'##:\n" +
-                "'##... ##::'##.... ##:::: ##.....::. ##::'##... ##: ##:::: ##:\n" +
-                " ##:::..::: ##:::: ##:::: ##:::::::: ##:: ##:::..:: ##:::: ##:\n" +
-                " ##::'####: ##:::: ##:::: ######:::: ##::. ######:: #########:\n" +
-                " ##::: ##:: ##:::: ##:::: ##...::::: ##:::..... ##: ##.... ##:\n" +
-                " ##::: ##:: ##:::: ##:::: ##:::::::: ##::'##::: ##: ##:::: ##:\n" +
-                ". ######:::. #######::::: ##:::::::'####:. ######:: ##:::: ##:\n" +
-                ":......:::::.......::::::..::::::::....:::......:::..:::::..::\n");
-
-    }
 
     public void playGoFish() {
 
-        Casino.console.getStringInput("Would You Like To Play?");
+        Casino.console.getStringInput("Press Enter To Continue");
     }
 
 
@@ -181,7 +170,6 @@ public class GoFish extends CardGame implements Game {
         playerHand.addCard(deal());
         dealerHand.addCard(deal());
 
-        showPlayerHand(playerHand);
 
     }
 
@@ -214,10 +202,13 @@ public class GoFish extends CardGame implements Game {
                 if (currentCard.getValue() == checkCard.getValue()) {
                     counter++;
                     removePairs(hand);
+                    pairsCounter();
                 }
+
             }
         }
         return counter;
+
     }
 
     private void removePairs(Hand hand) {
@@ -229,6 +220,7 @@ public class GoFish extends CardGame implements Game {
     }
 
     public void pairsCounter() {
+
         numberOfPairsPlayer += containsPairs(playerHand);
 
         numberOfPairsDealer += containsPairs(dealerHand);
@@ -237,7 +229,7 @@ public class GoFish extends CardGame implements Game {
 
     public void takeTurn(Hand playerHand, Hand dealerHand) {
 
-        Casino.console.println("Take Your Turn");
+        Casino.console.println("\nTake Your Turn");
 
         boolean goFish = true;
 
@@ -247,49 +239,75 @@ public class GoFish extends CardGame implements Game {
             input = Casino.console.getIntegerInput("\"Pick A Card To Fish For [Enter Index Number Below Card Choice]: \"");
         }
 
-        for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++) {
-
-            if (playerHand.getAllOfPlayerCards().get(input).getValue() == dealerHand.getAllOfPlayerCards().get(dealerIndex).getValue()) {
-                dealerHand.removeCard(dealerHand.getAllOfPlayerCards().get(dealerIndex));
-                playerHand.addCard(playerHand.getAllOfPlayerCards().get(input));
+        for (Card c : dealerHand.getAllOfPlayerCards()) {
+            if (c.getValue() == playerHand.getAllOfPlayerCards().get(input).getValue()) {
+                dealerHand.getAllOfPlayerCards().remove(c);
+                playerHand.addCard(c);
+                Casino.console.println("\nYOU GOT YOUR OPPONENT'S\n  " + c.toString());
+                numberOfPairsDealer++;
 
                 goFish = false;
                 break;
             }
         }
+        /*for (int dealerIndex = 0; dealerIndex < dealerHand.getAllOfPlayerCards().size(); dealerIndex++){
+        if (playerHand.getAllOfPlayerCards().get(input).getValue() == dealerHand.getAllOfPlayerCards().get(dealerIndex).getValue()) {
+
+                dealerHand.removeCard(dealerHand.getAllOfPlayerCards().get(dealerIndex));
+                playerHand.addCard(dealerHand.getAllOfPlayerCards().get(dealerIndex));
+                Casino.console.println("\nYOU GOT YOUR OPPONENT'S\n  " +  dealerHand.getAllOfPlayerCards().get(dealerIndex).toString() );
+                goFish = false;
+
+
+                }*/
+
         if (goFish) {
-            Casino.console.println("Go Fish!!!");
+            Casino.console.println("\nGO FISH!!!");
             playerHand.addCard(deal());
         }
 
     }
 
 
-
     public void opponentTurn(Hand dealerHand, Hand playerHand) {
 
-        Casino.console.println("Now It Is Your Opponent's Turn");
+        Casino.console.println("\nNow It Is Your Opponent's Turn");
 
         Random randomNumGen = new Random();
 
 
         Card fishCard = dealerHand.getAllOfPlayerCards().get(randomNumGen.nextInt(dealerHand.getAllOfPlayerCards().size()));
 
-        Casino.console.println("Do You Have Any " + fishCard.getValue());
-        Casino.console.getStringInput("Press [Enter] To Continue");
+        Casino.console.println("\nDo You Have Any " + fishCard.getValue());
+        Casino.console.getStringInput("\nPress [Enter] To Continue");
         boolean goFish = true;
-        for (int cardIndex = 0; cardIndex < playerHand.getAllOfPlayerCards().size(); cardIndex++) {
-            if (playerHand.getAllOfPlayerCards().get(cardIndex).getValue() == fishCard.getValue()) {
-                playerHand.getAllOfPlayerCards().remove(cardIndex);
+//        for (int cardIndex = 0; cardIndex < playerHand.getAllOfPlayerCards().size(); cardIndex++) {
+//            if (playerHand.getAllOfPlayerCards().get(cardIndex).getValue() == fishCard.getValue()) {
+//                playerHand.getAllOfPlayerCards().remove(cardIndex);
+//                dealerHand.removeCard(fishCard);
+//                Casino.console.println("\nYOU JUST GAVE UP YOUR\n  " +  playerHand.getAllOfPlayerCards().get(cardIndex).toString() );
+//                numberOfPairsDealer++;
+//
+//                goFish = false;
+//                break;
+//
+//            }
+//        }
+
+        for (Card c : playerHand.getAllOfPlayerCards()) {
+            if (c.getValue() == fishCard.getValue()) {
+                playerHand.getAllOfPlayerCards().remove(c);
                 dealerHand.removeCard(fishCard);
+                Casino.console.println("\nYOU JUST GAVE UP YOUR\n  " + c.toString());
                 numberOfPairsDealer++;
+
                 goFish = false;
                 break;
 
             }
         }
         if (goFish) {
-            Casino.console.println("You Laugh And Tell Your Opponent To Go Fish!!!");
+            Casino.console.println("YOU LAUGH AND TELL YOUR OPPONENT TO GO FISH!!!");
             if (goFishDeck.getCardDeckSize() > 0) {
 
                 dealerHand.addCard(deal());
@@ -302,45 +320,24 @@ public class GoFish extends CardGame implements Game {
 
     private void displayCurrentScore() {
 
-        Casino.console.println("You Currently Have " + numberOfPairsPlayer + " matches.");
-        Casino.console.println("Your Opponent Currently Has " + numberOfPairsDealer + " matches.");
+        Casino.console.println("\nYou Currently Have " + numberOfPairsPlayer + " matches.");
+        Casino.console.println("\nYour Opponent Currently Has " + numberOfPairsDealer + " matches.");
 
     }
 
     public void winning(Integer numberOfPairsPlayer, Integer numberOfPairsDealer) {
         if (numberOfPairsPlayer > numberOfPairsDealer) {
+            Banners.goFishWinMessage();
 
-            Casino.console.println("\n" +
-                    "  ___    ___ ________  ___  ___          ___       __   ___  ________   ___  ___  ___       \n" +
-                    " |\\  \\  /  /|\\   __  \\|\\  \\|\\  \\        |\\  \\     |\\  \\|\\  \\|\\   ___  \\|\\  \\|\\  \\|\\  \\      \n" +
-                    " \\ \\  \\/  / | \\  \\|\\  \\ \\  \\\\\\  \\       \\ \\  \\    \\ \\  \\ \\  \\ \\  \\\\ \\  \\ \\  \\ \\  \\ \\  \\     \n" +
-                    "  \\ \\    / / \\ \\  \\\\\\  \\ \\  \\\\\\  \\       \\ \\  \\  __\\ \\  \\ \\  \\ \\  \\\\ \\  \\ \\  \\ \\  \\ \\  \\    \n" +
-                    "   \\/  /  /   \\ \\  \\\\\\  \\ \\  \\\\\\  \\       \\ \\  \\|\\__\\_\\  \\ \\  \\ \\  \\\\ \\  \\ \\__\\ \\__\\ \\__\\   \n" +
-                    " __/  / /      \\ \\_______\\ \\_______\\       \\ \\____________\\ \\__\\ \\__\\\\ \\__\\|__|\\|__|\\|__|   \n" +
-                    "|\\___/ /        \\|_______|\\|_______|        \\|____________|\\|__|\\|__| \\|__|   ___  ___  ___ \n" +
-                    "\\|___|/                                                                      |\\__\\|\\__\\|\\__\\\n" +
-                    "                                                                             \\|__|\\|__|\\|__|\n" +
-                    "                                                                                            \n");
         }
-
     }
 
     public void losing(Integer numberOfPairsDealer, Integer numberOfPairsPlayer) {
 
         if (numberOfPairsDealer > numberOfPairsPlayer) {
+            Banners.goFishLostMessage();
 
-            Casino.console.println("\n" +
-                    "                 _,.---._                                    _,.---._      ,-,--.     ,----.        \n" +
-                    " ,--.-.  .-,--.,-.' , -  `.  .--.-. .-.-.          _.-.    ,-.' , -  `.  ,-.'-  _\\ ,-.--` , \\       \n" +
-                    "/==/- / /=/_ //==/_,  ,  - \\/==/ -|/=/  |        .-,.'|   /==/_,  ,  - \\/==/_ ,_.'|==|-  _.-`       \n" +
-                    "\\==\\, \\/=/. /|==|   .=.     |==| ,||=| -|       |==|, |  |==|   .=.     \\==\\  \\   |==|   `.-.       \n" +
-                    " \\==\\  \\/ -/ |==|_ : ;=:  - |==|- | =/  |       |==|- |  |==|_ : ;=:  - |\\==\\ -\\ /==/_ ,    /       \n" +
-                    "  |==|  ,_/  |==| , '='     |==|,  \\/ - |       |==|, |  |==| , '='     |_\\==\\ ,\\|==|    .-'        \n" +
-                    "  \\==\\-, /    \\==\\ -    ,_ /|==|-   ,   /       |==|- `-._\\==\\ -    ,_ //==/\\/ _ |==|_  ,`-._       \n" +
-                    "  /==/._/      '.='. -   .' /==/ , _  .'        /==/ - , ,/'.='. -   .' \\==\\ - , /==/ ,     /       \n" +
-                    "  `--`-`         `--`--''   `--`..---'          `--`-----'   `--`--''    `--`---'`--`-----``        \n");
         }
-
 
     }
 
@@ -348,47 +345,11 @@ public class GoFish extends CardGame implements Game {
 
         if (numberOfPairsDealer == numberOfPairsPlayer) {
 
-            Casino.console.println("\n" +
-                    "                                                            \n" +
-                    "  /###           /                ###      ###      ###     \n" +
-                    " /  ############/ #                ###      ###      ###    \n" +
-                    "/     #########  ###                ##       ##       ##    \n" +
-                    "#     /  #        #                 ##       ##       ##    \n" +
-                    " ##  /  ##                          ##       ##       ##    \n" +
-                    "    /  ###      ###       /##       ##       ##       ##    \n" +
-                    "   ##   ##       ###     / ###      ##       ##       ##    \n" +
-                    "   ##   ##        ##    /   ###     ##       ##       ##    \n" +
-                    "   ##   ##        ##   ##    ###    ##       ##       ##    \n" +
-                    "   ##   ##        ##   ########     ### /    ### /    ### / \n" +
-                    "    ##  ##        ##   #######       ##/      ##/      ##/  \n" +
-                    "     ## #      /  ##   ##                                   \n" +
-                    "      ###     /   ##   ####    /     #        #        #    \n" +
-                    "       ######/    ### / ######/     ###      ###      ###   \n" +
-                    "         ###       ##/   #####       #        #        #    \n" +
-                    "                                                            \n" +
-                    "                                                            \n" +
-                    "                                                            \n" +
-                    "                                                            \n");
+            Banners.goFishStatieMessage();
         }
+
     }
-
-
 }
-/*
-    public void quitGame() {
-
-    }
-    public void takeTurn() {
-
-    }
-    public void winning() {
-
-    }
-
-    public void losing() {
-
-    }
-}*/
 
 
 

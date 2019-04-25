@@ -1,4 +1,7 @@
 package io.zipcoder.casino;
+
+import io.zipcoder.casino.Displays.CasinoGamesDisplay;
+import io.zipcoder.casino.Displays.InstructionDisplay;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,32 +20,32 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-public class Display{
+public class Display {
 
-    Button btnExit = new Button("Exit");
-    Button btnForInstructions = new Button("Instructions");
-    Stage instructionStage = new Stage();
+    public Button btnExit = new Button("Exit");
+    public Button btnForInstructions = new Button("Instructions");
+    public Stage instructionStage = new Stage();
 
     /***
      * Method creates the Welcome scene that users enter into when choosing to use the GUI
      * @return (Parent) GridPane
      */
-    public Parent createContent(){
+    public Parent createContent() {
         GridPane grid = createGrid();
 
         Text enterBanner = new Text("Welcome to the Casino Royale");
-        enterBanner.setFont(Font.font ("Verdana", 40));
+        enterBanner.setFont(Font.font("Verdana", 40));
 
 
         Button btnEnter = new Button("Enter");
         btnEnter.setAlignment(Pos.CENTER);
-        btnEnter.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnEnter.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        Image bgImage = new Image("File:src/main/java/io/zipcoder/casino/Images/honors_spade-14.png",400,250,true,true);
-        grid.add(new ImageView(bgImage),1,1,3,3);
+        Image bgImage = new Image("File:src/main/java/io/zipcoder/casino/Images/honors_spade-14.png", 400, 250, true, true);
+        grid.add(new ImageView(bgImage), 1, 1, 3, 3);
 
-        grid.add(enterBanner, 0, 0,5,1);
-        grid.add(btnEnter, 2,4,1,1);
+        grid.add(enterBanner, 0, 0, 5, 1);
+        grid.add(btnEnter, 2, 4, 1, 1);
 
 
         btnEnter.setOnAction(e -> {
@@ -54,9 +57,10 @@ public class Display{
 
     /**
      * Creates the grid which is used in all non game Display classes
+     *
      * @return GridPane
      */
-    public GridPane createGrid(){
+    public GridPane createGrid() {
         GridPane grid = new GridPane();
         grid.setPrefSize(1000, 600);
         grid.setAlignment(Pos.CENTER);
@@ -78,8 +82,8 @@ public class Display{
         RowConstraints rowConstraints = createRowConstraints();
 
         // add constraints for columns and rows
-        grid.getColumnConstraints().addAll(colConstraint, colConstraint, colConstraint,colConstraint,colConstraint);
-        grid.getRowConstraints().addAll(rowConstraints,rowConstraints,rowConstraints,rowConstraints, rowConstraints);
+        grid.getColumnConstraints().addAll(colConstraint, colConstraint, colConstraint, colConstraint, colConstraint);
+        grid.getRowConstraints().addAll(rowConstraints, rowConstraints, rowConstraints, rowConstraints, rowConstraints);
         //grid.setGridLinesVisible(true);
 
         return grid;
@@ -87,21 +91,23 @@ public class Display{
 
     /**
      * Takes in a button who's action is to close the window and returns the corresponding stage that button is located on
+     *
      * @param buttonToExit
      * @return Stage
      */
 
-    public Stage setExitAction(Button buttonToExit){
+    public Stage setExitAction(Button buttonToExit) {
         return (Stage) buttonToExit.getScene().getWindow();
 
     }
 
     /**
      * Returns the Column Constraints once Halignment and Width percentage are set
+     *
      * @return ColumnConstraints
      */
 
-    public ColumnConstraints createColumnConstraints(){
+    public ColumnConstraints createColumnConstraints() {
         //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
         ColumnConstraints colConstraint = new ColumnConstraints();
         colConstraint.setHalignment(HPos.CENTER);
@@ -112,10 +118,11 @@ public class Display{
 
     /**
      * Returns the Row Constraints once Valignment and Height percentage are set
+     *
      * @return RowConstraints
      */
 
-    public RowConstraints createRowConstraints(){
+    public RowConstraints createRowConstraints() {
         //column constraints which sets alignment to horizontally center and set width to 15% of the total size screen
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setValignment(VPos.CENTER);
@@ -125,39 +132,39 @@ public class Display{
     }
 
     /**
-     *
      * @return
      */
 
-    public GridPane createGameGrid(){
+    public GridPane createGameGrid() {
         GridPane gameGridPane = createGrid();
 
 
-        btnExit.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        btnForInstructions.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnExit.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        btnForInstructions.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        gameGridPane.add(btnForInstructions, 0,8,1,1);
-        gameGridPane.add(btnExit,6,8,1,1);
+        gameGridPane.add(btnForInstructions, 0, 8, 1, 1);
+        gameGridPane.add(btnExit, 6, 8, 1, 1);
 
-        btnExit.setOnAction(e ->{
+        btnExit.setOnAction(e -> {
             CasinoGamesDisplay casinoGamesDisplay = new CasinoGamesDisplay();
             Main.mainStage.setScene(new Scene(casinoGamesDisplay.createCasinoGamesContent()));
             Main.mainStage.show();
         });
 
-        gameGridPane.getColumnConstraints().addAll(createColumnConstraints(),createColumnConstraints());
-        gameGridPane.getRowConstraints().addAll(createRowConstraints(), createRowConstraints(),createRowConstraints());
+        gameGridPane.getColumnConstraints().addAll(createColumnConstraints(), createColumnConstraints());
+        gameGridPane.getRowConstraints().addAll(createRowConstraints(), createRowConstraints(), createRowConstraints());
 
         return gameGridPane;
     }
 
     /**
      * \
+     *
      * @param stringInstructions
      */
-    public void setInstructionsForButton(String stringInstructions){
+    public void setInstructionsForButton(String stringInstructions) {
 
-        btnForInstructions.setOnAction(e ->{
+        btnForInstructions.setOnAction(e -> {
             InstructionDisplay instructionDisplay = new InstructionDisplay();
             instructionStage.setScene(new Scene(instructionDisplay.createInstructionContent(stringInstructions)));
             instructionStage.show();
@@ -165,22 +172,20 @@ public class Display{
         });
     }
 
-    public void setExitAndInstructions(boolean bool){
+    public void setExitAndInstructions(boolean bool) {
         setExitButtonAccess(bool);
         setInstructionsButtonAccess(bool);
     }
 
 
-    public void setExitButtonAccess(boolean bool){
+    public void setExitButtonAccess(boolean bool) {
         this.btnExit.setDisable(bool);
     }
 
 
-    public void setInstructionsButtonAccess(Boolean bool){
+    public void setInstructionsButtonAccess(Boolean bool) {
         this.btnForInstructions.setDisable(bool);
     }
-
-
 
 
 }

@@ -11,8 +11,8 @@ import java.util.Random;
  * @version 2019-02-22
  */
 public class Die {
-    private Random random;
     private static AnsiStuff ansiStuff = new AnsiStuff();
+    private Random random;
 
 
     /**
@@ -24,6 +24,7 @@ public class Die {
 
     /**
      * Constructor for testing purposes only! Allows the creation of a non-random die for predictable results.
+     *
      * @param testRandom a supplied random, that will be non-random.
      */
     public Die(Random testRandom) {
@@ -51,6 +52,7 @@ public class Die {
 
     /**
      * Rolls a single die, displays the result, and returns the value of the die roll
+     *
      * @return the int value of the die roll
      */
     public int getSingleDieRollAndDisplayResult() {
@@ -72,7 +74,7 @@ public class Die {
 
     /**
      * This method constructs a String representation of a die roll based on the integer input(1-6)
-     *
+     * <p>
      * The string it returns looks something like this:
      * ---------
      * | o   o |
@@ -93,6 +95,7 @@ public class Die {
 
     /**
      * creates and returns the top or bottom lines of the die representation
+     *
      * @return the bottom or top line of the die representation
      */
     private String boundaryLineOfDie() {

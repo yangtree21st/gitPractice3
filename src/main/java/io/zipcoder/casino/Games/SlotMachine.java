@@ -2,11 +2,13 @@ package io.zipcoder.casino.Games;
 
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
-import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Models.SlotReel;
-import io.zipcoder.casino.utilities.AnsiStuff;
+import io.zipcoder.casino.utilities.Banners;
 
 public class SlotMachine extends SunhyunsGamblingGameClass {
+    //    private static final String JACKPOT_DISPLAY ="";//Banners.slotMachineJackPot();
+//    private static final String DIAGONAL_DISPLAY = "";//Banners.slotMachineDiagonal();
+//    private static final String ZIG_ZAG_DISPLAY =  ""; //Banners.slotMachineZigZag();
     private SlotReel slotReel;
     private boolean jackpot;
     private boolean diagonal;
@@ -14,16 +16,18 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
 
     /**
      * Standard constructor, sets currentGuest to guest, sets slotReel to new SlotReel
+     *
      * @param guest guest who is playing the game
      */
     public SlotMachine(Guest guest) {
-        super(guest, 5);
+        super(guest, 1);
         this.slotReel = new SlotReel();
     }
 
     /**
      * For testing purposes
-     * @param testGuest test guest
+     *
+     * @param testGuest    test guest
      * @param testSlotReel seeded slotReel with predictable output
      */
     SlotMachine(Guest testGuest, SlotReel testSlotReel) {
@@ -33,7 +37,9 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
     }
 
     public void playFullGame() {
-        println("\nWelcome to the Slot Machine!\nThe minimum bet is $%d.", minimumBet);
+        displayWelcome();
+
+        println("The minimum bet is $%d.", minimumBet);
 
         if (yesOrNoQuestion("Would you like to read the instructions? (yes or no):")) {
             printInstructions();
@@ -62,6 +68,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
         println("\nWe hope you enjoyed your visit to the Slot Machine!");
     }
 
+
     /**
      * Resets all the win conditions to false
      */
@@ -81,6 +88,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
 
     /**
      * This method checks the results of the slot machine spin, and sets the various win conditions accordingly
+     *
      * @param slotResults the results of the slot machine spin
      */
     void checkReelResults(int[] slotResults) {
@@ -90,18 +98,18 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
         boolean downwardsDiagonal = ((slotResults[0] == slotResults[1] + 1) || (slotResults[0] == 0 && slotResults[1] == 9)) && ((slotResults[1] == slotResults[2] + 1) || (slotResults[1] == 0 && slotResults[2] == 9));
         boolean diagonalBoolean = upwardsDiagonal || downwardsDiagonal;
 
-        boolean zigZag0And1 = ((Math.abs(slotResults[0] % 9 - slotResults[1] % 9) <= 1) || (Math.abs(slotResults[0] - slotResults[1]) <= 1));
-        boolean zigZag1And2 = ((Math.abs(slotResults[1] % 9 - slotResults[2] % 9) <= 1) || (Math.abs(slotResults[1] - slotResults[2]) <= 1));
+        boolean zigZag0And1 = ((Math.abs(slotResults[0] % 9 - slotResults[1] % 9) == 0) || (Math.abs(slotResults[0] - slotResults[1]) <= 1));
+        boolean zigZag1And2 = ((Math.abs(slotResults[1] % 9 - slotResults[2] % 9) == 0) || (Math.abs(slotResults[1] - slotResults[2]) <= 1));
         boolean zigZagBoolean = zigZag0And1 && zigZag1And2;
 
         if (jackpotBoolean) {
-            Casino.console.println(AnsiStuff.ANSI_GREEN + "JACKPOT!!!" + AnsiStuff.ANSI_RESET + '\n');
+            Banners.slotMachineJackPot();
             jackpot = true;
         } else if (diagonalBoolean) {
-            Casino.console.println(AnsiStuff.ANSI_GREEN + "Diagonal!" + AnsiStuff.ANSI_RESET + '\n');
+            Banners.slotMachineDiagonal();
             diagonal = true;
         } else if (zigZagBoolean) {
-            Casino.console.println(AnsiStuff.ANSI_GREEN + "Zig-Zag!" + AnsiStuff.ANSI_RESET + '\n');
+            Banners.slotMachineZigZag();
             zigZag = true;
         } else {
             Casino.console.println("Sorry, no Lines...\n");
@@ -118,7 +126,7 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
      * @param currentBet the amount the player bet on the preceding game
      */
     void payOut(Double currentBet) {
-        if(jackpot) {
+        if (jackpot) {
             this.currentGuest.addFunds(currentBet * 51);
             println("You won $%.2f!\nYour balance is now $%.2f.", currentBet * 50, this.currentGuest.getAccountBalance());
         } else if (diagonal) {
@@ -146,11 +154,19 @@ public class SlotMachine extends SunhyunsGamblingGameClass {
     }
 
     /**
+     * Displays the welcome sign
+     */
+    private void displayWelcome() {
+        Banners.slotMachineWelcome();
+    }
+
+    /**
      * For testing purposes
      */
     SlotReel getSlotReel() {
         return slotReel;
     }
+
     /**
      * For testing purposes
      */

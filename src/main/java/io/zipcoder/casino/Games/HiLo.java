@@ -1,12 +1,13 @@
 package io.zipcoder.casino.Games;
+
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
-import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Models.Hand;
 import io.zipcoder.casino.Players.Player;
+import io.zipcoder.casino.utilities.Banners;
 
 
 public class HiLo extends CardGame implements GamblingGame {
@@ -18,14 +19,12 @@ public class HiLo extends CardGame implements GamblingGame {
     private Card firstCard;
     private Card secondCard;
     private CardDeck cardDeck;
-    private Guest guest;
     private Player hiloPlayer;
     private String playerChoice;
     private Double bet = 0.0;
     private Double getAccountBalance;
     private boolean continueGame;
     private Double minimumBet = 5.0;
-    private Double winnings;
     private Hand hand;
 
     /**
@@ -39,19 +38,20 @@ public class HiLo extends CardGame implements GamblingGame {
         this.cardDeck = new CardDeck();
         cardDeck.shuffleDeck();
         this.continueGame = true;
-
     }
 
     /**
      * Hi-Lo game constructor
+     *
      * @param testGuest it takes a Guest
-     * @param testDeck it takes a CardDeck
+     * @param testDeck  it takes a CardDeck
      */
     HiLo(Guest testGuest, CardDeck testDeck) {
         this.cardDeck = testDeck;
         hiloPlayer = new Player(testGuest);
         this.continueGame = true;
     }
+
     /**
      * This method takes a card from the deck and deals the first card for the player if it the first card hasn't been dealt
      *
@@ -68,6 +68,7 @@ public class HiLo extends CardGame implements GamblingGame {
 
     /**
      * This method gets the curretCard
+     *
      * @return a Card
      */
     public Card getFirstCard() {
@@ -76,6 +77,7 @@ public class HiLo extends CardGame implements GamblingGame {
 
     /**
      * This method sets the firstCard for the game
+     *
      * @param firstCard it takes a Card
      */
     public void setFirstCard(Card firstCard) {
@@ -84,26 +86,25 @@ public class HiLo extends CardGame implements GamblingGame {
 
     /**
      * This method gets the secondCard dealt
+     *
      * @return a Card
      */
-        Card getsecondCard() {
+    public Card getSecondCard() {
         return secondCard;
     }
 
-    /**
-     * This method sets the secondCard for the game
-     * @param secondCard it takes a Card
-     */
-    public void setsecondCard(Card secondCard) {
+    public void setSecondCard(Card secondCard) {
         this.secondCard = secondCard;
+
     }
 
     /**
      * This method creates a Hand of cards that takes the firstCard and Second card
+     *
      * @return a Hand of cards
      */
 
-        Hand firstAndSecondCard() {
+    Hand firstAndSecondCard() {
         hand = new Hand();
         hand.addCard(firstCard);
         hand.addCard(secondCard);
@@ -113,7 +114,7 @@ public class HiLo extends CardGame implements GamblingGame {
     /**
      * This method compares the first card and second card value
      *
-     * @param firstCard It takes the value of the firstCard
+     * @param firstCard  It takes the value of the firstCard
      * @param secondCard It takes the value of the secondCard
      * @return true if the second card is less than the first one
      */
@@ -122,18 +123,14 @@ public class HiLo extends CardGame implements GamblingGame {
         Integer firstCardValue = firstCard.getValue().ordinal() + 1;
         Integer secondCardValue = secondCard.getValue().ordinal() + 1;
 
-        if (secondCardValue < firstCardValue) {
-
-            return true;
-        }
-        return false;
+        return secondCardValue < firstCardValue;
     }
 
     /**
      * This method compares the first and second card values
      *
-     * @param firstCard it takes the firstCard value
-     * @param secondCard    it takes the secondCard value
+     * @param firstCard  it takes the firstCard value
+     * @param secondCard it takes the secondCard value
      * @return true if the secondCard value is more than the firstCard value
      */
 
@@ -143,33 +140,61 @@ public class HiLo extends CardGame implements GamblingGame {
     }
 
     /**
+     * This method compares the value of the firstCard with the SecondCard and check if they are the same
+     *
+     * @param firstCard  it takes a Card dealt firstCard
+     * @param secondCard it takes a Card dealt secondCard
+     * @return true if they are the same, false otherwise.
+     */
+    public boolean istheSame(Card firstCard, Card secondCard) {
+        Integer firstCardValue = firstCard.getValue().ordinal() + 1;
+        Integer secondCardValue = secondCard.getValue().ordinal() + 1;
+        return firstCardValue == secondCardValue;
+    }
+
+    /**
      * This method lets the guest play a full game of Hi-Lo by putting the methods in the order they need to be used
      */
     public void playFullGame() {
-        welcomeMessage();
+        Banners.hiLoWelcomeMessage();
         gameInstructions();
         do {
-            firstCard = null;
-            this.bet = Casino.console.getDoubleInput("Let's start!!!\n"+
-                    "This is your current balance " + checkPlayersBalance(hiloPlayer)+"\n"+
-                    "The minimum bet is $5.00\n"+"Please enter your bet:");
-
+            setUp();
             while (this.bet < 5) {
                 this.bet = Casino.console.getDoubleInput("Error, Please enter a bet equal or grater than $5:");
             }
             if (enoughMoneyForBet(bet, hiloPlayer)) {
-                receiveBetFromPlayer(bet);
-                showFirstCardAndGetHiOrLo();
-                checkPlayersBalance(hiloPlayer);
-                showSecondCard();
-                winning();
-                checkPlayersBalance(hiloPlayer);
-                quitGame();
+                gameFlow();
             }
         }
         while (checkPlayersBalance(hiloPlayer) >= minimumBet && this.continueGame == true);
         Casino.console.println("You have played a full game of Hi-Lo!");
     }
+
+    /**
+     * This method sets up the game by displaying balance, ask for the bet and resets the firstCard for every game.
+     */
+    private void setUp() {
+        firstCard = null;
+        this.bet = Casino.console.getDoubleInput("Let's start!!!\n" +
+                "This is your current balance " + checkPlayersBalance(hiloPlayer) + "\n" +
+                "The minimum bet is $5.00\n" + "Please enter your bet:");
+    }
+
+    /**
+     * This method sets the order of the game by calling the methods below.
+     */
+
+    private void gameFlow() {
+        receiveBetFromPlayer(bet);
+        showFirstCardAndGetHiOrLo();
+        checkPlayersBalance(hiloPlayer);
+        showSecondCard();
+        winning();
+        checkPlayersBalance(hiloPlayer);
+        quitGame();
+    }
+
     /**
      * This method checks the player balance
      *
@@ -178,9 +203,10 @@ public class HiLo extends CardGame implements GamblingGame {
      */
 
     public Double checkPlayersBalance(Player currentPlayer) {
-        getAccountBalance = hiloPlayer.getAccountBalance();
+        getAccountBalance = currentPlayer.getAccountBalance();
         return getAccountBalance;
     }
+
     /**
      * This method check if the player has enough balance to bet
      *
@@ -189,7 +215,6 @@ public class HiLo extends CardGame implements GamblingGame {
      * @return a boolean, true if the balance is enough to bet, false if it isn't
      */
     public boolean enoughMoneyForBet(Double bet, Player currentPlayer) {
-        //this.bet = Casino.console.getDoubleInput("Please enter your bet:");
         if (bet != 0) {
             if (bet <= checkPlayersBalance(currentPlayer)) {
                 return true;
@@ -221,11 +246,12 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void showFirstCardAndGetHiOrLo() {
         deal();
-        Casino.console.println(OneCardUpOneDown()+"Guess second Card");
-        this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
-        while(!playerChoice.equalsIgnoreCase("h")&&!playerChoice.equalsIgnoreCase("l")){
+        Casino.console.println(OneCardUpOneDown() + "Guess second Card");
+        this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low,'S' for Same");
+        while (!playerChoice.equalsIgnoreCase("h") && !playerChoice.equalsIgnoreCase("l")
+                && !playerChoice.equalsIgnoreCase("s")) {
 
-        this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low");
+            this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low,'S' for Same");
         }
     }
 
@@ -242,7 +268,8 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void winning() {
         if (playerChoice.equalsIgnoreCase("H") && isMore(firstCard, secondCard) ||
-                (playerChoice.equalsIgnoreCase("L") && isLess(firstCard, secondCard))) {
+                (playerChoice.equalsIgnoreCase("L") && isLess(firstCard, secondCard) ||
+                        (playerChoice.equalsIgnoreCase("S") && istheSame(firstCard, secondCard)))) {
             Casino.console.println("You Won!!!");
             giveWinningsToPlayer(bet);
 
@@ -258,7 +285,7 @@ public class HiLo extends CardGame implements GamblingGame {
 
     public void giveWinningsToPlayer(Double winnings) {
 
-        bet =+ (winnings * 1.25);
+        bet = +(winnings * 1.25);
         hiloPlayer.addFunds(bet);
         getAccountBalance = hiloPlayer.getAccountBalance();
     }
@@ -285,32 +312,19 @@ public class HiLo extends CardGame implements GamblingGame {
         }
     }
 
-    /**
-     * This method displays the welcome message for the player
-     */
-    public void welcomeMessage() {
-
-        Casino.console.println(
-                "\n+" +
-
-                "                /$$      /$$           /$$                                                     /$$                     /$$   /$$ /$$         /$$\n" +
-                "                | $$  /$ | $$          | $$                                                    | $$                    | $$  | $$|__/        | $$\n" +
-                "                | $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$       | $$  | $$ /$$        | $$        /$$$$$$\n" +
-                "                | $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      | $$$$$$$$| $$ /$$$$$$| $$       /$$__  $$\n" +
-                "                | $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$      | $$__  $$| $$|______/| $$      | $$  \\ $$\n" +
-                "                | $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$      | $$  | $$| $$        | $$      | $$  | $$\n" +
-                "                | $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/      | $$  | $$| $$        | $$$$$$$$|  $$$$$$/\n" +
-                "                |__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/       |__/  |__/|__/        |________/ \\______/\n" +
-                "        ");
+    public Player getPlayer() {
+        return hiloPlayer;
     }
+
     /**
      * This method prints the first card up and the second card down
+     *
      * @return
      */
     public String OneCardUpOneDown() {
         String[] faceDownCard = {
-                "-------------- " ,
-                "|************| " };
+                "-------------- ",
+                "|************| "};
         StringBuilder createHand = new StringBuilder();
 
         createHand.append(firstCard.boundaryLineOfCard()).append(' ').append(faceDownCard[0]);
@@ -335,50 +349,26 @@ public class HiLo extends CardGame implements GamblingGame {
     }
 
 
-
-//    public static void main(String[] args) {
-//        Casino testCasino = new Casino();
-//        HiLo testHiLo = new HiLo(new Guest("", new GuestAccount("", 0, 1000.0)));
-//
-//        testHiLo.playFullGame();
-//    }
-
-
     /**
      * This method display the instructions for the game.
      */
-    void gameInstructions(){
-        Casino.console.println("Game Rules:\n"+
+    void gameInstructions() {
+        Casino.console.println("Game Rules:\n" +
 
-                "Hi-Lo, is a fairly simple card game.It uses a standard deck of 52 cards.\n"+
+                "Hi-Lo, is a fairly simple card game.It uses a standard deck of 52 cards.\n" +
                 "The dealer is in control of the deck, and the player is responsible for guessing\n" +
-                "the values of cards.\n"+
+                "the values of cards.\n" +
                 "Dealing and Play:\n" +
-                "After shuffling and cutting the deck, the dealer will place one card  face-up.\n"+
-                "Guessing:\n"+
+                "After shuffling and cutting the deck, the dealer will place one card  face-up.\n" +
+                "Guessing:\n" +
                 "Based on the card that's currently showing, the player has to guess whether the\n" +
                 "face-down card is higher or lower than the face-up card. \n" +
-                "After the guess, the dealer flips the hidden card, and  the  answer is revealed.\n"+
+                "After the guess, the dealer flips the hidden card, and  the  answer is revealed.\n" +
                 "If the guess was correct, the player wins!\n" +
                 "***********************************************************************************");
 
     }
 
-
-
-
-
-
-
-   public static void main(String[] args) {
-        Casino testCasino = new Casino();
-        GuestAccount guestAccount = new GuestAccount("Marlys", 1, 100.0);
-
-        Guest guest = new Guest("Marlys", guestAccount);
-        Player hiloplayer = new Player(guest);
-        HiLo testHiLo = new HiLo(guest);
-        testHiLo.playFullGame();
-    }
 }
 
 

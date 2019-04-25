@@ -6,7 +6,6 @@ import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
 import io.zipcoder.casino.Models.GuestAccount;
-import io.zipcoder.casino.Players.HiLowPlayer;
 import io.zipcoder.casino.Players.Player;
 import org.junit.Assert;
 
@@ -50,7 +49,7 @@ public class HiLoGameTest {
         //When
         hiloGame.setFirstCard(given);
         hiloGame.deal();
-        Card actual = hiloGame.getsecondCard();
+        Card actual = hiloGame.getSecondCard();
 
         //Then
         Assert.assertNotNull(actual);
@@ -114,17 +113,15 @@ public class HiLoGameTest {
         Double expected = 20.00;
         GuestAccount guestAccount = new GuestAccount(null,null,expected);
         Guest guest = new Guest(null,guestAccount);
-        HiLowPlayer hiLowPlayer = new HiLowPlayer(guest);
+        Player hiLowPlayer = new Player(guest);
         HiLo hiloGame = new HiLo(guest);
 
         //When
-        Double actual = hiloGame.checkPlayersBalance(hiLowPlayer);
+        Double actual = hiloGame.checkPlayersBalance(hiloGame.getPlayer());
 
 
         //Then
         Assert.assertEquals(expected,actual);
-
-
     }
 
     @Test
@@ -204,6 +201,26 @@ public class HiLoGameTest {
 
         // Then
         Assert.assertEquals(expectedFinalBalance, actualFinalBalance);
+    }
+    @Test
+    public void isTheSameTest() {
+        // Given
+
+        GuestAccount guestAccount =  new GuestAccount("Marlys", 1, 1000.0);
+        Guest guest =new Guest(null,guestAccount);
+        HiLo hiloGame = new HiLo(guest);
+        Card firstCard = new Card(Card.Suit.HEARTS, Card.Rank.TEN);
+        Card secondCard = new Card(Card.Suit.DIAMONDS, Card.Rank.TEN);
+
+        Double expectedFinalBalance = 1025.0;
+
+        // When
+
+        Boolean actual = hiloGame.istheSame(firstCard,secondCard);
+
+
+        // Then
+        Assert.assertTrue(actual);
     }
 
 }

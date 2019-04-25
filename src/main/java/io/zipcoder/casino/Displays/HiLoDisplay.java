@@ -1,20 +1,21 @@
-package io.zipcoder.casino;
+package io.zipcoder.casino.Displays;
 
+import io.zipcoder.casino.Display;
 import io.zipcoder.casino.Games.HiLo;
 import io.zipcoder.casino.Interfaces.Game;
+import io.zipcoder.casino.Main;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.utilities.ImageUtilities;
 import javafx.scene.Parent;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.image.Image;
 
 
 public class HiLoDisplay extends Display {
@@ -25,30 +26,29 @@ public class HiLoDisplay extends Display {
     Text hiLoBanner = new Text("HiLo Game");
     TextArea areaInfo = new TextArea();
     GridPane hiLoGrid = createStandardGrid();
-    TextField takeBetField =  new TextField("Place your bet. Min is 5.00");
+    TextField takeBetField = new TextField("Place your bet. Min is 5.00");
 
     //Variables for gameplay
     Double betAmount = 0.0;
-    private Card currentCard;
-    private Card nextCard;
     boolean choseHigher;
     boolean nextCardIsLess;
-
     String betTooLowText = "Please bet the minimum amount[$5.00] or more.";
-    String insuffiencientFundsText = "Insufficient funds in account balance.\n Please return to casino floor to add funds at the cashier.";
+    String insuffiencientFundsText = "Insufficient funds in account balance.\nPlease return to casino floor to add funds at the cashier.";
+    private Card currentCard;
+    private Card nextCard;
 
     public Parent createHiLoContent(Game game) {
         this.displayGame = (HiLo) game;
-        Image bgImage = new Image("File:src/main/java/io/zipcoder/casino/Images/honors_spade-14.png",450,275,true,true);
+        Image bgImage = new Image("File:src/main/java/io/zipcoder/casino/Images/honors_spade-14.png", 450, 275, true, true);
         ImageView bgImageView = new ImageView(bgImage);
-        hiLoGrid.add(bgImageView,2,2,4,4);
+        hiLoGrid.add(bgImageView, 2, 2, 4, 4);
         //GridPane hiLoGrid = createStandardGrid();
         Button btnStart = new Button("Start HiLo Game");
-        btnStart.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnStart.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        hiLoGrid.add(btnStart,3,6,1,1);
+        hiLoGrid.add(btnStart, 3, 6, 1, 1);
 
-        btnStart.setOnAction(e ->{
+        btnStart.setOnAction(e -> {
             hiLoGrid.getChildren().remove(btnStart);
             hiLoGrid.getChildren().remove(bgImageView);
             placeBetContent();
@@ -60,17 +60,17 @@ public class HiLoDisplay extends Display {
 
     public Parent placeBetContent() {
         //GridPane placeBetGridPane = createStandardGrid();
-        hiLoGrid.add(areaInfo,2,2,3,2);
-        Button btnPlaceBet = new Button("Place Bet");
-        btnPlaceBet.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        hiLoGrid.add(btnPlaceBet,3,6,1,1);
-        hiLoGrid.add(takeBetField,2,5,3,1);
+        hiLoGrid.add(areaInfo, 2, 2, 3, 2);
+        Button btnPlaceBet = new Button("Place Bet");//TODO : control if a string is passed in for double. Superclass method available for all classes to use
+        btnPlaceBet.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        hiLoGrid.add(btnPlaceBet, 3, 6, 1, 1);
+        hiLoGrid.add(takeBetField, 2, 5, 3, 1);
 
-        btnPlaceBet.setOnAction(e ->{
+        btnPlaceBet.setOnAction(e -> {
             betAmount = Double.parseDouble(takeBetField.getText());
 
-            if(proceedWithHiloGameSwitch(betAmount)){
-                hiLoGrid.getChildren().remove(btnPlaceBet);
+            if (proceedWithHiloGameSwitch(betAmount)) {
+                hiLoGrid.getChildren().remove(btnPlaceBet);//TODO create a retainall method for all the standard nodes in the display
                 hiLoGrid.getChildren().remove(takeBetField);
                 beginHiLoGamePlayContent();
             }
@@ -81,32 +81,32 @@ public class HiLoDisplay extends Display {
 
     }
 
-    public Parent beginHiLoGamePlayContent(){
+    public Parent beginHiLoGamePlayContent() {
 
         super.setExitButtonAccess(true);
         hiLoGrid.getChildren().remove(areaInfo);
 
         Button btnHigher = new Button("Higher");
-        btnHigher.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnHigher.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         Button btnLower = new Button("Lower");
-        btnLower.setMaxSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        btnLower.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
-        hiLoGrid.add(btnHigher,2,6,1,1);
-        hiLoGrid.add(btnLower,4,6,1,1);
+        hiLoGrid.add(btnHigher, 2, 6, 1, 1);
+        hiLoGrid.add(btnLower, 4, 6, 1, 1);
 
         currentCard = displayGame.deal();
         nextCard = displayGame.deal();
 
-        nextCardIsLess = displayGame.isLess(currentCard,nextCard);
+        nextCardIsLess = displayGame.isLess(currentCard, nextCard);
 
         //Image image = new Image("File:src/main/java/io/zipcoder/casino/Images/2C.png",100,100,false,false);
 
         Image cardToDisplay = ImageUtilities.cardImageCreator(createCardKey(currentCard));
         ImageView imageViewToDisplay = new ImageView(cardToDisplay);
-        hiLoGrid.add(imageViewToDisplay,3,3);
+        hiLoGrid.add(imageViewToDisplay, 3, 3);
 
-        btnHigher.setOnAction(e ->{
+        btnHigher.setOnAction(e -> {
             choseHigher = true;
             hiLoGrid.getChildren().remove(imageViewToDisplay);
             hiLoGrid.getChildren().remove(btnHigher);
@@ -114,7 +114,7 @@ public class HiLoDisplay extends Display {
             determineWinnerHiloGameContent();
         });
 
-        btnLower.setOnAction(e ->{
+        btnLower.setOnAction(e -> {
             choseHigher = false;
             hiLoGrid.getChildren().remove(imageViewToDisplay);
             hiLoGrid.getChildren().remove(btnHigher);
@@ -127,42 +127,42 @@ public class HiLoDisplay extends Display {
 
     }
 
-    public Parent determineWinnerHiloGameContent(){
+    public Parent determineWinnerHiloGameContent() {
 
         Image cardToDisplay = ImageUtilities.cardImageCreator(createCardKey(currentCard));
         ImageView imageViewToDisplay = new ImageView(cardToDisplay);
-        hiLoGrid.add(imageViewToDisplay,2,3);
+        hiLoGrid.add(imageViewToDisplay, 2, 3);
 
         Image nextCardToDisplay = ImageUtilities.cardImageCreator(createCardKey(nextCard));
         ImageView imageViewToDisplay2 = new ImageView(nextCardToDisplay);
-        hiLoGrid.add(imageViewToDisplay2,4,3);
+        hiLoGrid.add(imageViewToDisplay2, 4, 3);
 
         Button btnContinue = new Button("Continue");
 
-        hiLoGrid.add(areaInfo,2,6,3,1);
-        hiLoGrid.add(btnContinue,3,7,1,1);
+        hiLoGrid.add(areaInfo, 2, 6, 3, 1);
+        hiLoGrid.add(btnContinue, 3, 7, 1, 1);
 
 
         Text outcomeBanner = new Text();
 
         setExitButtonAccess(false);
-        hiLoGrid.add(outcomeBanner,1,3,5,2);
+        hiLoGrid.add(outcomeBanner, 1, 3, 5, 2);
 
-        if(choseHigher == nextCardIsLess){
+        if (choseHigher == nextCardIsLess) {
             outcomeBanner.setText("Sorry! You lose, try again!");
-            outcomeBanner.setFont(Font.font ("Verdana", 50));
+            outcomeBanner.setFont(Font.font("Verdana", 50));
             outcomeBanner.setFill(Color.CRIMSON);
             areaInfo.setText(Main.casino.accountToString(Main.casino.getGuest()));
-        }else{
+        } else {
             outcomeBanner.setText("You Win! Must Have Been Luck!");
-            outcomeBanner.setFont(Font.font ("Verdana", 50));
+            outcomeBanner.setFont(Font.font("Verdana", 50));
             outcomeBanner.setFill(Color.BLACK);
-            Main.casino.getGuest().addFunds(betAmount*1.25);
+            Main.casino.getGuest().addFunds(betAmount * 1.25);
             areaInfo.setText(Main.casino.accountToString(Main.casino.getGuest()));
         }
 
 
-        btnContinue.setOnAction( e ->{
+        btnContinue.setOnAction(e -> {
             hiLoGrid.getChildren().remove(areaInfo);
             hiLoGrid.getChildren().remove(btnContinue);
             hiLoGrid.getChildren().remove(imageViewToDisplay);
@@ -177,20 +177,19 @@ public class HiLoDisplay extends Display {
     }
 
     /**
-     *
      * @return
      */
 
-    public GridPane createStandardGrid(){
+    public GridPane createStandardGrid() {
         GridPane standardGridPane = super.createGameGrid();
-        hiLoBanner.setFont(Font.font ("Verdana", 32));
+        hiLoBanner.setFont(Font.font("Verdana", 32));
         areaInfo.setPrefRowCount(3);
         areaInfo.setEditable(false);
 
-        standardGridPane.add(hiLoBanner, 1,0, 5,1);
+        standardGridPane.add(hiLoBanner, 1, 0, 5, 1);
 
 
-        btnForInstructions.setOnAction(e ->{
+        btnForInstructions.setOnAction(e -> {
             setInstructionsForButton(returnInstructions());
 
         });
@@ -198,42 +197,38 @@ public class HiLoDisplay extends Display {
     }
 
     /**
-     *
      * @param betAmount
      * @return
      */
 
-    public boolean proceedWithHiloGameSwitch(Double betAmount){
+    public boolean proceedWithHiloGameSwitch(Double betAmount) {
 
-        boolean enoughMoney = displayGame.enoughMoneyForBet(betAmount,displayGame.getPlayer());
+        boolean enoughMoney = displayGame.enoughMoneyForBet(betAmount, displayGame.getPlayer());
 
-        if(!enoughMoney && betAmount < 5.0){
+        if (!enoughMoney && betAmount < 5.0) {
             areaInfo.setText(betTooLowText + "\n" + insuffiencientFundsText);
             return false;
-        }
-        else if (!enoughMoney){
+        } else if (!enoughMoney) {
             areaInfo.setText(insuffiencientFundsText);
             return false;
-        }else if(betAmount < 5.0){
+        } else if (betAmount < 5.0) {
             areaInfo.setText(betTooLowText);
             return false;
-        }
-        else if(betAmount > 5.0 && enoughMoney){
+        } else if (betAmount > 5.0 && enoughMoney) {
             displayGame.receiveBetFromPlayer(betAmount);
             return true;
         } else {
             areaInfo.setText("Unknown error - please let the floor manager know and enjoy a drink on us.");
-            return  false;
+            return false;
         }
     }
 
     /**
-     *
      * @param cardToDisplay
      * @return
      */
 
-    public String createCardKey(Card cardToDisplay){
+    public String createCardKey(Card cardToDisplay) {
         String cardKeyString = cardToDisplay.getCardSuit().toString() + cardToDisplay.getValue().toString();
         return cardKeyString;
     }
@@ -245,7 +240,7 @@ public class HiLoDisplay extends Display {
     }
     */
 
-    private String returnInstructions(){
+    public String returnInstructions() {
         return "Hi-Lo, or High-Low, is a fairly simple card game. It uses a standard deck of 52 cards,\n" +
                 "and it has players guess whether a certain card is higher or lower than one showing on the table.\n" +
                 "There are variations for drinking and gambling, but it's a pretty standard and simple game.\n\n" +
@@ -257,7 +252,7 @@ public class HiLoDisplay extends Display {
                 "After shuffling and cutting the deck, the dealer places one card face-down in front of the player, " +
                 "then another card face-up.The rest of the deck, they set aside while the player guesses the value.\n\n" +
 
-                "After the cards are down, the player places his initial bet. The house matches that bet into the pot.\n"+
+                "After the cards are down, the player places his initial bet. The house matches that bet into the pot.\n" +
                 "When the player guesses, he wins or loses the pot depending on the outcome of his guess.\n" +
                 "After that round, the player can pass the bet to another player, or go double or nothing on the next bet\n";
 

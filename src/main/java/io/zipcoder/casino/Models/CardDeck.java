@@ -1,9 +1,10 @@
 package io.zipcoder.casino.Models;
 
 import java.util.Stack;
+
 import static java.util.Collections.shuffle;
 
-public class CardDeck{
+public class CardDeck {
     private Stack<Card> deckOfCard = new Stack<>();
 
     public CardDeck() {
@@ -14,20 +15,20 @@ public class CardDeck{
         }
     }
 
-    public Stack shuffleDeck(){
+    public Stack shuffleDeck() {
         shuffle(deckOfCard);
         return deckOfCard;
     }
 
-    public Card peekAtTopCard(){
-        return deckOfCard.peek() ;
+    public Card peekAtTopCard() {
+        return deckOfCard.peek();
     }
 
-    public Card dealNextCard(){
+    public Card dealNextCard() {
         return deckOfCard.pop();
     }
 
-    public Integer getCardDeckSize(){
+    public Integer getCardDeckSize() {
         return deckOfCard.size();
     }
 
