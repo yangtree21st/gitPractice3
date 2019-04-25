@@ -2,6 +2,7 @@ package io.zipcoder.casino;
 
 import io.zipcoder.casino.Models.GuestAccount;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -134,25 +135,81 @@ public class CasinoTest {
         Assert.assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void addAdditionalFundsTest(){
-//        //given
-//        String name = "Marci";
-//
-//        GuestAccount expectedGuestAccount = new GuestAccount(name, 1, 100.0);
-//        Double input = -50.0;
-//        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.toString().getBytes());
-//        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
-//
-//        Casino testCasino = new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
-//        testCasino.setGuest(name,expectedGuestAccount);
-//        String expected = "Sorry, please enter a positive cash amount:";
-//        String actual = bytArrOutStr.toString();
-//        //when
-//        testCasino.addAdditionalFunds(-50.0);
-//        //then
-//        Assert.assertEquals(expected,actual);
-//    }
+    @Test
+    public void addAdditionalFundsTest(){
+        //given
+        String name = "Marci";
+        GuestAccount expectedGuestAccount = new GuestAccount(name, 1, 100.0);
+
+        Double input = 50.0;
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.toString().getBytes());
+        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+        Casino testCasino = getCasinoWithBufferedInputAndOutput(bytArrInpStr,bytArrOutStr);
+        testCasino.setGuest(name,expectedGuestAccount);
+
+        String expected = "Sorry, please enter a positive cash amount:\n";
+        //when
+        testCasino.addAdditionalFunds(-50.0);
+        String actual = bytArrOutStr.toString();
+        //then
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void addAdditionalFundsTestWithCorrectInput(){
+        //given
+        String name = "Marci";
+        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+        Casino testCasino = new Casino(System.in, new PrintStream(bytArrOutStr));
+        testCasino.getGuestAccountDatabase().addAccount(name,100.0);
+        testCasino.setGuest(name, testCasino.getGuestAccountDatabase().getAccount(1));
+
+        String expected = "This is your current account status:\n" +
+        "Name: Marci, ID: 1, Balance: $150.00\n";
+        //when
+        testCasino.addAdditionalFunds(50.0);
+        String actual = testCasino.accountToString(testCasino.getGuest());
+        //then
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void collectNewAccountInfoAndInitializeTest(){
+        //given
+        String input = "Marci\n100.00";
+
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+        Casino testCasino = getCasinoWithBufferedInputAndOutput(bytArrInpStr,bytArrOutStr);
+
+
+        String expected = "\nPlease provide your name to start a new guest account:\n" +
+        "How much money for gambling would you like to deposit into your account?\n";
+        //when
+        testCasino.collectNewAccountInfoAndInitialize();
+        String actual = bytArrOutStr.toString();
+        //then
+        Assert.assertEquals(expected,actual);
+    }
+
+    @Test
+    public void collectNewAccountInfoAndInitializeGetReturnStringTest(){
+        //given
+        String input = "Marci\n100.00";
+
+        ByteArrayInputStream bytArrInpStr = new ByteArrayInputStream(input.getBytes());
+        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
+        Casino testCasino = getCasinoWithBufferedInputAndOutput(bytArrInpStr,bytArrOutStr);
+
+
+        String expected = "\nNew Account Details:\n" +
+                "Name: Marci, ID: 1, Balance: $100.00\n";
+        //when
+
+        String actual = testCasino.collectNewAccountInfoAndInitialize();
+        //then
+        Assert.assertEquals(expected,actual);
+    }
 
     @Test
     public void accountToStringTest() {
@@ -216,33 +273,8 @@ public class CasinoTest {
     public void welcomeHeaderTest(){
         //given
         Casino newCasino = new Casino();
-        String expected = "\u001B[35m\n" +
-                "\n" +
-                "\n" +
-                " /$$      /$$           /$$                                                     /$$                       /$$     /$$                \n" +
-                "| $$  /$ | $$          | $$                                                    | $$                      | $$    | $$                \n" +
-                "| $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$        /$$$$$$  | $$$$$$$   /$$$$$$ \n" +
-                "| $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      |_  $$_/  | $$__  $$ /$$__  $$\n" +
-                "| $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$        | $$    | $$  \\ $$| $$$$$$$$\n" +
-                "| $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$        | $$ /$$| $$  | $$| $$_____/\n" +
-                "| $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/        |  $$$$/| $$  | $$|  $$$$$$$\n" +
-                "|__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/          \\___/  |__/  |__/ \\_______/\n" +
-                "                                                                                                                                     \n" +
-                "                                                                                                                                     \n" +
-                "                                                                                                                                     \n" +
-                "        /$$$$$$                      /$$                           /$$$$$$$                                /$$                       \n" +
-                "       /$$__  $$                    |__/                          | $$__  $$                              | $$                       \n" +
-                "      | $$  \\__/  /$$$$$$   /$$$$$$$ /$$ /$$$$$$$   /$$$$$$       | $$  \\ $$  /$$$$$$  /$$   /$$  /$$$$$$ | $$  /$$$$$$              \n" +
-                "      | $$       |____  $$ /$$_____/| $$| $$__  $$ /$$__  $$      | $$$$$$$/ /$$__  $$| $$  | $$ |____  $$| $$ /$$__  $$             \n" +
-                "      | $$        /$$$$$$$|  $$$$$$ | $$| $$  \\ $$| $$  \\ $$      | $$__  $$| $$  \\ $$| $$  | $$  /$$$$$$$| $$| $$$$$$$$             \n" +
-                "      | $$    $$ /$$__  $$ \\____  $$| $$| $$  | $$| $$  | $$      | $$  \\ $$| $$  | $$| $$  | $$ /$$__  $$| $$| $$_____/             \n" +
-                "      |  $$$$$$/|  $$$$$$$ /$$$$$$$/| $$| $$  | $$|  $$$$$$/      | $$  | $$|  $$$$$$/|  $$$$$$$|  $$$$$$$| $$|  $$$$$$$             \n" +
-                "       \\______/  \\_______/|_______/ |__/|__/  |__/ \\______/       |__/  |__/ \\______/  \\____  $$ \\_______/|__/ \\_______/             \n" +
-                "                                                                                       /$$  | $$                                     \n" +
-                "                                                                                      |  $$$$$$/                                     \n" +
-                "                                                                                       \\______/                                      \u001B[0m\n" +
-                "\n" +
-                "Welcome to the Casino lobby!\nA friendly attendant asks you for your name to start a new account at the Casino Royale.";
+        String expected = "\u001B[35m\u001B[0m\n\n" + "Welcome to the Casino lobby!\n" +
+                "A friendly attendant asks you for your name to start a new account at the Casino Royale.";
 
         //when
         String actual = newCasino.welcomeHeader();
@@ -251,47 +283,8 @@ public class CasinoTest {
         Assert.assertEquals(expected,actual);
     }
 
+    private Casino getCasinoWithBufferedInputAndOutput(ByteArrayInputStream bytArrInpStr, ByteArrayOutputStream bytArrOutStr) {
+        return new Casino(bytArrInpStr, new PrintStream(bytArrOutStr));
+    }
 
-//    @Test
-//    public void welcomeHeaderTest() {
-//        // Given
-//        ByteArrayOutputStream bytArrOutStr = new ByteArrayOutputStream();
-//        Casino testCasino = new Casino(System.in, new PrintStream(bytArrOutStr));
-//
-//        String expectedOutput = "\u001B[35m\n" +
-//                "\n" +
-//                "\n" +
-//                " /$$      /$$           /$$                                                     /$$                       /$$     /$$                \n" +
-//                "| $$  /$ | $$          | $$                                                    | $$                      | $$    | $$                \n" +
-//                "| $$ /$$$| $$  /$$$$$$ | $$  /$$$$$$$  /$$$$$$  /$$$$$$/$$$$   /$$$$$$        /$$$$$$    /$$$$$$        /$$$$$$  | $$$$$$$   /$$$$$$ \n" +
-//                "| $$/$$ $$ $$ /$$__  $$| $$ /$$_____/ /$$__  $$| $$_  $$_  $$ /$$__  $$      |_  $$_/   /$$__  $$      |_  $$_/  | $$__  $$ /$$__  $$\n" +
-//                "| $$$$_  $$$$| $$$$$$$$| $$| $$      | $$  \\ $$| $$ \\ $$ \\ $$| $$$$$$$$        | $$    | $$  \\ $$        | $$    | $$  \\ $$| $$$$$$$$\n" +
-//                "| $$$/ \\  $$$| $$_____/| $$| $$      | $$  | $$| $$ | $$ | $$| $$_____/        | $$ /$$| $$  | $$        | $$ /$$| $$  | $$| $$_____/\n" +
-//                "| $$/   \\  $$|  $$$$$$$| $$|  $$$$$$$|  $$$$$$/| $$ | $$ | $$|  $$$$$$$        |  $$$$/|  $$$$$$/        |  $$$$/| $$  | $$|  $$$$$$$\n" +
-//                "|__/     \\__/ \\_______/|__/ \\_______/ \\______/ |__/ |__/ |__/ \\_______/         \\___/   \\______/          \\___/  |__/  |__/ \\_______/\n" +
-//                "                                                                                                                                     \n" +
-//                "                                                                                                                                     \n" +
-//                "                                                                                                                                     \n" +
-//                "        /$$$$$$                      /$$                           /$$$$$$$                                /$$                       \n" +
-//                "       /$$__  $$                    |__/                          | $$__  $$                              | $$                       \n" +
-//                "      | $$  \\__/  /$$$$$$   /$$$$$$$ /$$ /$$$$$$$   /$$$$$$       | $$  \\ $$  /$$$$$$  /$$   /$$  /$$$$$$ | $$  /$$$$$$              \n" +
-//                "      | $$       |____  $$ /$$_____/| $$| $$__  $$ /$$__  $$      | $$$$$$$/ /$$__  $$| $$  | $$ |____  $$| $$ /$$__  $$             \n" +
-//                "      | $$        /$$$$$$$|  $$$$$$ | $$| $$  \\ $$| $$  \\ $$      | $$__  $$| $$  \\ $$| $$  | $$  /$$$$$$$| $$| $$$$$$$$             \n" +
-//                "      | $$    $$ /$$__  $$ \\____  $$| $$| $$  | $$| $$  | $$      | $$  \\ $$| $$  | $$| $$  | $$ /$$__  $$| $$| $$_____/             \n" +
-//                "      |  $$$$$$/|  $$$$$$$ /$$$$$$$/| $$| $$  | $$|  $$$$$$/      | $$  | $$|  $$$$$$/|  $$$$$$$|  $$$$$$$| $$|  $$$$$$$             \n" +
-//                "       \\______/  \\_______/|_______/ |__/|__/  |__/ \\______/       |__/  |__/ \\______/  \\____  $$ \\_______/|__/ \\_______/             \n" +
-//                "                                                                                       /$$  | $$                                     \n" +
-//                "                                                                                      |  $$$$$$/                                     \n" +
-//                "                                                                                       \\______/                                      \u001B[0m\n" +
-//                "\n" +
-//                "\n"+ "Welcome to the Casino lobby!\nA friendly attendant asks you for your name to start a new account at the Casino Royale.";
-//
-//        // When
-//        testCasino.welcomeHeader();
-//
-//        String actualOutput = bytArrOutStr.toString();
-//
-//        // Then
-//        Assert.assertEquals(expectedOutput, actualOutput);
-//    }
 }

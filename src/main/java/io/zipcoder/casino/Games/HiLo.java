@@ -93,7 +93,7 @@ public class HiLo extends CardGame implements GamblingGame {
         return secondCard;
     }
 
-    public void setSecondCard(Card secondCard){
+    public void setSecondCard(Card secondCard) {
         this.secondCard = secondCard;
 
     }
@@ -141,17 +141,15 @@ public class HiLo extends CardGame implements GamblingGame {
 
     /**
      * This method compares the value of the firstCard with the SecondCard and check if they are the same
-     * @param firstCard it takes a Card dealt firstCard
+     *
+     * @param firstCard  it takes a Card dealt firstCard
      * @param secondCard it takes a Card dealt secondCard
      * @return true if they are the same, false otherwise.
      */
     public boolean istheSame(Card firstCard, Card secondCard) {
         Integer firstCardValue = firstCard.getValue().ordinal() + 1;
         Integer secondCardValue = secondCard.getValue().ordinal() + 1;
-        if (firstCardValue == secondCardValue) {
-        return true;
-        }
-        return false;
+        return firstCardValue == secondCardValue;
     }
 
     /**
@@ -251,7 +249,7 @@ public class HiLo extends CardGame implements GamblingGame {
         Casino.console.println(OneCardUpOneDown() + "Guess second Card");
         this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low,'S' for Same");
         while (!playerChoice.equalsIgnoreCase("h") && !playerChoice.equalsIgnoreCase("l")
-                &&!playerChoice.equalsIgnoreCase("s")){
+                && !playerChoice.equalsIgnoreCase("s")) {
 
             this.playerChoice = Casino.console.getStringInput("Enter 'H' for Higher,'L' for Low,'S' for Same");
         }
@@ -270,8 +268,8 @@ public class HiLo extends CardGame implements GamblingGame {
      */
     public void winning() {
         if (playerChoice.equalsIgnoreCase("H") && isMore(firstCard, secondCard) ||
-                (playerChoice.equalsIgnoreCase("L") && isLess(firstCard, secondCard)||
-        (playerChoice.equalsIgnoreCase("S") && istheSame(firstCard, secondCard)))) {
+                (playerChoice.equalsIgnoreCase("L") && isLess(firstCard, secondCard) ||
+                        (playerChoice.equalsIgnoreCase("S") && istheSame(firstCard, secondCard)))) {
             Casino.console.println("You Won!!!");
             giveWinningsToPlayer(bet);
 

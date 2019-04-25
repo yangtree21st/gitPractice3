@@ -9,6 +9,7 @@ public class Card {
 
     public Card() {
     }
+
     public Card(Suit cardSuit, Rank value) {
         this.cardSuit = cardSuit;
         this.value = value;

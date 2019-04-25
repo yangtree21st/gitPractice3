@@ -3,11 +3,10 @@ package io.zipcoder.casino.Games;
 import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.SlotReel;
-import io.zipcoder.casino.utilities.AnsiStuff;
 import io.zipcoder.casino.utilities.Banners;
 
 public class SlotMachine extends SunhyunsGamblingGameClass {
-//    private static final String JACKPOT_DISPLAY ="";//Banners.slotMachineJackPot();
+    //    private static final String JACKPOT_DISPLAY ="";//Banners.slotMachineJackPot();
 //    private static final String DIAGONAL_DISPLAY = "";//Banners.slotMachineDiagonal();
 //    private static final String ZIG_ZAG_DISPLAY =  ""; //Banners.slotMachineZigZag();
     private SlotReel slotReel;

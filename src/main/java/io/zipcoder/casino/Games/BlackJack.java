@@ -6,7 +6,6 @@ import io.zipcoder.casino.Interfaces.GamblingGame;
 import io.zipcoder.casino.Interfaces.Game;
 import io.zipcoder.casino.Models.Card;
 import io.zipcoder.casino.Models.CardDeck;
-import io.zipcoder.casino.Models.GuestAccount;
 import io.zipcoder.casino.Players.BlackJackPlayer;
 import io.zipcoder.casino.Players.Player;
 
@@ -276,7 +275,7 @@ public class BlackJack implements GamblingGame, Game {
      *
      */
 
-    void didDealerWinOverPlayer(){
+    void didDealerWinOverPlayer() {
         if (dealer.getHandScore() == 21) {
             playerDealerPrintStatus("You Draw!!");
             player.addFunds(bet);
@@ -289,7 +288,6 @@ public class BlackJack implements GamblingGame, Game {
     }
 
     /**
-     *
      * @param s
      */
 
@@ -300,7 +298,7 @@ public class BlackJack implements GamblingGame, Game {
     }
 
     private void printCurrentHandStatus(BlackJackPlayer player) {
-        Casino.console.println(player.getName()+ " Current Score: " + player.getHandScore().toString());
+        Casino.console.println(player.getName() + " Current Score: " + player.getHandScore().toString());
     }
 
 

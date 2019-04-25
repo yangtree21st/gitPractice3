@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.function.Function;
+
 public class Main extends Application {
     public static Display startingDisplay = new Display();
     public static Stage mainStage;
@@ -42,5 +44,6 @@ public class Main extends Application {
         mainStage.show();
 
     }
+
 
 }

@@ -137,7 +137,6 @@ public class GoFish extends CardGame implements Game {
     }
 
 
-
     public void playGoFish() {
 
         Casino.console.getStringInput("Press Enter To Continue");

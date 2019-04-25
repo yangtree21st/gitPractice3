@@ -1,7 +1,6 @@
 package io.zipcoder.casino;
 
 import io.zipcoder.casino.Displays.CasinoGamesDisplay;
-import io.zipcoder.casino.Games.*;
 import io.zipcoder.casino.Interfaces.Game;
 import javafx.scene.Scene;
 

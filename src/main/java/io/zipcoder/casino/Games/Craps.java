@@ -1,9 +1,7 @@
 package io.zipcoder.casino.Games;
 
-import io.zipcoder.casino.Casino;
 import io.zipcoder.casino.Guest;
 import io.zipcoder.casino.Models.Die;
-import io.zipcoder.casino.utilities.AnsiStuff;
 import io.zipcoder.casino.utilities.Banners;
 
 public class Craps extends SunhyunsGamblingGameClass {

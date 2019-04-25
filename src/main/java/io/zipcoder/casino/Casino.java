@@ -67,11 +67,10 @@ public class Casino {
     }
 
     /**
-     *
      * @return
      */
 
-    public String collectNewAccountInfoAndInitialize(){
+    public String collectNewAccountInfoAndInitialize() {
         String guestNewName = getGuestName();
         Double guestStartingBalance = getStartingBalance();
 
@@ -81,7 +80,7 @@ public class Casino {
         Integer accountId = newGuestAccount.getId();
         String accountInfo = String.format("\nNew Account Details:\n%s", guestAccountDatabase.getAccount(accountId).toString());
 
-        return  accountInfo;
+        return accountInfo;
     }
 
     /**
@@ -146,11 +145,10 @@ public class Casino {
         String startingHeader = AnsiStuff.ANSI_PURPLE +
 //
                 AnsiStuff.ANSI_RESET + "\n\n" +
-        "Welcome to the Casino lobby!\nA friendly attendant asks you for your name to start a new account at the Casino Royale.";
+                "Welcome to the Casino lobby!\nA friendly attendant asks you for your name to start a new account at the Casino Royale.";
 
         return startingHeader;
     }
-
 
 
     /**
@@ -167,6 +165,7 @@ public class Casino {
 
     /**
      * Creates the new guest account based on the user input
+     *
      * @param guestNewName
      * @param guestStartingBalance
      * @return
@@ -182,6 +181,7 @@ public class Casino {
 
     /**
      * Returns the string of the newly created account
+     *
      * @param guest
      * @return
      */
@@ -203,17 +203,17 @@ public class Casino {
 
     /**
      * Returns a string line in the color purple
+     *
      * @return String
      */
-    public String returnSeparatorLine(){
-       return AnsiStuff.ANSI_PURPLE + "\n************************************************************\n" + AnsiStuff.ANSI_RESET;
+    public String returnSeparatorLine() {
+        return AnsiStuff.ANSI_PURPLE + "\n************************************************************\n" + AnsiStuff.ANSI_RESET;
     }
 
     /**
-     *
      * @return
      */
-    public Integer getUserChoiceForContCashierExit(){
+    public Integer getUserChoiceForContCashierExit() {
         Integer userChoice = console.getIntegerInput(AnsiStuff.ANSI_PURPLE + "Would you like to:\n[1]Enter the Casino Game floor\n" +
                 "[2]Access your guest account\n[3]Exit the Casino" + AnsiStuff.ANSI_RESET);
 
@@ -223,6 +223,7 @@ public class Casino {
 
     /**
      * Asks the user for their choice of whether they want to continue to the casino floor, cashier, or exit the casino completely
+     *
      * @return
      */
     public boolean continueOrExit() {
@@ -264,7 +265,7 @@ public class Casino {
      * Asks the user whether they want to add funds or cashout
      */
 
-    public Integer addFundsOrCashout(){
+    public Integer addFundsOrCashout() {
         Integer userChoice = console.getIntegerInput("Would you like to:\n[1]Add funds to your account\n[2]Cash out your account");
 
         while (!(userChoice == 1 || userChoice == 2)) {
@@ -276,10 +277,11 @@ public class Casino {
 
     /**
      * Checks that the value of parameter passed in is more than 0. If it is now, it asks again for another value.
+     *
      * @param amountToAdd
      */
 
-    public void addAdditionalFunds(Double amountToAdd){
+    public void addAdditionalFunds(Double amountToAdd) {
         while (amountToAdd < 0) {
             amountToAdd = console.getDoubleInput("Sorry, please enter a positive cash amount:");
         }
@@ -290,7 +292,7 @@ public class Casino {
      * Removes all money from the current guest's account balance
      */
 
-    private void cashoutAccount(){
+    private void cashoutAccount() {
         console.println("You are cashing out $%.2f", currentGuest.getAccountBalance());
         currentGuest.removeFunds(currentGuest.getAccountBalance());
     }
