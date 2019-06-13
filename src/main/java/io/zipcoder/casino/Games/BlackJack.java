@@ -17,7 +17,7 @@ import io.zipcoder.casino.Players.Player;
  */
 public class BlackJack implements GamblingGame, Game {
 
-    private final Double minBet = 15.0;
+    private final Double minBet = 50.0;
     private Double bet = 0.0;
     private Guest guest;
     private BlackJackPlayer player;
