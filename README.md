@@ -29,3 +29,4 @@
 * Any common logic or fields between the games should live CardGame class, **not** BlackJack **nor** GoFish.
 * You must have a completed and approved UML diagram before you proceed to do any development
 * All public methods should be tested.
+# gitPractice3
